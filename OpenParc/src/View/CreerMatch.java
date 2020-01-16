@@ -492,20 +492,46 @@ public class CreerMatch extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jComboBoxArbitreLigne7ActionPerformed
 
-    private DefaultComboBoxModel<String> trierModel(DefaultComboBoxModel<String> aModel){
+    private DefaultComboBoxModel<String> trierModelJoueur(DefaultComboBoxModel<String> aModel){
         DefaultComboBoxModel<String> bModel = new DefaultComboBoxModel();
-        for (int i=0;i<aModel.getSize();i++){
-            
+        for(int i=0;i<aModel.getSize();i++){
+            int max = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(i))[0],nomprenomToNomPrenom(aModel.getElementAt(i))[1]);
+            int indice = i;
+            for (int j=0;j<aModel.getSize();j++){
+                int res = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(j))[0],nomprenomToNomPrenom(aModel.getElementAt(j))[1]);
+                if (res>max){
+                    max = res;
+                    indice = j;
+                }
+            }
+            bModel.addElement(aModel.getElementAt(indice));
         }
         return bModel;
     }
     
-    private int indexJoueurMaximum(DefaultComboBoxModel<String> aModel){
-        int max = 100;
-        for (int i=0;i<aModel.getSize();i++){
-            int res = joueurDAO.find(aModel.getElementAt(i));
-            if ()
+    private String[] nomprenomToNomPrenom(String arg){
+        String[] result = new String[2];
+        char[] nomprenom = arg.toCharArray();
+        String nom="";
+        String prenom="";
+        int i = 1;
+        boolean temp=true;
+        while(i<nomprenom.length && temp){
+            if(nomprenom[i-1]==' ' && nomprenom[i]==' '){
+                int j;
+                for(j=0;j<i-1;j++){
+                    nom=nom+nomprenom[j];
+                }
+                for(j=i+1;j<nomprenom.length;j++){
+                    prenom=prenom+nomprenom[j];
+                }
+                temp=false;
+            }
+            i++;
         }
+        result[0] = nom;
+        result[1] = prenom;
+        return result;
     }
     /**
      * @param args the command line arguments
