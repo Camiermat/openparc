@@ -6,6 +6,7 @@ define('MENU_ACCUEIL','Accueil');
 define('MENU_CONNEXION','Connexion');
 define('MENU_DECONNEXION','Deconnexion');
 define('MENU_AJOUT_PHOTO','Ajouter une photo');
+define('MENU_INSCRIPTION','Inscription');
 
 define('TITRE_PAGE_ACCUEIL','Accueil');
 define('TITRE_PAGE_HELLO','Résultat');

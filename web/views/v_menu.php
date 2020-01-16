@@ -55,10 +55,12 @@
 				if ($_SESSION[IDENTIFIANT]==1){
 					echo '<a href="index.php?page=deconnexion">'.MENU_DECONNEXION.'</a>';
 				} else {
-					echo '<a href="index.php?page=connexion">'.MENU_CONNEXION.'</a>';
+					echo '<a href="index.php?page=connexion" class="menubtnn">'.MENU_CONNEXION.'</a>
+					<a href="index.php?page=inscription" class="menubtnn">'.MENU_INSCRIPTION.'</a>';
 				}
 			} else {
-				echo '<a href="index.php?page=connexion">'.MENU_CONNEXION.'</a>';
+				echo '<a href="index.php?page=connexion" class="menubtnn">'.MENU_CONNEXION.'</a>
+				<a href="index.php?page=inscription" class="menubtnn">'.MENU_INSCRIPTION.'</a>';
 			}
 			?>
 		</li>
