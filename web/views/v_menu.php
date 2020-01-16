@@ -18,35 +18,35 @@
   <div class="container-fluid" >
     <ul class="nav navbar-nav">
     	<div class="row">
-		<li <?php echo ($page=='index' ? 'class="active"':'')?>>
-			<a href="index.php" >
-				<button <?= 'class="btn btn-outline-'.($page=='accueil' ? 'secondary"':'info"'); ?> >
-					<?= MENU_ACCUEIL ?>
-				</button>
-			</a>
-		</li>
-		<li>
-			<a href="index.php?page=billeterie" >
-				<button <?= 'class="btn btn-outline-'.($page=='billeterie' ? 'secondary"':'info"'); ?> >
-					Billeterie
-				</button>
-			</a>
-		</li>
-		<li>
-			<a href="index.php?page=vip" >
-				<button <?= 'class="btn btn-outline-'.($page=='vip' ? 'secondary"':'info"'); ?> >
-					Espace VIP
-				</button>
-			</a>
-		</li>
-		<li>
-			<a href="index.php?page=hebergement" >
-				<button <?= 'class="btn btn-outline-'.($page=='hebergement' ? 'secondary"':'info"'); ?> >
-					Hébergement
-				</button>
-			</a>
-		</li>
-	</div>
+			<li class="menubtnn">
+				<a href="index.php" >
+					<button <?= 'class="btn btn-outline-'.($page=='accueil' ? 'secondary"':'info"'); ?> >
+						<?= MENU_ACCUEIL ?>
+					</button>
+				</a>
+			</li>
+			<li class="menubtnn">
+				<a href="index.php?page=billeterie" >
+					<button <?= 'class="btn btn-outline-'.($page=='billeterie' ? 'secondary"':'info"'); ?> >
+						Billeterie
+					</button>
+				</a>
+			</li>
+			<li class="menubtnn">
+				<a href="index.php?page=vip" >
+					<button <?= 'class="btn btn-outline-'.($page=='vip' ? 'secondary"':'info"'); ?> >
+						Espace VIP
+					</button>
+				</a>
+			</li>
+			<li class="menubtnn">
+				<a href="index.php?page=hebergement" >
+					<button <?= 'class="btn btn-outline-'.($page=='hebergement' ? 'secondary"':'info"'); ?> >
+						Hébergement
+					</button>
+				</a>
+			</li>
+		</div>
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
 		<li>
