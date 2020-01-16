@@ -12,6 +12,8 @@ define('TITRE_PAGE_ACCUEIL','Accueil');
 define('TITRE_PAGE_HELLO','Résultat');
 define('TITRE_PAGE_DETAIL','Les détails sur cette photo');
 define('TITRE_PAGE_CONNEXION','Connexion utilisateur');
+define('TITRE_PAGE_INSCRIPTION','Inscription utilisateur');
+
 
 define('TEXTE_PAGE_404','Oops, la page demandée n\'existe pas !');
 define('MESSAGE_ERREUR',"Une erreur s'est produite");

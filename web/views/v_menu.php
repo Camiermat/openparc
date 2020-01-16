@@ -1,17 +1,4 @@
-<?php
-/*
- * TP PHP
- * Vue menu
- *
- * Copyright 2016, Eric Dufour
- * http://techfacile.fr
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
- *
- * menu: http://www.w3schools.com/bootstrap/bootstrap_ref_comp_navs.asp
- */
-?>
+
 <!-- Menu du site -->
 
 <nav class="navbar navbar-default">
@@ -51,13 +38,8 @@
 	<ul class="nav navbar-nav navbar-right">
 		<li>
 			<?php
-			if (isset($_SESSION[IDENTIFIANT])) {
-				if ($_SESSION[IDENTIFIANT]==1){
+			if (isset($_SESSION['Identifiant'])) {
 					echo '<a href="index.php?page=deconnexion">'.MENU_DECONNEXION.'</a>';
-				} else {
-					echo '<a href="index.php?page=connexion" class="menubtnn">'.MENU_CONNEXION.'</a>
-					<a href="index.php?page=inscription" class="menubtnn">'.MENU_INSCRIPTION.'</a>';
-				}
 			} else {
 				echo '<a href="index.php?page=connexion" class="menubtnn">'.MENU_CONNEXION.'</a>
 				<a href="index.php?page=inscription" class="menubtnn">'.MENU_INSCRIPTION.'</a>';
