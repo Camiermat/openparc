@@ -411,16 +411,54 @@ public class CreerMatch extends javax.swing.JFrame {
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/4 finale"))niveau=3;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/2 finale"))niveau=4;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("finale"))niveau=5;
+            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+            ArrayList<Joueur> listJoueur = joueurDAO.findAllTournoiSimple(niveau);
+            for(Joueur j : listJoueur){
+                aModel.addElement(j.getNom()+"  "+j.getPrenom());
+            }
+            jComboBoxJoueur1.setModel(aModel);
+            jComboBoxJoueur2.setModel(aModel);
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi Double")){
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("8 ème"))niveau=1;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/4 finale"))niveau=2;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/2 finale"))niveau=3;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("finale"))niveau=4;
+            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+            niveau=1;
+            ArrayList<EquipeDouble> listEquipe = equipeDoubleDAO.findAll(niveau);
+            ArrayList<Joueur> listJoueur1 = new ArrayList();
+            ArrayList<Joueur> listJoueur2 = new ArrayList();
+            for(EquipeDouble ed : listEquipe){
+                listJoueur1.add(joueurDAO.find(ed.getIdJoueur1()));
+                listJoueur2.add(joueurDAO.find(ed.getIdJoueur2()));
+            }
+            int nb = listEquipe.size();
+            String[] strings = new String[nb];
+            int i = 0;
+            for(Joueur j : listJoueur1){
+                strings[i]=j.getNom()+"  "+j.getPrenom();
+                i++;
+            }
+            i = 0;
+            for(Joueur j : listJoueur2){
+                strings[i]+=" - "+j.getNom()+"  "+j.getPrenom();
+                i++;
+            }
+            for(int k=0;k<strings.length;k++)aModel.addElement(strings[k]);
+            jComboBoxJoueur1.setModel(aModel);
+            jComboBoxJoueur2.setModel(aModel);
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1er tour"))niveau=1;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("2ème tour"))niveau=2;
+            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+            ArrayList<Joueur> listJoueur = joueurDAO.findAllQualification(niveau);
+            for(Joueur j : listJoueur){
+                aModel.addElement(j.getNom()+"  "+j.getPrenom());
+            }
+            jComboBoxJoueur1.setModel(aModel);
+            jComboBoxJoueur2.setModel(aModel);
         }
     }//GEN-LAST:event_jComboBoxNiveauTournoiActionPerformed
 

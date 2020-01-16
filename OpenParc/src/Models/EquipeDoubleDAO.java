@@ -25,7 +25,7 @@ public class EquipeDoubleDAO extends DAO<EquipeDouble>{
             prepare.setInt(1, id);
             ResultSet result = prepare.executeQuery();
             while (result.next()){
-                return new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4));
+                return new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4), result.getInt(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class EquipeDoubleDAO extends DAO<EquipeDouble>{
             Statement stmt = this.connect.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * from EquipeDouble");
             while (result.next()){
-                EquipeDouble ed = new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4));
+                EquipeDouble ed = new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4), result.getInt(5));
                 list.add(ed);
             }
         } catch (SQLException e) {
@@ -67,10 +67,11 @@ public class EquipeDoubleDAO extends DAO<EquipeDouble>{
     public ArrayList<EquipeDouble> findAll(int niveau) {
         ArrayList<EquipeDouble> list = new ArrayList();
         try {
-            Statement stmt = this.connect.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * from EquipeDouble");
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from EquipeDouble WHERE idTournoiDouble>=?");
+            prepare.setInt(1,niveau);
+            ResultSet result = prepare.executeQuery();
             while (result.next()){
-                EquipeDouble ed = new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4));
+                EquipeDouble ed = new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4), result.getInt(5));
                 list.add(ed);
             }
         } catch (SQLException e) {

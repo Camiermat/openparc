@@ -104,7 +104,7 @@ public class JoueurDAO extends DAO<Joueur>{
     public ArrayList<Joueur> findAllTournoiSimple(int niveau) {
         ArrayList<Joueur> list = new ArrayList();
         try {
-            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Joueur where idTournoiSimple=?");
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Joueur where idTournoiSimple>=?");
             prepare.setInt(1, niveau);
             ResultSet result = prepare.executeQuery();
             while (result.next()){
@@ -120,7 +120,7 @@ public class JoueurDAO extends DAO<Joueur>{
     public ArrayList<Joueur> findAllQualification(int niveau) {
         ArrayList<Joueur> list = new ArrayList();
         try {
-            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Joueur where idQualification=?");
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Joueur where idQualification>=?");
             prepare.setInt(1, niveau);
             ResultSet result = prepare.executeQuery();
             while (result.next()){
