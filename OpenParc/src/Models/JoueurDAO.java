@@ -174,5 +174,4 @@ public class JoueurDAO extends DAO<Joueur>{
     public Joueur update(Joueur obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

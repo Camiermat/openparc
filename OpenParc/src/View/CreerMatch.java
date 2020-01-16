@@ -433,7 +433,7 @@ public class CreerMatch extends javax.swing.JFrame {
         aModel.addElement(oldJoueur2);
         oldJoueur2=jComboBoxJoueur1.getSelectedItem().toString();
         aModel.removeElement(jComboBoxJoueur1.getSelectedItem());
-        jComboBoxJoueur2.setModel(aModel);
+        jComboBoxJoueur2.setModel(trierModelJoueur(aModel));
     }//GEN-LAST:event_jComboBoxJoueur1ActionPerformed
 
     private void jComboBoxJoueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxJoueur2ActionPerformed
@@ -445,7 +445,7 @@ public class CreerMatch extends javax.swing.JFrame {
         aModel.addElement(oldJoueur1);
         oldJoueur1=jComboBoxJoueur2.getSelectedItem().toString();
         aModel.removeElement(jComboBoxJoueur2.getSelectedItem());
-        jComboBoxJoueur1.setModel(aModel);
+        jComboBoxJoueur1.setModel(trierModelJoueur(aModel));
     }//GEN-LAST:event_jComboBoxJoueur2ActionPerformed
 
     private void jComboBoxCourtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCourtActionPerformed
@@ -495,12 +495,12 @@ public class CreerMatch extends javax.swing.JFrame {
     private DefaultComboBoxModel<String> trierModelJoueur(DefaultComboBoxModel<String> aModel){
         DefaultComboBoxModel<String> bModel = new DefaultComboBoxModel();
         for(int i=0;i<aModel.getSize();i++){
-            int max = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(i))[0],nomprenomToNomPrenom(aModel.getElementAt(i))[1]);
+            int min = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(i))[0],nomprenomToNomPrenom(aModel.getElementAt(i))[1]);
             int indice = i;
             for (int j=0;j<aModel.getSize();j++){
                 int res = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(j))[0],nomprenomToNomPrenom(aModel.getElementAt(j))[1]);
-                if (res>max){
-                    max = res;
+                if (res<=min && !findInModel(aModel,aModel.getElementAt(j))){
+                    min = res;
                     indice = j;
                 }
             }
@@ -532,6 +532,13 @@ public class CreerMatch extends javax.swing.JFrame {
         result[0] = nom;
         result[1] = prenom;
         return result;
+    }
+    
+    private boolean findInModel(DefaultComboBoxModel<String> aModel, String elt){
+        for(int i=0;i<aModel.getSize();i++){
+            if(aModel.getElementAt(i).equals(elt))return true;
+        }
+        return false;
     }
     /**
      * @param args the command line arguments
