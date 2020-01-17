@@ -36,7 +36,20 @@ public class SaisirVainqueur extends javax.swing.JFrame {
         DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
         ArrayList<Match> listMatch = matchDAO.findTournoiSimple();
         ArrayList<Integer> listJoueur=new ArrayList();
+        ArrayList<Integer> listIndiceMatchEnlever=new ArrayList();
         if(listMatch.size()>0){
+            int i=0;
+            for(Match match : listMatch){
+                Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                if(joueur1.getIdTournoiSimple()!=joueur2.getIdTournoiSimple()){
+                    listIndiceMatchEnlever.add(i);
+                }
+                i++;
+            }
+            for(Integer ind:listIndiceMatchEnlever){
+                listMatch.remove(listMatch.get(ind));
+            }
             listJoueur.add(listMatch.get(0).getIdJoueur1());
             listJoueur.add(listMatch.get(0).getIdJoueur2());
             for(int idJoueur : listJoueur){
@@ -46,7 +59,7 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             for(Match match : listMatch){
                 Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
                 Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
-                aModelMatch.addElement(joueur1.getNom()+" - "+joueur2.getNom());
+                aModelMatch.addElement(match.getId()+" "+joueur1.getNom()+" - "+joueur2.getNom());
             }
         } else {
             aModelMatch.addElement("Aucun match disponible");
@@ -166,20 +179,62 @@ public class SaisirVainqueur extends javax.swing.JFrame {
 
     private void jComboBoxSelectMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectMatchActionPerformed
         String tournoi=jComboBoxSelectTournoi.getSelectedItem().toString();
-        if (tournoi.equals("Tournoi double")){
-            
-        }
         if (tournoi.equals("Qualification") || tournoi.equals("Tournoi simple")){
             DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
             ArrayList<Integer> listJoueur=new ArrayList();
-            Match match=getMatch(jComboBoxSelectMatch.getSelectedItem().toString());
-            
+            char[] noms=jComboBoxSelectMatch.getSelectedItem().toString().toCharArray();
+            int i=0,idmatch;
+            String idmatchstr="";
+            Boolean temp=false;
+            while(i<noms.length && !temp){
+                if(noms[i]==' '){
+                    temp=true;
+                }
+                i++;
+            }
+            i--;
+            for(int j=0;j<i;j++){
+                idmatchstr=idmatchstr+noms[j];
+            }
+            idmatch=Integer.parseInt(idmatchstr);
+            Match match=matchDAO.find(idmatch);
             listJoueur.add(match.getIdJoueur1());
             listJoueur.add(match.getIdJoueur2());
+            System.out.println(listJoueur);
             for(int idJoueur : listJoueur){
                 Joueur joueur=joueurDAO.find(idJoueur);
-                //aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+                aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
             }
+            jComboBoxSelectJoueurEquipe.setModel(aModelJoueurEquipe);
+        }
+        if (tournoi.equals("Tournoi double")){
+            DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
+            ArrayList<Integer> listEquipe=new ArrayList();
+            char[] noms=jComboBoxSelectMatch.getSelectedItem().toString().toCharArray();
+            int i=0,idmatch;
+            String idmatchstr="";
+            Boolean temp=false;
+            while(i<noms.length && !temp){
+                if(noms[i]==' '){
+                    temp=true;
+                }
+                i++;
+            }
+            i--;
+            for(int j=0;j<i;j++){
+                idmatchstr=idmatchstr+noms[j];
+            }
+            idmatch=Integer.parseInt(idmatchstr);
+            Match match=matchDAO.find(idmatch);
+            listEquipe.add(match.getIdEquipe1());
+            listEquipe.add(match.getIdEquipe2());
+            for(int idEquipe : listEquipe){
+                EquipeDouble equipeDouble=equipeDoubleDAO.find(idEquipe);
+                Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
+                Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
+                aModelJoueurEquipe.addElement(joueur1.getNom()+"  "+joueur1.getPrenom()+", "+joueur2.getNom()+"  "+joueur2.getPrenom());
+                }
+            jComboBoxSelectJoueurEquipe.setModel(aModelJoueurEquipe);
         }
     }//GEN-LAST:event_jComboBoxSelectMatchActionPerformed
 
@@ -189,7 +244,20 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
             ArrayList<Match> listMatch = matchDAO.findTournoiSimple();
             ArrayList<Integer> listJoueur=new ArrayList();
+            ArrayList<Integer> listIndiceMatchEnlever=new ArrayList();
             if(listMatch.size()>0){
+                int i=0;
+                for(Match match : listMatch){
+                    Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                    Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                    if(joueur1.getIdTournoiSimple()!=joueur2.getIdTournoiSimple()){
+                        listIndiceMatchEnlever.add(i);
+                    }
+                    i++;
+                }
+                for(Integer ind:listIndiceMatchEnlever){
+                    listMatch.remove(listMatch.get(ind));
+                }
                 listJoueur.add(listMatch.get(0).getIdJoueur1());
                 listJoueur.add(listMatch.get(0).getIdJoueur2());
                 for(int idJoueur : listJoueur){
@@ -199,7 +267,7 @@ public class SaisirVainqueur extends javax.swing.JFrame {
                 for(Match match : listMatch){
                     Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
                     Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
-                    aModelMatch.addElement(joueur1.getNom()+" - "+joueur2.getNom());
+                    aModelMatch.addElement(match.getId()+" "+joueur1.getNom()+" - "+joueur2.getNom());
                 }
             } else {
                 aModelMatch.addElement("Aucun match disponible");
@@ -213,7 +281,20 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
             ArrayList<Match> listMatch = matchDAO.findTournoiDouble();
             ArrayList<Integer> listEquipe=new ArrayList();
+            ArrayList<Integer> listIndiceMatchEnlever=new ArrayList();
             if(listMatch.size()>0){
+                int i=0;
+                for(Match match : listMatch){
+                    EquipeDouble equipeDouble1=equipeDoubleDAO.find(match.getIdEquipe1());
+                    EquipeDouble equipeDouble2=equipeDoubleDAO.find(match.getIdEquipe2());
+                    if(equipeDouble1.getIdTournoiDouble()!=equipeDouble2.getIdTournoiDouble()){
+                        listIndiceMatchEnlever.add(i);
+                    }
+                    i++;
+                }
+                for(Integer ind:listIndiceMatchEnlever){
+                    listMatch.remove(listMatch.get(ind));
+                }
                 listEquipe.add(listMatch.get(0).getIdEquipe1());
                 listEquipe.add(listMatch.get(0).getIdEquipe2());
                 for(int idEquipe : listEquipe){
@@ -225,7 +306,7 @@ public class SaisirVainqueur extends javax.swing.JFrame {
                 for(Match match : listMatch){
                     EquipeDouble equipeDouble1=equipeDoubleDAO.find(match.getIdEquipe1());
                     EquipeDouble equipeDouble2=equipeDoubleDAO.find(match.getIdEquipe2());
-                    aModelMatch.addElement(joueurDAO.find(equipeDouble1.getIdJoueur1()).getNom()+"  "+joueurDAO.find(equipeDouble1.getIdJoueur2()).getNom()+" - "+joueurDAO.find(equipeDouble2.getIdJoueur1()).getNom()+"  "+joueurDAO.find(equipeDouble2.getIdJoueur2()).getNom());
+                    aModelMatch.addElement(match.getId()+" "+joueurDAO.find(equipeDouble1.getIdJoueur1()).getNom()+"  "+joueurDAO.find(equipeDouble1.getIdJoueur2()).getNom()+" - "+joueurDAO.find(equipeDouble2.getIdJoueur1()).getNom()+"  "+joueurDAO.find(equipeDouble2.getIdJoueur2()).getNom());
                 }
             } else {
                 aModelMatch.addElement("Aucun match disponible");
@@ -239,7 +320,20 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
             ArrayList<Match> listMatch = matchDAO.findQualification();
             ArrayList<Integer> listJoueur=new ArrayList();
+            ArrayList<Integer> listIndiceMatchEnlever=new ArrayList();
             if(listMatch.size()>0){
+                int i=0;
+                for(Match match : listMatch){
+                    Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                    Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                    if(joueur1.getIdQualification()!=joueur2.getIdQualification()){
+                        listIndiceMatchEnlever.add(i);
+                    }
+                    i++;
+                }
+                for(Integer ind:listIndiceMatchEnlever){
+                    listMatch.remove(listMatch.get(ind));
+                }
                 listJoueur.add(listMatch.get(0).getIdJoueur1());
                 listJoueur.add(listMatch.get(0).getIdJoueur2());
                 for(int idJoueur : listJoueur){
@@ -249,7 +343,7 @@ public class SaisirVainqueur extends javax.swing.JFrame {
                 for(Match match : listMatch){
                     Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
                     Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
-                    aModelMatch.addElement(joueur1.getNom()+" - "+joueur2.getNom());
+                    aModelMatch.addElement(match.getId()+" "+joueur1.getNom()+" - "+joueur2.getNom());
                 }
             } else {
                 aModelMatch.addElement("Aucun match disponible");
@@ -263,24 +357,24 @@ public class SaisirVainqueur extends javax.swing.JFrame {
     private void jToggleButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonValiderActionPerformed
         String tournoi=jComboBoxSelectTournoi.getSelectedItem().toString();
         if (tournoi.equals("Tournoi double")){
-            char[] equipeDouble=jComboBoxSelectJoueurEquipe.getSelectedItem().toString().toCharArray();
+            char[] charEquipeDouble=jComboBoxSelectJoueurEquipe.getSelectedItem().toString().toCharArray();
             char[] cjoueur1=new char[100];
             char[] cjoueur2=new char[100];
             int i=0,j=0,k=0;
-            while(equipeDouble[i]!=','){
+            while(charEquipeDouble[i]!=','){
                 i++;
             }
             for(j=0;j<i;j++){
-                cjoueur1[j]=equipeDouble[j];
+                cjoueur1[j]=charEquipeDouble[j];
             }
-            for(j=i+2;j<equipeDouble.length;j++){
-                cjoueur2[k]=equipeDouble[j];
+            for(j=i+2;j<charEquipeDouble.length;j++){
+                cjoueur2[k]=charEquipeDouble[j];
                 k++;
             }
             Joueur joueur1=getJoueur(cjoueur1);
             Joueur joueur2=getJoueur(cjoueur2);
-            joueurDAO.updateIdTournoiDouble(joueur1.getId(), joueur1.getIdTournoiDouble()+1);
-            joueurDAO.updateIdTournoiDouble(joueur2.getId(), joueur2.getIdTournoiDouble()+1);
+            EquipeDouble equipeDouble=equipeDoubleDAO.findAvecIdJoueurs(joueur1.getId(),joueur2.getId());
+            equipeDoubleDAO.updateIdTournoiDouble(equipeDouble.getId(), equipeDouble.getIdTournoiDouble()+1);
             JOptionPane.showMessageDialog(null, "L'équipe  "+joueur1.getNom()+", "+joueur2.getNom()+" a été ajouté comme vainqueur.");
             this.dispose();
             app.setVisible(true);
@@ -367,28 +461,6 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             }
             i++;
         }
-        return joueurDAO.find(joueurDAO.findId(nom, prenom));
+        return joueurDAO.find(joueurDAO.findIdNomPrenom(nom, prenom));
     }
-
-    
-   private Match getMatch(String noms){
-       char[] cnoms=noms.toCharArray();
-       Boolean temp=true;
-       String nom1="",nom2="";
-       int i=0;
-       while(i<cnoms.length && temp){
-           if(cnoms[i]==' ' && cnoms[i+1]==' '){
-               int j;
-               for(j=0;j<i;j++){
-                   nom1=nom1+cnoms[j];
-               }
-               for(j=i+2;j<cnoms.length;j++){
-                   nom2=nom2+cnoms[j];
-               }
-               temp=false;            
-           }
-       }
-       System.out.println(nom1+" "+nom2);
-       return null;
-   }
 }

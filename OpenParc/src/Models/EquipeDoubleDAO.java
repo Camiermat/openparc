@@ -79,4 +79,31 @@ public class EquipeDoubleDAO extends DAO<EquipeDouble>{
         }
         return list;
     }
+    
+    public void updateIdTournoiDouble(int id,int idTournoi){
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("UPDATE EquipeDouble set idTournoiDouble=? where id=?");
+            prepare.setInt(1, idTournoi);
+            prepare.setInt(2, id);
+            prepare.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+    
+    public EquipeDouble findAvecIdJoueurs(int idJoueur1,int idJoueur2) {
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from EquipeDouble where idJoueur1=? && idJoueur2=?");
+            prepare.setInt(1, idJoueur1);
+            prepare.setInt(2, idJoueur2);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return new EquipeDouble(result.getInt(1),result.getString(2), result.getInt(3),result.getInt(4), result.getInt(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    } 
 }

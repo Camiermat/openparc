@@ -133,11 +133,25 @@ public class JoueurDAO extends DAO<Joueur>{
         return list;
     }
     
-    public int findId(String nom, String prenom) {
+    public int findIdNomPrenom(String nom, String prenom) {
         try {
             PreparedStatement prepare = this.connect.prepareStatement("SELECT id from Joueur where nom=? and prenom=?");
             prepare.setString(1, nom);
             prepare.setString(2, prenom);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public int findIdNom(String nom){
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT id from Joueur where nom=?");
+            prepare.setString(1, nom);
             ResultSet result = prepare.executeQuery();
             while (result.next()){
                 return result.getInt(1);
@@ -178,18 +192,6 @@ public class JoueurDAO extends DAO<Joueur>{
     public void updateIdTournoiSimple(int id,int idTournoi){
         try {
             PreparedStatement prepare = this.connect.prepareStatement("UPDATE Joueur set idTournoiSimple=? where id=?");
-            prepare.setInt(1, idTournoi);
-            prepare.setInt(2, id);
-            prepare.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return;
-    }
-    
-    public void updateIdTournoiDouble(int id,int idTournoi){
-        try {
-            PreparedStatement prepare = this.connect.prepareStatement("UPDATE Joueur set idTournoiDouble=? where id=?");
             prepare.setInt(1, idTournoi);
             prepare.setInt(2, id);
             prepare.executeUpdate();

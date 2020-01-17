@@ -533,10 +533,10 @@ public class CreerMatch extends javax.swing.JFrame {
     private DefaultComboBoxModel<String> trierModelJoueur(DefaultComboBoxModel<String> aModel){
         DefaultComboBoxModel<String> bModel = new DefaultComboBoxModel();
         for(int i=0;i<aModel.getSize();i++){
-            int min = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(i))[0],nomprenomToNomPrenom(aModel.getElementAt(i))[1]);
+            int min = joueurDAO.findIdNomPrenom(nomprenomToNomPrenom(aModel.getElementAt(i))[0],nomprenomToNomPrenom(aModel.getElementAt(i))[1]);
             int indice = i;
             for (int j=0;j<aModel.getSize();j++){
-                int res = joueurDAO.findId(nomprenomToNomPrenom(aModel.getElementAt(j))[0],nomprenomToNomPrenom(aModel.getElementAt(j))[1]);
+                int res = joueurDAO.findIdNomPrenom(nomprenomToNomPrenom(aModel.getElementAt(j))[0],nomprenomToNomPrenom(aModel.getElementAt(j))[1]);
                 if (res<=min && !findInModel(aModel,aModel.getElementAt(j))){
                     min = res;
                     indice = j;
