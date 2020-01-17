@@ -13,6 +13,7 @@ import Models.JoueurDAO;
 import Models.MatchDAO;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -164,7 +165,22 @@ public class SaisirVainqueur extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonQuitterAppActionPerformed
 
     private void jComboBoxSelectMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectMatchActionPerformed
-        
+        String tournoi=jComboBoxSelectTournoi.getSelectedItem().toString();
+        if (tournoi.equals("Tournoi double")){
+            
+        }
+        if (tournoi.equals("Qualification") || tournoi.equals("Tournoi simple")){
+            DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
+            ArrayList<Integer> listJoueur=new ArrayList();
+            Match match=getMatch(jComboBoxSelectMatch.getSelectedItem().toString());
+            
+            listJoueur.add(match.getIdJoueur1());
+            listJoueur.add(match.getIdJoueur2());
+            for(int idJoueur : listJoueur){
+                Joueur joueur=joueurDAO.find(idJoueur);
+                //aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+            }
+        }
     }//GEN-LAST:event_jComboBoxSelectMatchActionPerformed
 
     private void jComboBoxSelectTournoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectTournoiActionPerformed
@@ -265,9 +281,21 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             Joueur joueur2=getJoueur(cjoueur2);
             joueurDAO.updateIdTournoiDouble(joueur1.getId(), joueur1.getIdTournoiDouble()+1);
             joueurDAO.updateIdTournoiDouble(joueur2.getId(), joueur2.getIdTournoiDouble()+1);
+            JOptionPane.showMessageDialog(null, "L'équipe  "+joueur1.getNom()+", "+joueur2.getNom()+" a été ajouté comme vainqueur.");
+            this.dispose();
+            app.setVisible(true);
         }
         if (tournoi.equals("Qualification") || tournoi.equals("Tournoi simple")){
-            
+            char[] cjoueur=jComboBoxSelectJoueurEquipe.getSelectedItem().toString().toCharArray();
+            Joueur joueur=getJoueur(cjoueur);
+            if(tournoi.equals("Qualification")){
+                joueurDAO.updateIdQualification(joueur.getId(), joueur.getIdQualification()+1);
+            } else {
+                joueurDAO.updateIdTournoiSimple(joueur.getId(), joueur.getIdTournoiSimple()+1);
+            }
+            JOptionPane.showMessageDialog(null, "Le joueur  "+joueur.getNom()+" "+joueur.getPrenom()+" a été ajouté comme vainqueur.");
+            this.dispose();
+            app.setVisible(true);
         }
     }//GEN-LAST:event_jToggleButtonValiderActionPerformed
 
@@ -316,7 +344,7 @@ public class SaisirVainqueur extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private Joueur getJoueur(char[] nomprenom){
-        Boolean temp=true;
+        Boolean temp=true,temp2=true;
         int i=1;
         String nom="",prenom="";
         while(i<nomprenom.length && temp){
@@ -325,8 +353,14 @@ public class SaisirVainqueur extends javax.swing.JFrame {
                 for(j=0;j<i-1;j++){
                     nom=nom+nomprenom[j];
                 }
-                for(j=i+1;j<nomprenom.length;j++){
-                    prenom=prenom+nomprenom[j];
+                j=i+1;
+                while(j<nomprenom.length && temp2){
+                    if(nomprenom[j]==Character.MIN_VALUE && nomprenom[j+1]==Character.MIN_VALUE){
+                        temp2=false;
+                    } else {
+                        prenom=prenom+nomprenom[j];
+                    }
+                    j++;
                 }
                 System.out.println(nom+" "+prenom);
                 temp=false;
@@ -336,4 +370,25 @@ public class SaisirVainqueur extends javax.swing.JFrame {
         return joueurDAO.find(joueurDAO.findId(nom, prenom));
     }
 
+    
+   private Match getMatch(String noms){
+       char[] cnoms=noms.toCharArray();
+       Boolean temp=true;
+       String nom1="",nom2="";
+       int i=0;
+       while(i<cnoms.length && temp){
+           if(cnoms[i]==' ' && cnoms[i+1]==' '){
+               int j;
+               for(j=0;j<i;j++){
+                   nom1=nom1+cnoms[j];
+               }
+               for(j=i+2;j<cnoms.length;j++){
+                   nom2=nom2+cnoms[j];
+               }
+               temp=false;            
+           }
+       }
+       System.out.println(nom1+" "+nom2);
+       return null;
+   }
 }

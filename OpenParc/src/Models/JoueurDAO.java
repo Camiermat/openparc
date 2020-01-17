@@ -189,7 +189,6 @@ public class JoueurDAO extends DAO<Joueur>{
     
     public void updateIdTournoiDouble(int id,int idTournoi){
         try {
-            System.out.println(id+" "+idTournoi);
             PreparedStatement prepare = this.connect.prepareStatement("UPDATE Joueur set idTournoiDouble=? where id=?");
             prepare.setInt(1, idTournoi);
             prepare.setInt(2, id);
