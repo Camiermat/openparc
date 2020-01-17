@@ -5,6 +5,15 @@
  */
 package View;
 
+import Controleur.EquipeDouble;
+import Controleur.Joueur;
+import Controleur.Match;
+import Models.EquipeDoubleDAO;
+import Models.JoueurDAO;
+import Models.MatchDAO;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author p1805797
@@ -12,12 +21,38 @@ package View;
 public class SaisirVainqueur extends javax.swing.JFrame {
 
     private Accueil app;
+    private JoueurDAO joueurDAO = new JoueurDAO();
+    private MatchDAO matchDAO=new MatchDAO();
+    private EquipeDoubleDAO equipeDoubleDAO=new EquipeDoubleDAO();
+    
     /**
      * Creates new form SaisirVainqueur
      */
     public SaisirVainqueur(Accueil acc) {
         initComponents();
         app = acc;
+        DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
+        ArrayList<Match> listMatch = matchDAO.findTournoiSimple();
+        ArrayList<Integer> listJoueur=new ArrayList();
+        if(listMatch.size()>0){
+            listJoueur.add(listMatch.get(0).getIdJoueur1());
+            listJoueur.add(listMatch.get(0).getIdJoueur2());
+            for(int idJoueur : listJoueur){
+                Joueur joueur=joueurDAO.find(idJoueur);
+                aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+            }
+            for(Match match : listMatch){
+                Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                aModelMatch.addElement(joueur1.getNom()+" - "+joueur2.getNom());
+            }
+        } else {
+            aModelMatch.addElement("Aucun match disponible");
+            aModelJoueurEquipe.addElement("Aucun joueur ou équipe disponible");
+        }
+        jComboBoxSelectJoueurEquipe.setModel(aModelJoueurEquipe);
+        jComboBoxSelectMatch.setModel(aModelMatch);
     }
 
     /**
@@ -31,7 +66,10 @@ public class SaisirVainqueur extends javax.swing.JFrame {
 
         jButtonAccueil = new javax.swing.JButton();
         jButtonQuitterApp = new javax.swing.JButton();
-        jLabelLogo = new javax.swing.JLabel();
+        jComboBoxSelectMatch = new javax.swing.JComboBox<>();
+        jComboBoxSelectJoueurEquipe = new javax.swing.JComboBox<>();
+        jComboBoxSelectTournoi = new javax.swing.JComboBox<>();
+        jToggleButtonValider = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,8 +87,28 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             }
         });
 
-        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
-        jLabelLogo.setAlignmentY(0.0F);
+        jComboBoxSelectMatch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Match" }));
+        jComboBoxSelectMatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSelectMatchActionPerformed(evt);
+            }
+        });
+
+        jComboBoxSelectJoueurEquipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joueur vainqueur / Equipe vainqueur" }));
+
+        jComboBoxSelectTournoi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tournoi simple", "Tournoi double", "Qualification" }));
+        jComboBoxSelectTournoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSelectTournoiActionPerformed(evt);
+            }
+        });
+
+        jToggleButtonValider.setText("Valider");
+        jToggleButtonValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonValiderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,23 +118,34 @@ public class SaisirVainqueur extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAccueil)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(jLabelLogo))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonAccueil, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonQuitterApp, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToggleButtonValider))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonQuitterApp)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxSelectJoueurEquipe, 0, 300, Short.MAX_VALUE)
+                            .addComponent(jComboBoxSelectTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxSelectMatch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 164, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAccueil)
-                    .addComponent(jLabelLogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addComponent(jButtonQuitterApp)
+                .addComponent(jButtonAccueil)
+                .addGap(85, 85, 85)
+                .addComponent(jComboBoxSelectTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxSelectMatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxSelectJoueurEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonQuitterApp)
+                    .addComponent(jToggleButtonValider))
                 .addContainerGap())
         );
 
@@ -93,6 +162,114 @@ public class SaisirVainqueur extends javax.swing.JFrame {
         this.dispose();
         app.dispose();
     }//GEN-LAST:event_jButtonQuitterAppActionPerformed
+
+    private void jComboBoxSelectMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectMatchActionPerformed
+        
+    }//GEN-LAST:event_jComboBoxSelectMatchActionPerformed
+
+    private void jComboBoxSelectTournoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectTournoiActionPerformed
+        if (jComboBoxSelectTournoi.getSelectedItem().equals("Tournoi simple")){
+            DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
+            DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
+            ArrayList<Match> listMatch = matchDAO.findTournoiSimple();
+            ArrayList<Integer> listJoueur=new ArrayList();
+            if(listMatch.size()>0){
+                listJoueur.add(listMatch.get(0).getIdJoueur1());
+                listJoueur.add(listMatch.get(0).getIdJoueur2());
+                for(int idJoueur : listJoueur){
+                    Joueur joueur=joueurDAO.find(idJoueur);
+                    aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+                }
+                for(Match match : listMatch){
+                    Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                    Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                    aModelMatch.addElement(joueur1.getNom()+" - "+joueur2.getNom());
+                }
+            } else {
+                aModelMatch.addElement("Aucun match disponible");
+                aModelJoueurEquipe.addElement("Aucun joueur ou équipe disponible");
+            }
+            jComboBoxSelectJoueurEquipe.setModel(aModelJoueurEquipe);
+            jComboBoxSelectMatch.setModel(aModelMatch);
+        }
+        if (jComboBoxSelectTournoi.getSelectedItem().equals("Tournoi double")){
+            DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
+            DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
+            ArrayList<Match> listMatch = matchDAO.findTournoiDouble();
+            ArrayList<Integer> listEquipe=new ArrayList();
+            if(listMatch.size()>0){
+                listEquipe.add(listMatch.get(0).getIdEquipe1());
+                listEquipe.add(listMatch.get(0).getIdEquipe2());
+                for(int idEquipe : listEquipe){
+                    EquipeDouble equipeDouble=equipeDoubleDAO.find(idEquipe);
+                    Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
+                    Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
+                    aModelJoueurEquipe.addElement(joueur1.getNom()+"  "+joueur1.getPrenom()+", "+joueur2.getNom()+"  "+joueur2.getPrenom());
+                }
+                for(Match match : listMatch){
+                    EquipeDouble equipeDouble1=equipeDoubleDAO.find(match.getIdEquipe1());
+                    EquipeDouble equipeDouble2=equipeDoubleDAO.find(match.getIdEquipe2());
+                    aModelMatch.addElement(joueurDAO.find(equipeDouble1.getIdJoueur1()).getNom()+"  "+joueurDAO.find(equipeDouble1.getIdJoueur2()).getNom()+" - "+joueurDAO.find(equipeDouble2.getIdJoueur1()).getNom()+"  "+joueurDAO.find(equipeDouble2.getIdJoueur2()).getNom());
+                }
+            } else {
+                aModelMatch.addElement("Aucun match disponible");
+                aModelJoueurEquipe.addElement("Aucun joueur ou équipe disponible");
+            }
+            jComboBoxSelectJoueurEquipe.setModel(aModelJoueurEquipe);
+            jComboBoxSelectMatch.setModel(aModelMatch);
+        }
+        if (jComboBoxSelectTournoi.getSelectedItem().equals("Qualification")){
+            DefaultComboBoxModel<String> aModelJoueurEquipe = new DefaultComboBoxModel();
+            DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
+            ArrayList<Match> listMatch = matchDAO.findQualification();
+            ArrayList<Integer> listJoueur=new ArrayList();
+            if(listMatch.size()>0){
+                listJoueur.add(listMatch.get(0).getIdJoueur1());
+                listJoueur.add(listMatch.get(0).getIdJoueur2());
+                for(int idJoueur : listJoueur){
+                    Joueur joueur=joueurDAO.find(idJoueur);
+                    aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+                }
+                for(Match match : listMatch){
+                    Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                    Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                    aModelMatch.addElement(joueur1.getNom()+" - "+joueur2.getNom());
+                }
+            } else {
+                aModelMatch.addElement("Aucun match disponible");
+                aModelJoueurEquipe.addElement("Aucun joueur ou équipe disponible");
+            }
+            jComboBoxSelectJoueurEquipe.setModel(aModelJoueurEquipe);
+            jComboBoxSelectMatch.setModel(aModelMatch);
+        }
+    }//GEN-LAST:event_jComboBoxSelectTournoiActionPerformed
+
+    private void jToggleButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonValiderActionPerformed
+        String tournoi=jComboBoxSelectTournoi.getSelectedItem().toString();
+        if (tournoi.equals("Tournoi double")){
+            char[] equipeDouble=jComboBoxSelectJoueurEquipe.getSelectedItem().toString().toCharArray();
+            char[] cjoueur1=new char[100];
+            char[] cjoueur2=new char[100];
+            int i=0,j=0,k=0;
+            while(equipeDouble[i]!=','){
+                i++;
+            }
+            for(j=0;j<i;j++){
+                cjoueur1[j]=equipeDouble[j];
+            }
+            for(j=i+2;j<equipeDouble.length;j++){
+                cjoueur2[k]=equipeDouble[j];
+                k++;
+            }
+            Joueur joueur1=getJoueur(cjoueur1);
+            Joueur joueur2=getJoueur(cjoueur2);
+            joueurDAO.updateIdTournoiDouble(joueur1.getId(), joueur1.getIdTournoiDouble()+1);
+            joueurDAO.updateIdTournoiDouble(joueur2.getId(), joueur2.getIdTournoiDouble()+1);
+        }
+        if (tournoi.equals("Qualification") || tournoi.equals("Tournoi simple")){
+            
+        }
+    }//GEN-LAST:event_jToggleButtonValiderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,6 +309,31 @@ public class SaisirVainqueur extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccueil;
     private javax.swing.JButton jButtonQuitterApp;
-    private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JComboBox<String> jComboBoxSelectJoueurEquipe;
+    private javax.swing.JComboBox<String> jComboBoxSelectMatch;
+    private javax.swing.JComboBox<String> jComboBoxSelectTournoi;
+    private javax.swing.JToggleButton jToggleButtonValider;
     // End of variables declaration//GEN-END:variables
+
+    private Joueur getJoueur(char[] nomprenom){
+        Boolean temp=true;
+        int i=1;
+        String nom="",prenom="";
+        while(i<nomprenom.length && temp){
+            if(nomprenom[i-1]==' ' && nomprenom[i]==' '){
+                int j;
+                for(j=0;j<i-1;j++){
+                    nom=nom+nomprenom[j];
+                }
+                for(j=i+1;j<nomprenom.length;j++){
+                    prenom=prenom+nomprenom[j];
+                }
+                System.out.println(nom+" "+prenom);
+                temp=false;
+            }
+            i++;
+        }
+        return joueurDAO.find(joueurDAO.findId(nom, prenom));
+    }
+
 }

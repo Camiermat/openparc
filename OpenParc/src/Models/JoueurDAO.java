@@ -174,4 +174,41 @@ public class JoueurDAO extends DAO<Joueur>{
     public Joueur update(Joueur obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public void updateIdTournoiSimple(int id,int idTournoi){
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("UPDATE Joueur set idTournoiSimple=? where id=?");
+            prepare.setInt(1, idTournoi);
+            prepare.setInt(2, id);
+            prepare.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+    
+    public void updateIdTournoiDouble(int id,int idTournoi){
+        try {
+            System.out.println(id+" "+idTournoi);
+            PreparedStatement prepare = this.connect.prepareStatement("UPDATE Joueur set idTournoiDouble=? where id=?");
+            prepare.setInt(1, idTournoi);
+            prepare.setInt(2, id);
+            prepare.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+    
+    public void updateIdQualification(int id,int idTournoi){
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("UPDATE Joueur set idQualification=? where id=?");
+            prepare.setInt(1, idTournoi);
+            prepare.setInt(2, id);
+            prepare.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
 }
