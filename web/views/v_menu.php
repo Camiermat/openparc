@@ -33,6 +33,20 @@
 					</button>
 				</a>
 			</li>
+			<?php 
+			if (isset($_SESSION['Identifiant'])) {
+				if($_SESSION['Identifiant']=="admin"){
+					echo   '<li class="menubtnn">
+								<a href="index.php?page=admin">
+									<button class="btn btn-outline-'.($page=="admin" ? "danger":"warning").'" >
+									Modifications 
+									</button>
+								</a>
+							</li>';
+				}
+
+			}
+			?>
 		</div>
 	</ul>
 	<ul class="nav navbar-nav navbar-right">

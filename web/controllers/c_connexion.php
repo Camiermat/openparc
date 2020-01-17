@@ -15,7 +15,7 @@ if (isset($_POST['Identifiant']) and isset($_POST['Mot_de_passe'])) {
 		echo '<br>';
 		echo $pata->getPassHash();
 		if(password_verify($mdp, $pata->getPassHash())){
-			$_SESSION['Identifiant']=$pata;
+			$_SESSION['Identifiant']= $pata->getUserId();
 			header('location: index.php');
 		} 
 		else {

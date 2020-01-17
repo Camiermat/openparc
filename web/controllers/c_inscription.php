@@ -8,13 +8,11 @@ if (isset($_POST['Identifiant']) and isset($_POST['Mot_de_passe'])) {
 	$id =  htmlspecialchars($_POST['Identifiant']);
 	$mdp =  htmlspecialchars($_POST['Mot_de_passe']);
 	$mdphash = password_hash($mdp, PASSWORD_DEFAULT);
-	
+
 	if (!((new UserDAO()) -> existUser($id))){
-	//if($id==IDENTIFIANT and password_verify($mdp,MOT_DE_PASSE)){
-	/*	$_SESSION[$id]=1;
-		header('location: index.php');
-		*/
 		(new UserDAO()) -> createUser($id,$mdphash);
+		$pata = (new UserDAO())-> getUser($id);
+		$_SESSION['Identifiant']= $pata->getUserId();
 		header('location: index.php');
 
 	} else {
