@@ -1,7 +1,7 @@
 
 <!-- Menu du site -->
 
-<nav class="navbar navbar-default">
+<nav style="margin-top: 5pt;" class="navbar navbar-default">
   <div class="container-fluid" >
     <ul class="nav navbar-nav">
     	<div class="row">

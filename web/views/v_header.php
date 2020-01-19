@@ -41,6 +41,35 @@
 				</div>
 			</section>
 		</header>
+		<?php 
+			if (isset($_SESSION['Identifiant'])) {
+				if($_SESSION['Identifiant']=="admin"){
+					if($page=="admin"){
+						if($skilibit==1){
+							echo'
+							<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+	  							Le code promo a été <b>ajouté </b>!
+	  							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  								<span aria-hidden="true">&times;</span>
+	 							</button>
+							</div>
+							';
+						}
+						if ($skoooilibit==1) {
+							echo'
+								<div class="alert alert-info alert-dismissible fade show" role="alert">
+		  							Les montants ont été <b>modifiés</b> !
+		  							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		  								<span aria-hidden="true">&times;</span>
+		 							</button>
+								</div>
+								';
+						}
+					}
+				}
+			}
+		?>
+
 		<!-- Menu -->
 		<?php include(PATH_VIEWS.'menu.php'); ?>
 		<!-- Vue -->
