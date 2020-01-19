@@ -25,9 +25,9 @@ class UserDAO extends DAO {
 		} else return null;
 	}
 
-	public function createUser($i,$m){
-		$res = $this->prepareCat('INSERT into User values (?,?)');
-		$res -> execute(array($i,$m));
+	public function createUser($i,$m,$e){
+		$res = $this->prepareCat('INSERT into User values (?,?,?)');
+		$res -> execute(array($i,$m,$e));
 		return null;
 	}
 

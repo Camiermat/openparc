@@ -17,6 +17,7 @@ if (isset($_POST['Identifiant']) and isset($_POST['Mot_de_passe'])) {
 		if(password_verify($mdp, $pata->getPassHash())){
 			$_SESSION['Identifiant']= $pata->getUserId();
 			header('location: index.php');
+			exit();
 		} 
 		else {
 			$alert = choixAlert('connexion_incorrect');

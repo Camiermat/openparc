@@ -66,6 +66,6 @@
 </table> 
 <div class="text-center">
 <p class="text-secondary"><b>***</b> La réduction <i>moins</i> de <b>12 ans</b> s'applique uniquement pour la <u>catégorie 2</u>.</p>
-<button  class="btn btn-info col-5 btn-lg">Réserver</button><br>
+<a href="index.php?page=reserver"><button  class="btn btn-info col-5 btn-lg">Réserver</button></a><br>
 <button style="margin-top: 10pt;" class="btn btn-warning btn-sm ">Entrer un code Promo</button>
 </div>
