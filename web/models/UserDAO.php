@@ -9,7 +9,7 @@ class UserDAO extends DAO {
 		if ($res){
 			require_once(PATH_ENTITY.'User.php');
 			foreach ($res as $p){
-				$result = new User($p['Identifiant'],$p['PassHash']);
+				$result = new User($p['Identifiant'],$p['PassHash'],$p['email']);
 			}
 			return $result;
 		} else return null;
