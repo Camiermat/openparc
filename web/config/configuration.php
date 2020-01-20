@@ -13,7 +13,7 @@ const LANG ='FR-fr';
 
 // Paramètres du site : nom de l'auteur ou des auteurs
 const AUTEUR = 'DAURELLE Timothée'; 
-define('TITRE','Site officiel');
+define('TITRE','Site officiel de l\'open parc de lyon');
 
 //dossiers racines du site
 define('PATH_CONTROLLERS','./controllers/c_');

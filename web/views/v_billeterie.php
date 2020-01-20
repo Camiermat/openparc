@@ -24,6 +24,11 @@
   </thead>
   <tbody>
     <tr class="table-active">
+      <th scope="row">Dimanche</th>
+      <td>price 1</td>
+      <td>price 2</td>
+    </tr>
+    <tr class="table-active">
       <th scope="row">Lundi</th>
       <td>price 1</td>
       <td>price 2</td>
@@ -33,6 +38,7 @@
       <td>price 1</td>
       <td>price 2</td>
     </tr>
+
     <tr class="table-active">
       <th scope="row">Mercredi</th>
       <td>price 1</td>
@@ -53,12 +59,6 @@
 
     <tr class="table-active">
       <th scope="row">Samedi</th>
-      <td>price 1</td>
-      <td>price 2</td>
-    </tr>
-
-    <tr class="table-active">
-      <th scope="row">Dimanche</th>
       <td>price 1</td>
       <td>price 2</td>
     </tr>

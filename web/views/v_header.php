@@ -32,12 +32,11 @@
 		<header class="header" >
 			<section class="container" >
 				<div class = "row">
-					<div class = "col-sm-1 ">
-						<img id='logoto' src="<?= PATH_LOGO ?>" alt="<?= LOGO ?>" >
-					</div>
-					<div class="col-md-10 ">
-						<h2><?= TITRE ?></h2>
-					</div>
+					
+						<img class="col-sm-8 col-md-5"  id='logoto' src="<?= PATH_LOGO ?>" alt="<?= LOGO ?>" >
+					
+						<h2 class="text-warning"><?= TITRE ?></h2>
+					
 				</div>
 			</section>
 		</header>

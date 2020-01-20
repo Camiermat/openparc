@@ -364,6 +364,9 @@ ul#demo-block li a{
 }
 
 #logoto{
+
+
+width : 25vw;
 border-radius: 20pt;
 -webkit-box-shadow: 10px 21px 29px -5px rgba(60,144,100,1);
 -moz-box-shadow: 10px 21px 29px -5px rgba(60,144,100,1);
@@ -373,3 +376,11 @@ box-shadow: 10px 21px 29px -5px rgba(60,144,100,1);
  margin-left: 10pt;
 }
 
+@media only screen and (max-width: 575px){
+
+#logoto{
+width : 90vw;
+margin-bottom: 10pt;
+}
+
+}
