@@ -40,36 +40,36 @@
 	      <th >moins de 3 ans</th>
 	      <td>
 	      	<select class="form-control" id="exampleSelect1">
-	      		<option>Cat.1</option>
-	      		<option>Cat.2</option>
+	      		<option>1</option>
+	      		<option>2</option>
 	      	</select>
 	      </td>
 	      <td>
-	      	<input class="form-control" type="number" name="moinsde12quant">
+	      	<input class="form-control" type="number" value="0" name="moinsde3quant">
 	      </td>
 	    </tr>
 	    <tr class="table-active">
 	      <th >moins de 12 ans</th>
 	      <td>
 	      	<select class="form-control" id="exampleSelect1">
-	      		<option>Cat.1</option>
-	      		<option>Cat.2</option>
+	      		<option>1</option>
+	      		<option>2</option>
 	      	</select>
 	      </td>
 	      <td>
-	      	<input class="form-control" type="number" name="moinsde12quant">
+	      	<input class="form-control" type="number" value="0" name="moinsde12quant">
 	      </td>
 	    </tr>
 	    <tr class="table-active">
 	      <th >plus de 12 ans</th>
 	      <td>
 	      	<select class="form-control" id="exampleSelect1">
-	      		<option>Cat.1</option>
-	      		<option>Cat.2</option>
+	      		<option>1</option>
+	      		<option>2</option>
 	      	</select>
 	      </td>
 	      <td>
-	      	<input class="form-control" type="number" name="moinsde12quant">
+	      	<input class="form-control" type="number" value="0" name="plusde12quant">
 	      </td>
 	    </tr>
 
@@ -88,7 +88,7 @@
 			<input class="form-control" type="text" name="nlicence">
 		</div>
 		<div style="margin-top : 30pt;" class="text-center">
-			<button type="submit" class="btn btn-secondary">Valider</button>
+			<button type="submit" class="btn btn-secondary btn-lg">Valider</button>
 		</div>
 
 	</div>
