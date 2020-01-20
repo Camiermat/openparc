@@ -8,6 +8,7 @@ require_once(PATH_MODELS.'UserDAO.php');
 //require_once(PATH_MODELS.'CategorieDAO.php');
 $skilibit = 0;
 $skoooilibit = 0;
+$skoooiooot =0;
 	if (isset($_SESSION['Identifiant'])) {
 		if($_SESSION['Identifiant']!="admin"){
 			$page='accueil';
@@ -31,6 +32,17 @@ $skoooilibit = 0;
 
 				$skoooilibit = 1;
 				$res2 -> closeCursor();
+
+			}
+			if(isset($_POST['jour']) &&  isset($_POST['nb_place']) && isset($_POST['cat'])){
+				$res3 = (new UserDAO)->prepareCat('UPDATE NombrePlaces SET nb_place_total=? where cat=? and jour=?');
+				$jou = htmlspecialchars($_POST['jour']);
+				$nbp = htmlspecialchars($_POST['nb_place']);
+				$kat = htmlspecialchars($_POST['cat']);
+				$res3 -> execute(array($nbp, $kat, $jou));
+
+				$skoooiooot = 1;
+				$res3 -> closeCursor();
 
 			}
 		}

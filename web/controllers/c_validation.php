@@ -30,7 +30,7 @@ require_once(PATH_MODELS.'UserDAO.php');
 		$res8 -> closeCursor();
 		return $resulta;
 	}
-
+//ecrire ici l incrementation et la verification des places dispo 
 
 $nbmoin3 = htmlspecialchars($_POST['moinsde3quant']);
 $catmoin3=htmlspecialchars($_POST['exampleSelect']);

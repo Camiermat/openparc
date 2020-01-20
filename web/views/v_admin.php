@@ -68,3 +68,29 @@
 		</div>
 	</form>
 
+	<form style="margin-top: 30pt;" class="col-md-6 col-sm-12" action='index.php?page=admin' method='POST' name='admin_form_quantité'>
+		<h2> Modification du nombre de places</h2>
+		<div class="form-group row">
+			<label for="jour" >Selectioner le jour :</label>
+			<select class="form-control col-4" id="jour" name="jour" >
+		        <option>Dimanche</option>
+		        <option>Lundi</option>
+		        <option>Mardi</option>
+		        <option>Mercredi</option>
+		        <option>Jeudi</option>
+		        <option>Vendredi</option>
+		        <option>Samedi</option>
+		      </select>
+		</div>
+		<div class="form-group row">
+			<label for="nb_place"  >Nombres de places :</label>
+			<input type='number' id="nb_place" class="form-control col-2" name='nb_place' required></input>
+			<label class="" for="cat" >Catégorie :</label>
+			<select class="form-control col-2" id="cat" name="cat" >
+		        <option>1</option>
+		        <option>2</option>
+		      </select>
+			<div class="col-12 text-center"><button type="submit" style="margin-top: 10pt;" class="btn btn-info ">Valider</button></div>
+		</div>
+	</form>
+

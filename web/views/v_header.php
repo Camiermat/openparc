@@ -64,6 +64,16 @@
 								</div>
 								';
 						}
+						if ($skoooiooot==1) {
+							echo'
+								<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+		  							Le nombre de place à bien été <b>modifiés</b> !
+		  							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		  								<span aria-hidden="true">&times;</span>
+		 							</button>
+								</div>
+								';
+						}
 					}
 				}
 			}
