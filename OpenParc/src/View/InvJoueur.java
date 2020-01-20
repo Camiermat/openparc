@@ -261,7 +261,7 @@ public class InvJoueur extends javax.swing.JFrame {
             }
             i++;
         }
-        int id=joueurDAO.findIdNomPrenom(nom,prenom);
+        int id=joueurDAO.findIdAvecNomPrenom(nom,prenom);
         joueurDAO.update(id, "1");
         jLabelNbJoueurInv.setText(nbWildCard[0]+"");
         jLabelNbInvRestantes.setText(TournoiSimple.NBJOUEURSIMPLE-nbWildCard[0]+"");

@@ -11,7 +11,7 @@ package Controleur;
  */
 public class Match {
     private int id;
-    private int créneauHoraire;
+    private String créneauHoraire;
     private String jour;
     private int niveauTournoi;
     private int numCourt;
@@ -33,7 +33,7 @@ public class Match {
     private int idEquipe1;
     private int idEquipe2;
 
-    public Match(int id, int créneauHoraire, String jour, int niveauTournoi, int numCourt, int idArbitreChaise, int idArbitreLigne1, int idArbitreLigne2, int idArbitreLigne3, int idArbitreLigne4, int idArbitreLigne5, int idArbitreLigne6, int idArbitreLigne7, int idEquipeRamasseur1, int idEquipeRamasseur2, int idTournoiSimple, int idTournoiDouble, int idQualification, int idJoueur1, int idJoueur2, int idEquipe1, int idEquipe2) {
+    public Match(int id, String créneauHoraire, String jour, int niveauTournoi, int numCourt, int idArbitreChaise, int idArbitreLigne1, int idArbitreLigne2, int idArbitreLigne3, int idArbitreLigne4, int idArbitreLigne5, int idArbitreLigne6, int idArbitreLigne7, int idEquipeRamasseur1, int idEquipeRamasseur2, int idTournoiSimple, int idTournoiDouble, int idQualification, int idJoueur1, int idJoueur2, int idEquipe1, int idEquipe2) {
         this.id = id;
         this.créneauHoraire = créneauHoraire;
         this.jour = jour;
@@ -62,7 +62,7 @@ public class Match {
         return id;
     }
 
-    public int getCréneauHoraire() {
+    public String getCréneauHoraire() {
         return créneauHoraire;
     }
 

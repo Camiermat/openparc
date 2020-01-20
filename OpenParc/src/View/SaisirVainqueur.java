@@ -465,6 +465,6 @@ public class SaisirVainqueur extends javax.swing.JFrame {
             }
             i++;
         }
-        return joueurDAO.find(joueurDAO.findIdNomPrenom(nom, prenom));
+        return joueurDAO.find(joueurDAO.findIdAvecNomPrenom(nom, prenom));
     }
 }

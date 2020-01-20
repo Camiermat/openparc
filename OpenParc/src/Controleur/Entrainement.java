@@ -11,12 +11,12 @@ package Controleur;
  */
 public class Entrainement {
     private int id;
-    private int créneauHoraire;
+    private String créneauHoraire;
     private String jour;
     private int idJoueur;
     private int numCourt;
 
-    public Entrainement(int id, int créneauHoraire, String jour, int idJoueur, int numCourt) {
+    public Entrainement(int id, String créneauHoraire, String jour, int idJoueur, int numCourt) {
         this.id = id;
         this.créneauHoraire = créneauHoraire;
         this.jour = jour;
@@ -28,7 +28,7 @@ public class Entrainement {
         return id;
     }
 
-    public int getCréneauHoraire() {
+    public String getCréneauHoraire() {
         return créneauHoraire;
     }
 

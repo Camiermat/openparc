@@ -18,6 +18,7 @@ import Models.EquipeDoubleDAO;
 import Models.EquipeRamasseurDAO;
 import Models.JoueurDAO;
 import Models.RamasseurDAO;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
@@ -47,33 +48,120 @@ public class CreerMatch extends javax.swing.JFrame {
         this.app = app;
         DefaultComboBoxModel<String> aModelCourt = new DefaultComboBoxModel();
         DefaultComboBoxModel<String> aModelArbitreChaise = new DefaultComboBoxModel();
-        DefaultComboBoxModel<String> aModelArbitreLigne = new DefaultComboBoxModel();
-        DefaultComboBoxModel<String> aModelEquipeRamasseur = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModelEquipeRamasseur1 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModelEquipeRamasseur2 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModelCréneau = new DefaultComboBoxModel();
         ArrayList<Court> listCourt = courtDAO.findAll();
         ArrayList<ArbitreChaise> listArbitreChaise = arbitreChaiseDAO.findAll();
-        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
-        ArrayList<EquipeRamasseur> listEquipeRamasseur = equipeRamasseurDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        ArrayList<EquipeRamasseur> listEquipeRamasseur1 = equipeRamasseurDAO.findAll();
+        ArrayList<EquipeRamasseur> listEquipeRamasseur2 = equipeRamasseurDAO.findAll();
         ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
         ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
+        ArrayList<String> listCréneauIndisponible = courtDAO.findCréneauLibre("16/05/2020",1);
+        ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
         if(listJoueur1.size()>1){
             afficherJoueurs(listJoueur1,listJoueur2);
         } else {
             afficherJoueurs(listJoueur1,listJoueur2);
         }
+        
+        
         for(Court c : listCourt){
             aModelCourt.addElement(c.getName());
         }
+        
+        
         for(ArbitreChaise ac : listArbitreChaise){
             aModelArbitreChaise.addElement(ac.getNom()+"  "+ac.getPrenom());
         }
-        afficherArbitreLigne(listArbitreLigne);
-        for(EquipeRamasseur er : listEquipeRamasseur){
-            aModelEquipeRamasseur.addElement(er.getId()+"");
+        
+        
+        int l;
+        for(l=0;l<6;l++){
+            listArbitreLigne1.remove(1);
         }
+        listArbitreLigne2.remove(0);
+        for(l=0;l<5;l++){
+            listArbitreLigne2.remove(1);
+        }
+        listArbitreLigne3.remove(0);
+        listArbitreLigne3.remove(0);
+        for(l=0;l<4;l++){
+            listArbitreLigne3.remove(1);
+        }
+        for(l=0;l<3;l++){
+            listArbitreLigne4.remove(0);
+        }
+        for(l=0;l<3;l++){
+            listArbitreLigne4.remove(1);
+        }
+        for(l=0;l<4;l++){
+            listArbitreLigne5.remove(0);
+        }
+        for(l=0;l<2;l++){
+            listArbitreLigne5.remove(1);
+        }
+        for(l=0;l<5;l++){
+            listArbitreLigne6.remove(0);
+        }
+        listArbitreLigne6.remove(1);
+        for(l=0;l<6;l++){
+            listArbitreLigne7.remove(0);
+        }
+        jComboBoxArbitreLigne1.setModel(modelArbitreLigne(listArbitreLigne1));
+        jComboBoxArbitreLigne2.setModel(modelArbitreLigne(listArbitreLigne2));
+        jComboBoxArbitreLigne3.setModel(modelArbitreLigne(listArbitreLigne3));
+        jComboBoxArbitreLigne4.setModel(modelArbitreLigne(listArbitreLigne4));
+        jComboBoxArbitreLigne5.setModel(modelArbitreLigne(listArbitreLigne5));
+        jComboBoxArbitreLigne6.setModel(modelArbitreLigne(listArbitreLigne6));
+        jComboBoxArbitreLigne7.setModel(modelArbitreLigne(listArbitreLigne7));
+        
+        
+        
+        listEquipeRamasseur1.remove(1);
+        listEquipeRamasseur2.remove(0);
+        for(EquipeRamasseur er : listEquipeRamasseur1){
+            aModelEquipeRamasseur1.addElement(er.getId()+"");
+        }
+        for(EquipeRamasseur er : listEquipeRamasseur2){
+            aModelEquipeRamasseur2.addElement(er.getId()+"");
+        }
+        
+        
+        for(String creneauIndispo : listCréneauIndisponible){
+            for(int i=0;i<listCréneau.size();i++){
+                if(listCréneau.get(i).equals(creneauIndispo)){
+                    listCréneau.remove(i);
+                }
+            }
+        }
+        
+        
+        if(listCréneau.size()>0){
+            for(String créneau : listCréneau){
+                aModelCréneau.addElement(créneau);
+            }
+        } else {
+            aModelCréneau.addElement("Aucun créneau disponible");
+        }
+        
+        
         jComboBoxCourt.setModel(aModelCourt);
         jComboBoxArbitreChaise.setModel(aModelArbitreChaise);
-        jComboBoxEquipeRamasseur1.setModel(aModelEquipeRamasseur);
-        jComboBoxEquipeRamasseur2.setModel(aModelEquipeRamasseur);
+        jComboBoxEquipeRamasseur1.setModel(aModelEquipeRamasseur1);
+        jComboBoxEquipeRamasseur2.setModel(aModelEquipeRamasseur2);
+        jComboBoxCréneauHoraire.setModel(aModelCréneau);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -225,9 +313,19 @@ public class CreerMatch extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "16/05/20", "17/05/20", "18/05/20", "19/05/20", "20/05/20", "21/05/20", "22/05/20", "23/05/20" }));
+        jComboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "16/05/2020", "17/05/2020", "18/05/2020", "19/05/2020", "20/05/2020", "21/05/2020", "22/05/2020", "23/05/2020" }));
+        jComboBoxDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxDateActionPerformed(evt);
+            }
+        });
 
         jComboBoxCréneauHoraire.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Créneau horaire" }));
+        jComboBoxCréneauHoraire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCréneauHoraireActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -352,9 +450,9 @@ public class CreerMatch extends javax.swing.JFrame {
             ArrayList<EquipeDouble> listEquipe1 = equipeDoubleDAO.findAll(niveau);
             ArrayList<EquipeDouble> listEquipe2 = equipeDoubleDAO.findAll(niveau);
             if(listEquipe1.size()>1){
-                afficherEquipes(listEquipe1,listEquipe2,listEquipe1.get(0),listEquipe2.get(1));
+                afficherEquipes(listEquipe1,listEquipe2);
             } else {
-                afficherEquipes(listEquipe1,listEquipe2,null,null);
+                afficherEquipes(listEquipe1,listEquipe2);
             }
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
@@ -396,9 +494,9 @@ public class CreerMatch extends javax.swing.JFrame {
             ArrayList<EquipeDouble> listEquipe1 = equipeDoubleDAO.findAll(niveau);
             ArrayList<EquipeDouble> listEquipe2 = equipeDoubleDAO.findAll(niveau);
             if(listEquipe1.size()>1){
-                afficherEquipes(listEquipe1,listEquipe2,listEquipe1.get(0),listEquipe2.get(1));
+                afficherEquipes(listEquipe1,listEquipe2);
             } else {
-                afficherEquipes(listEquipe1,listEquipe2,null,null);
+                afficherEquipes(listEquipe1,listEquipe2);
             }
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
@@ -415,55 +513,99 @@ public class CreerMatch extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxNiveauTournoiActionPerformed
 
     private void jComboBoxJoueur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxJoueur1ActionPerformed
-        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        String joueurEquipeSelect=jComboBoxJoueur2.getSelectedItem().toString();
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi simple")){
             ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
             ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
             if(listJoueur1.size()>1){
                 afficherJoueur2(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+                jComboBoxJoueur2.setSelectedItem(joueurEquipeSelect);
             } else {
                 afficherJoueurs(listJoueur1,listJoueur2);
             }
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi double")){
+            ArrayList<EquipeDouble> listEquipe1 = equipeDoubleDAO.findAll(niveau);
+            ArrayList<EquipeDouble> listEquipe2 = equipeDoubleDAO.findAll(niveau);
+            if(listEquipe1.size()>1){
+                char[] charEquipeDouble=jComboBoxJoueur1.getSelectedItem().toString().toCharArray();
+                char[] cjoueur1=new char[100];
+                char[] cjoueur2=new char[100];
+                int i=0,j=0,k=0;
+                while(charEquipeDouble[i]!=','){
+                    i++;
+                }
+                for(j=0;j<i;j++){
+                    cjoueur1[j]=charEquipeDouble[j];
+                }
+                for(j=i+2;j<charEquipeDouble.length;j++){
+                    cjoueur2[k]=charEquipeDouble[j];
+                    k++;
+                }
+                Joueur joueur1=getJoueur(cjoueur1);
+                Joueur joueur2=getJoueur(cjoueur2);
+                afficherEquipe2(listEquipe1,equipeDoubleDAO.findAvecIdJoueurs(joueur1.getId(), joueur2.getId()));
+                jComboBoxJoueur2.setSelectedItem(joueurEquipeSelect);
+            } else {
+                afficherEquipes(listEquipe2,listEquipe2);
+            }
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
             ArrayList<Joueur> listJoueur1 = joueurDAO.findAllQualification(niveau);
             ArrayList<Joueur> listJoueur2 = joueurDAO.findAllQualification(niveau);
             if(listJoueur1.size()>1){
                 afficherJoueur2(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+                jComboBoxJoueur2.setSelectedItem(joueurEquipeSelect);
             } else {
                 afficherJoueurs(listJoueur1,listJoueur2);
             }
         }
-        
-        int i = jComboBoxJoueur2.getModel().getSize();
-        for (int j=0;j<i;j++){
-            aModel.addElement(jComboBoxJoueur2.getModel().getElementAt(j));
-        }
-        aModel.addElement(oldJoueur2);
-        oldJoueur2=jComboBoxJoueur1.getSelectedItem().toString();
-        aModel.removeElement(jComboBoxJoueur1.getSelectedItem());
-        //jComboBoxJoueur2.setModel(trierModelJoueur(aModel));
     }//GEN-LAST:event_jComboBoxJoueur1ActionPerformed
 
     private void jComboBoxJoueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxJoueur2ActionPerformed
+        String joueurEquipeSelect=jComboBoxJoueur1.getSelectedItem().toString();
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi simple")){
             ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
             ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
             if(listJoueur1.size()>1){
-                afficherJoueur1(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+                afficherJoueur1(listJoueur1,getJoueur(jComboBoxJoueur2.getSelectedItem().toString().toCharArray()));
+                jComboBoxJoueur1.setSelectedItem(joueurEquipeSelect);
             } else {
                 afficherJoueurs(listJoueur1,listJoueur2);
             }
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi double")){
+            ArrayList<EquipeDouble> listEquipe1 = equipeDoubleDAO.findAll(niveau);
+            ArrayList<EquipeDouble> listEquipe2 = equipeDoubleDAO.findAll(niveau);
+            if(listEquipe1.size()>1){
+                char[] charEquipeDouble=jComboBoxJoueur2.getSelectedItem().toString().toCharArray();
+                char[] cjoueur1=new char[100];
+                char[] cjoueur2=new char[100];
+                int i=0,j=0,k=0;
+                while(charEquipeDouble[i]!=','){
+                    i++;
+                }
+                for(j=0;j<i;j++){
+                    cjoueur1[j]=charEquipeDouble[j];
+                }
+                for(j=i+2;j<charEquipeDouble.length;j++){
+                    cjoueur2[k]=charEquipeDouble[j];
+                    k++;
+                }
+                Joueur joueur1=getJoueur(cjoueur1);
+                Joueur joueur2=getJoueur(cjoueur2);
+                afficherEquipe1(listEquipe1,equipeDoubleDAO.findAvecIdJoueurs(joueur1.getId(), joueur2.getId()));
+                jComboBoxJoueur1.setSelectedItem(joueurEquipeSelect);
+            } else {
+                afficherEquipes(listEquipe2,listEquipe2);
+            }
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
             ArrayList<Joueur> listJoueur1 = joueurDAO.findAllQualification(niveau);
             ArrayList<Joueur> listJoueur2 = joueurDAO.findAllQualification(niveau);
             if(listJoueur1.size()>1){
-                afficherJoueur1(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+                afficherJoueur1(listJoueur1,getJoueur(jComboBoxJoueur2.getSelectedItem().toString().toCharArray()));
+                jComboBoxJoueur1.setSelectedItem(joueurEquipeSelect);
             } else {
                 afficherJoueurs(listJoueur1,listJoueur2);
             }
@@ -471,7 +613,29 @@ public class CreerMatch extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxJoueur2ActionPerformed
 
     private void jComboBoxCourtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCourtActionPerformed
-        
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        Court court = courtDAO.findAvecNom(jComboBoxCourt.getSelectedItem().toString());
+        ArrayList<String> listCréneauIndisponible = courtDAO.findCréneauLibre("16/05/2020",court.getNumero());
+        ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
+        for(String creneauIndispo : listCréneauIndisponible){
+            for(int i=0;i<listCréneau.size();i++){
+                if(listCréneau.get(i).equals(creneauIndispo)){
+                    listCréneau.remove(i);
+                }
+            }
+        }
+        if(listCréneau.size()>0){
+            for(String créneau : listCréneau){
+                aModel.addElement(créneau);
+            }
+        } else {
+            aModel.addElement("Aucun créneau disponible");
+        }
+        jComboBoxCréneauHoraire.setModel(aModel);
     }//GEN-LAST:event_jComboBoxCourtActionPerformed
 
     private void jComboBoxArbitreChaiseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreChaiseActionPerformed
@@ -479,40 +643,541 @@ public class CreerMatch extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxArbitreChaiseActionPerformed
 
     private void jComboBoxEquipeRamasseur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEquipeRamasseur1ActionPerformed
-        
+        DefaultComboBoxModel<String> aModel1 = new DefaultComboBoxModel();
+        ArrayList<EquipeRamasseur> listEquipeRamasseur = equipeRamasseurDAO.findAll();
+        String idEquipeSelect=jComboBoxEquipeRamasseur2.getSelectedItem().toString();
+        listEquipeRamasseur.remove(new Integer(jComboBoxEquipeRamasseur1.getSelectedItem().toString())-1);
+        for(EquipeRamasseur er : listEquipeRamasseur){
+            aModel1.addElement(er.getId()+"");
+        }
+        jComboBoxEquipeRamasseur2.setModel(aModel1);
+        jComboBoxEquipeRamasseur2.setSelectedItem(idEquipeSelect);
+        return;
     }//GEN-LAST:event_jComboBoxEquipeRamasseur1ActionPerformed
 
     private void jComboBoxEquipeRamasseur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEquipeRamasseur2ActionPerformed
-        
+        DefaultComboBoxModel<String> aModel1 = new DefaultComboBoxModel();
+        ArrayList<EquipeRamasseur> listEquipeRamasseur = equipeRamasseurDAO.findAll();
+        String idEquipeSelect=jComboBoxEquipeRamasseur1.getSelectedItem().toString();
+        listEquipeRamasseur.remove(new Integer(jComboBoxEquipeRamasseur2.getSelectedItem().toString())-1);
+        for(EquipeRamasseur er : listEquipeRamasseur){
+            aModel1.addElement(er.getId()+"");
+        }
+        jComboBoxEquipeRamasseur1.setModel(aModel1);
+        jComboBoxEquipeRamasseur1.setSelectedItem(idEquipeSelect);
+        return;
     }//GEN-LAST:event_jComboBoxEquipeRamasseur2ActionPerformed
 
     private void jComboBoxArbitreLigne1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne1ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne2=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne3=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne4=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne5=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne6=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne7=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6);   
+        for(ArbitreLigne al:listArbitreLigne2){
+            System.out.println(al.getNom());
+        }
+        for(ArbitreLigne al:listArbitreLigne3){
+            System.out.println(al.getNom());
+        }
+        for(ArbitreLigne al:listArbitreLigne4){
+            System.out.println(al.getNom());
+        }
+        for(ArbitreLigne al:listArbitreLigne5){
+            System.out.println(al.getNom());
+        }
+        for(ArbitreLigne al:listArbitreLigne6){
+            System.out.println(al.getNom());
+        }
+        for(ArbitreLigne al:listArbitreLigne7){
+            System.out.println(al.getNom());
+        }
+        
+        aModel = modelArbitreLigne(listArbitreLigne2);
+        jComboBoxArbitreLigne2.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne3);
+        jComboBoxArbitreLigne3.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne4);
+        jComboBoxArbitreLigne4.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne5);
+        jComboBoxArbitreLigne5.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne6);
+        jComboBoxArbitreLigne6.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne7);
+        jComboBoxArbitreLigne7.setModel(aModel);
+        /*
+        
+        jComboBoxArbitreLigne2.setSelectedIndex(chercherIndiceArbitreLigne(listArbitreLigne2,arbitreLigne2));
+        jComboBoxArbitreLigne3.setSelectedIndex(chercherIndiceArbitreLigne(listArbitreLigne3,arbitreLigne3));
+        jComboBoxArbitreLigne4.setSelectedIndex(chercherIndiceArbitreLigne(listArbitreLigne4,arbitreLigne4));
+        jComboBoxArbitreLigne5.setSelectedIndex(chercherIndiceArbitreLigne(listArbitreLigne5,arbitreLigne5));
+        jComboBoxArbitreLigne6.setSelectedIndex(chercherIndiceArbitreLigne(listArbitreLigne6,arbitreLigne6));
+        jComboBoxArbitreLigne7.setSelectedIndex(chercherIndiceArbitreLigne(listArbitreLigne7,arbitreLigne7));*/
+        jComboBoxArbitreLigne2.setSelectedItem(arbitreLigneSelect2);
+        jComboBoxArbitreLigne3.setSelectedItem(arbitreLigneSelect3);
+        jComboBoxArbitreLigne4.setSelectedItem(arbitreLigneSelect4);
+        jComboBoxArbitreLigne5.setSelectedItem(arbitreLigneSelect5);
+        jComboBoxArbitreLigne6.setSelectedItem(arbitreLigneSelect6);
+        jComboBoxArbitreLigne7.setSelectedItem(arbitreLigneSelect7);
     }//GEN-LAST:event_jComboBoxArbitreLigne1ActionPerformed
 
     private void jComboBoxArbitreLigne2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne2ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne1=enleverArbitresLigne(listArbitreLigne,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne3=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne4=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne5=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne6=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne7=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6);
+        
+        
+        aModel = modelArbitreLigne(listArbitreLigne1);
+        jComboBoxArbitreLigne1.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne3);
+        jComboBoxArbitreLigne3.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne4);
+        jComboBoxArbitreLigne4.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne5);
+        jComboBoxArbitreLigne5.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne6);
+        jComboBoxArbitreLigne6.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne7);
+        jComboBoxArbitreLigne7.setModel(aModel);
+        
+        
+        jComboBoxArbitreLigne1.setSelectedItem(arbitreLigneSelect1);
+        jComboBoxArbitreLigne3.setSelectedItem(arbitreLigneSelect3);
+        jComboBoxArbitreLigne4.setSelectedItem(arbitreLigneSelect4);
+        jComboBoxArbitreLigne5.setSelectedItem(arbitreLigneSelect5);
+        jComboBoxArbitreLigne6.setSelectedItem(arbitreLigneSelect6);
+        jComboBoxArbitreLigne7.setSelectedItem(arbitreLigneSelect7);
     }//GEN-LAST:event_jComboBoxArbitreLigne2ActionPerformed
 
     private void jComboBoxArbitreLigne3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne3ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne1=enleverArbitresLigne(listArbitreLigne,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne2=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne4=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne5=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne6=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne7=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6);
+        
+        
+        aModel = modelArbitreLigne(listArbitreLigne1);
+        jComboBoxArbitreLigne1.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne2);
+        jComboBoxArbitreLigne2.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne4);
+        jComboBoxArbitreLigne4.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne5);
+        jComboBoxArbitreLigne5.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne6);
+        jComboBoxArbitreLigne6.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne7);
+        jComboBoxArbitreLigne7.setModel(aModel);
+        
+        
+        
+        jComboBoxArbitreLigne1.setSelectedItem(arbitreLigneSelect1);
+        jComboBoxArbitreLigne2.setSelectedItem(arbitreLigneSelect2);
+        jComboBoxArbitreLigne4.setSelectedItem(arbitreLigneSelect4);
+        jComboBoxArbitreLigne5.setSelectedItem(arbitreLigneSelect5);
+        jComboBoxArbitreLigne6.setSelectedItem(arbitreLigneSelect6);
+        jComboBoxArbitreLigne7.setSelectedItem(arbitreLigneSelect7); 
     }//GEN-LAST:event_jComboBoxArbitreLigne3ActionPerformed
 
     private void jComboBoxArbitreLigne4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne4ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne1=enleverArbitresLigne(listArbitreLigne,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne2=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne3=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne5=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne6=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne7=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6);
+        
+        
+        aModel = modelArbitreLigne(listArbitreLigne1);
+        jComboBoxArbitreLigne1.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne2);
+        jComboBoxArbitreLigne2.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne3);
+        jComboBoxArbitreLigne3.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne5);
+        jComboBoxArbitreLigne5.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne6);
+        jComboBoxArbitreLigne6.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne7);
+        jComboBoxArbitreLigne7.setModel(aModel);
+        
+        
+        
+        jComboBoxArbitreLigne1.setSelectedItem(arbitreLigneSelect1);
+        jComboBoxArbitreLigne2.setSelectedItem(arbitreLigneSelect2);
+        jComboBoxArbitreLigne3.setSelectedItem(arbitreLigneSelect3);
+        jComboBoxArbitreLigne5.setSelectedItem(arbitreLigneSelect5);
+        jComboBoxArbitreLigne6.setSelectedItem(arbitreLigneSelect6);
+        jComboBoxArbitreLigne7.setSelectedItem(arbitreLigneSelect7); 
     }//GEN-LAST:event_jComboBoxArbitreLigne4ActionPerformed
 
     private void jComboBoxArbitreLigne5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne5ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne1=enleverArbitresLigne(listArbitreLigne,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne2=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne3=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne4=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne6=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne7=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6);
+        
+        
+        aModel = modelArbitreLigne(listArbitreLigne1);
+        jComboBoxArbitreLigne1.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne2);
+        jComboBoxArbitreLigne2.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne3);
+        jComboBoxArbitreLigne3.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne4);
+        jComboBoxArbitreLigne4.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne6);
+        jComboBoxArbitreLigne6.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne7);
+        jComboBoxArbitreLigne7.setModel(aModel);
+        
+        
+        jComboBoxArbitreLigne1.setSelectedItem(arbitreLigneSelect1);
+        jComboBoxArbitreLigne2.setSelectedItem(arbitreLigneSelect2);
+        jComboBoxArbitreLigne3.setSelectedItem(arbitreLigneSelect3);
+        jComboBoxArbitreLigne4.setSelectedItem(arbitreLigneSelect4);
+        jComboBoxArbitreLigne6.setSelectedItem(arbitreLigneSelect6);
+        jComboBoxArbitreLigne7.setSelectedItem(arbitreLigneSelect7); 
     }//GEN-LAST:event_jComboBoxArbitreLigne5ActionPerformed
 
     private void jComboBoxArbitreLigne6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne6ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne7 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne1=enleverArbitresLigne(listArbitreLigne,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne2=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne3=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne4=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne5=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne7=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6);
+        
+        
+        aModel = modelArbitreLigne(listArbitreLigne1);
+        jComboBoxArbitreLigne1.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne2);
+        jComboBoxArbitreLigne2.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne3);
+        jComboBoxArbitreLigne3.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne4);
+        jComboBoxArbitreLigne4.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne5);
+        jComboBoxArbitreLigne5.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne7);
+        jComboBoxArbitreLigne7.setModel(aModel);
+        
+        
+        jComboBoxArbitreLigne1.setSelectedItem(arbitreLigneSelect1);
+        jComboBoxArbitreLigne2.setSelectedItem(arbitreLigneSelect2);
+        jComboBoxArbitreLigne3.setSelectedItem(arbitreLigneSelect3);
+        jComboBoxArbitreLigne4.setSelectedItem(arbitreLigneSelect4);
+        jComboBoxArbitreLigne5.setSelectedItem(arbitreLigneSelect5);
+        jComboBoxArbitreLigne7.setSelectedItem(arbitreLigneSelect7);
     }//GEN-LAST:event_jComboBoxArbitreLigne6ActionPerformed
 
     private void jComboBoxArbitreLigne7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxArbitreLigne7ActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
         
+        ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne1 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne2 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne3 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne4 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne5 = arbitreLigneDAO.findAll();
+        ArrayList<ArbitreLigne> listArbitreLigne6 = arbitreLigneDAO.findAll();
+        
+        
+        String arbitreLigneSelect1=jComboBoxArbitreLigne1.getSelectedItem().toString();
+        String arbitreLigneSelect2=jComboBoxArbitreLigne2.getSelectedItem().toString();
+        String arbitreLigneSelect3=jComboBoxArbitreLigne3.getSelectedItem().toString();
+        String arbitreLigneSelect4=jComboBoxArbitreLigne4.getSelectedItem().toString();
+        String arbitreLigneSelect5=jComboBoxArbitreLigne5.getSelectedItem().toString();
+        String arbitreLigneSelect6=jComboBoxArbitreLigne6.getSelectedItem().toString();
+        String arbitreLigneSelect7=jComboBoxArbitreLigne7.getSelectedItem().toString();
+        
+        
+        ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigneSelect1.toCharArray());
+        ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigneSelect2.toCharArray());
+        ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigneSelect3.toCharArray());
+        ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigneSelect4.toCharArray());
+        ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigneSelect5.toCharArray());
+        ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigneSelect6.toCharArray());
+        ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigneSelect7.toCharArray());
+        
+        
+        listArbitreLigne1=enleverArbitresLigne(listArbitreLigne,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne2=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne3=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne4,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne4=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne5,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne5=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne6,arbitreLigne7);
+        listArbitreLigne = arbitreLigneDAO.findAll();
+        listArbitreLigne6=enleverArbitresLigne(listArbitreLigne,arbitreLigne1,arbitreLigne2,arbitreLigne3,arbitreLigne4,arbitreLigne5,arbitreLigne7);
+        
+        
+        aModel = modelArbitreLigne(listArbitreLigne1);
+        jComboBoxArbitreLigne1.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne2);
+        jComboBoxArbitreLigne2.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne3);
+        jComboBoxArbitreLigne3.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne4);
+        jComboBoxArbitreLigne4.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne5);
+        jComboBoxArbitreLigne5.setModel(aModel);
+        aModel = modelArbitreLigne(listArbitreLigne6);
+        jComboBoxArbitreLigne6.setModel(aModel);
+        
+        
+        jComboBoxArbitreLigne1.setSelectedItem(arbitreLigneSelect1);
+        jComboBoxArbitreLigne2.setSelectedItem(arbitreLigneSelect2);
+        jComboBoxArbitreLigne3.setSelectedItem(arbitreLigneSelect3);
+        jComboBoxArbitreLigne4.setSelectedItem(arbitreLigneSelect4);
+        jComboBoxArbitreLigne5.setSelectedItem(arbitreLigneSelect5);
+        jComboBoxArbitreLigne6.setSelectedItem(arbitreLigneSelect6);
     }//GEN-LAST:event_jComboBoxArbitreLigne7ActionPerformed
+
+    private void jComboBoxCréneauHoraireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCréneauHoraireActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCréneauHoraireActionPerformed
+
+    private void jComboBoxDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDateActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        Court court = courtDAO.findAvecNom(jComboBoxCourt.getSelectedItem().toString());
+        ArrayList<String> listCréneauIndisponible = courtDAO.findCréneauLibre(jComboBoxDate.getSelectedItem().toString(),court.getNumero());
+        System.out.println(jComboBoxDate.getSelectedItem().toString()+" "+court.getNumero());
+        ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
+        for(String creneauIndispo : listCréneauIndisponible){
+            for(int i=0;i<listCréneau.size();i++){
+                if(listCréneau.get(i).equals(creneauIndispo)){
+                    listCréneau.remove(i);
+                }
+            }
+        }
+        if(listCréneau.size()>0){
+            for(String créneau : listCréneau){
+                aModel.addElement(créneau);
+            }
+        } else {
+            aModel.addElement("Aucun créneau disponible");
+        }
+        jComboBoxCréneauHoraire.setModel(aModel);
+    }//GEN-LAST:event_jComboBoxDateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -571,7 +1236,7 @@ public class CreerMatch extends javax.swing.JFrame {
     
     private void afficherJoueur1(ArrayList<Joueur> listJoueur, Joueur j){
         DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
-        listJoueur.remove(j);
+        listJoueur.remove(chercherIndiceJoueur(listJoueur,j));
         for(Joueur joueur : listJoueur){
             aModel.addElement(joueur.getNom()+"  "+joueur.getPrenom());
         }
@@ -580,19 +1245,19 @@ public class CreerMatch extends javax.swing.JFrame {
     
     private void afficherJoueur2(ArrayList<Joueur> listJoueur, Joueur j){
         DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
-        listJoueur.remove(j);
+        listJoueur.remove(chercherIndiceJoueur(listJoueur,j));
         for(Joueur joueur : listJoueur){
             aModel.addElement(joueur.getNom()+"  "+joueur.getPrenom());
         }
         jComboBoxJoueur2.setModel(aModel);
     }
     
-    private void afficherEquipes(ArrayList<EquipeDouble> listEquipe1, ArrayList<EquipeDouble> listEquipe2, EquipeDouble equipe1, EquipeDouble equipe2){
+    private void afficherEquipes(ArrayList<EquipeDouble> listEquipe1, ArrayList<EquipeDouble> listEquipe2){
         DefaultComboBoxModel<String> aModel1 = new DefaultComboBoxModel();
         DefaultComboBoxModel<String> aModel2 = new DefaultComboBoxModel();
         if(listEquipe1.size()>1){
-            listEquipe1.remove(equipe1);
-            listEquipe2.remove(equipe2);
+            listEquipe1.remove(0);
+            listEquipe2.remove(1);
             for(EquipeDouble equipeDouble : listEquipe1){
                 Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
                 Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
@@ -611,6 +1276,28 @@ public class CreerMatch extends javax.swing.JFrame {
         jComboBoxJoueur2.setModel(aModel2);
     }
     
+    private void afficherEquipe1(ArrayList<EquipeDouble> listEquipe, EquipeDouble equipe){
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        listEquipe.remove(chercherIndiceEquipe(listEquipe,equipe));
+        for(EquipeDouble equipeDouble : listEquipe){
+            Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
+            Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
+            aModel.addElement(joueur1.getNom()+"  "+joueur1.getPrenom()+", "+joueur2.getNom()+"  "+joueur2.getPrenom());
+        }
+        jComboBoxJoueur1.setModel(aModel);
+    }
+    
+    private void afficherEquipe2(ArrayList<EquipeDouble> listEquipe, EquipeDouble equipe){
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        listEquipe.remove(chercherIndiceEquipe(listEquipe,equipe));
+        for(EquipeDouble equipeDouble : listEquipe){
+            Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
+            Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
+            aModel.addElement(joueur1.getNom()+"  "+joueur1.getPrenom()+", "+joueur2.getNom()+"  "+joueur2.getPrenom());
+        }
+        jComboBoxJoueur2.setModel(aModel);
+    }
+    
     public int chercherIndiceJoueur(ArrayList<Joueur> listJoueur,Joueur joueur){
         int indice=0;
         while(listJoueur.get(indice).getId()!=joueur.getId()){
@@ -619,21 +1306,36 @@ public class CreerMatch extends javax.swing.JFrame {
         return indice--;
     }
     
-    private void afficherArbitreLigne(ArrayList<ArbitreLigne> listArbitreLigne){
-        DefaultComboBoxModel<String> aModelArbitreLigne = new DefaultComboBoxModel();
-        for(ArbitreLigne al : listArbitreLigne){
-            aModelArbitreLigne.addElement(al.getNom()+"  "+al.getPrenom());
+    public int chercherIndiceArbitreLigne(ArrayList<ArbitreLigne> listArbitreLigne,ArbitreLigne arbitreLigne){
+        int indice=0;
+        while(listArbitreLigne.get(indice).getId()!=arbitreLigne.getId()){
+            indice++;
         }
-        jComboBoxArbitreLigne1.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne2.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne3.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne4.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne5.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne6.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne7.setModel(aModelArbitreLigne);
+        return indice--;
     }
     
-    private Joueur getJoueur(char[] nomprenom){
+    public int chercherIndiceEquipe(ArrayList<EquipeDouble> listEquipe,EquipeDouble equipe){
+        int indice=0;
+        while(listEquipe.get(indice).getId()!=equipe.getId()){
+            indice++;
+        }
+        return indice--;
+    }
+    
+    private DefaultComboBoxModel<String> modelArbitreLigne(ArrayList<ArbitreLigne> listArbitreLigne){
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        for(ArbitreLigne al : listArbitreLigne){
+            aModel.addElement(al.getNom()+"  "+al.getPrenom());
+        }
+        return aModel;
+    }
+    
+    private ArbitreLigne getArbitreLigne(char[] nomprenom){
+        String[] nometprenom=getNomEtPrenom(nomprenom);
+        return arbitreLigneDAO.find(arbitreLigneDAO.findIdAvecNomPrenom(nometprenom[0],nometprenom[1]));
+    }
+    
+    private String[] getNomEtPrenom(char[] nomprenom){
         Boolean temp=true,temp2=true;
         int i=1;
         String nom="",prenom="";
@@ -652,12 +1354,36 @@ public class CreerMatch extends javax.swing.JFrame {
                     }
                     j++;
                 }
-                System.out.println(nom+" "+prenom);
                 temp=false;
             }
             i++;
         }
-        return joueurDAO.find(joueurDAO.findIdNomPrenom(nom, prenom));
+        String[] nometprenom=new String[2];
+        nometprenom[0]=nom;
+        nometprenom[1]=prenom;
+        return nometprenom;
+    }
+    
+    private Joueur getJoueur(char[] nomprenom){
+        String[] nometprenom=getNomEtPrenom(nomprenom);
+        return joueurDAO.find(joueurDAO.findIdAvecNomPrenom(nometprenom[0], nometprenom[1]));
+    }
+    
+    private ArrayList<ArbitreLigne> enleverArbitresLigne(ArrayList<ArbitreLigne> listArbitreLigne, ArbitreLigne arbitreLigne1, ArbitreLigne arbitreLigne2, ArbitreLigne arbitreLigne3, ArbitreLigne arbitreLigne4, ArbitreLigne arbitreLigne5, ArbitreLigne arbitreLigne6) {
+       int indice;
+       indice=chercherIndiceArbitreLigne(listArbitreLigne,arbitreLigne1);
+       listArbitreLigne.remove(indice);
+       indice=chercherIndiceArbitreLigne(listArbitreLigne,arbitreLigne2);
+       listArbitreLigne.remove(indice);
+       indice=chercherIndiceArbitreLigne(listArbitreLigne,arbitreLigne3);
+       listArbitreLigne.remove(indice);
+       indice=chercherIndiceArbitreLigne(listArbitreLigne,arbitreLigne4);
+       listArbitreLigne.remove(indice);
+       indice=chercherIndiceArbitreLigne(listArbitreLigne,arbitreLigne5);
+       listArbitreLigne.remove(indice);
+       indice=chercherIndiceArbitreLigne(listArbitreLigne,arbitreLigne6);
+       listArbitreLigne.remove(indice);
+       return listArbitreLigne;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

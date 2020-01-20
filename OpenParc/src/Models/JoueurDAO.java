@@ -140,7 +140,7 @@ public class JoueurDAO extends DAO<Joueur>{
         return list;
     }
     
-    public int findIdNomPrenom(String nom, String prenom) {
+    public int findIdAvecNomPrenom(String nom, String prenom) {
         try {
             PreparedStatement prepare = this.connect.prepareStatement("SELECT id from Joueur where nom=? and prenom=?");
             prepare.setString(1, nom);

@@ -6,6 +6,7 @@
 package Models;
 
 import Controleur.Court;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class CourtDAO extends DAO<Court>{
             while (result.next()){
                 return new Court(result.getString(2), result.getInt(1),result.getString(3));
             }
+            result.close();
             prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,11 +78,55 @@ public class CourtDAO extends DAO<Court>{
                 Court c = new Court(result.getString(2), result.getInt(1),result.getString(3));
                 list.add(c);
             }
+            result.close();
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public ArrayList<String> findCréneauLibre(String date,int court){
+        ArrayList<String> listCréneau=new ArrayList();
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT créneauHoraire from Matche where numCourt=? and jour=?");
+            prepare.setInt(1, court);
+            prepare.setString(2, date);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                String creneau=result.getString(1);
+                listCréneau.add(creneau);
+            }
+            prepare = this.connect.prepareStatement("SELECT créneauHoraire from Entrainement where numCourt=? and jour=?");
+            prepare.setInt(1, court);
+            prepare.setString(2, date);
+            result = prepare.executeQuery();
+            while (result.next()){
+                String creneau=result.getString(1);
+                listCréneau.add(creneau);
+            }
+            result.close();
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listCréneau;
+    }
+    
+    public Court findAvecNom(String nom) {
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Court where Nom=?");
+            prepare.setString(1, nom);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return new Court(result.getString(2), result.getInt(1),result.getString(3));
+            }
+            result.close();
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
 }
