@@ -10,7 +10,7 @@ require_once(PATH_VIEWS.$page.'.php');
 		foreach ($res6 as $p){
 				$result = $p['montant'] ;
 			}
-
+			$res6 -> closeCursor();
 		return $result.' $';
 	}
 

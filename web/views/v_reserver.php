@@ -11,7 +11,7 @@
 <!--  Zone message d'alerte -->
 <?php require_once(PATH_VIEWS.'alert.php');?>
 <div class="container">
-	<from action='index.php?page=validation' method='POST' name='reservation_form'>
+	<form action='index.php?page=validation' method='POST' name='reservation_form'>
 <div class="row">
 
 	<div class="col-5">
@@ -21,7 +21,7 @@
 	  <thead>
 	    <tr  class="table-info">
 	        <th scope="col">
-		      <select class="form-control" id="exampleSelect1">
+		      <select class="form-control" id="exampleSelect1" name="exampleSelect1">
 		        <option>Dimanche</option>
 		        <option>Lundi</option>
 		        <option>Mardi</option>
@@ -39,7 +39,7 @@
 	    <tr class="table-active">
 	      <th >moins de 3 ans</th>
 	      <td>
-	      	<select class="form-control" id="exampleSelect1">
+	      	<select class="form-control" id="exampleSelect2" name="exampleSelect">
 	      		<option>1</option>
 	      		<option>2</option>
 	      	</select>
@@ -51,7 +51,7 @@
 	    <tr class="table-active">
 	      <th >moins de 12 ans</th>
 	      <td>
-	      	<select class="form-control" id="exampleSelect1">
+	      	<select class="form-control" id="exampleSelect2" name="exampleSelect2">
 	      		<option>1</option>
 	      		<option>2</option>
 	      	</select>
@@ -63,7 +63,7 @@
 	    <tr class="table-active">
 	      <th >plus de 12 ans</th>
 	      <td>
-	      	<select class="form-control" id="exampleSelect1">
+	      	<select class="form-control" id="exampleSelect12" name="exampleSelect12">
 	      		<option>1</option>
 	      		<option>2</option>
 	      	</select>
@@ -82,10 +82,13 @@
 		<h5 class="text-info" ><b>Rentrer un <i>code promo</i> ou de<i> licence </i>:</b></h5>
 
 		<div>
+			
 			<label for="codepromo" class="  form-label">Entre ton code promo pour avoir une réduction :</label>
 			<input class="form-control" type="text" name="codepromo">
 			<label for="nlicence" class=" form-label">Entre ton numéro de licence pour avoir une réduction :</label>
 			<input class="form-control" type="text" name="nlicence">
+			
+			
 		</div>
 		<div style="margin-top : 30pt;" class="text-center">
 			<button type="submit" class="btn btn-secondary btn-lg">Valider</button>
@@ -95,6 +98,6 @@
 
 
 </div>
+</form>
 
-</from>
 </div>

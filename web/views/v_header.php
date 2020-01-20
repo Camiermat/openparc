@@ -69,6 +69,22 @@
 			}
 		?>
 
+		<?php 
+		if (isset($fujiko)){
+			if ($fujiko==1) {
+
+				echo'
+				<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+						Code promo non valide !
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+				</div>
+				';
+			}
+		}
+		?>
+
 		<!-- Menu -->
 		<?php include(PATH_VIEWS.'menu.php'); ?>
 		<!-- Vue -->
