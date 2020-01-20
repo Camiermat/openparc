@@ -32,6 +32,7 @@ public class ArbitreLigneDAO extends DAO<ArbitreLigne>{
                 ArbitreLigne c = new ArbitreLigne(result.getInt(1), result.getString(2),result.getString(3),result.getString(4),result.getString(5));
                 list.add(c);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

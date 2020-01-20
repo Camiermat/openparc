@@ -49,6 +49,7 @@ public class UserAppDAO extends DAO<UserApp>{
             prepare.setString(2,password);
             ResultSet result = prepare.executeQuery();
             if(result.next())return true;
+            prepare.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
