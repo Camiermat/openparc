@@ -16,7 +16,7 @@
 
 	<div class="col-5">
 		<h1>Etape 1 :</h1>
-			<h5><b>Selectionner les <i>places </i>:</b></h5>
+			<h5 class="text-info" ><b>Selectionner les <i>places </i>:</b></h5>
 	<table class="table table-striped table-bordered ">
 	  <thead>
 	    <tr  class="table-info">
@@ -79,7 +79,7 @@
 
 	<div class="col-6">
 		<h1>Etape 2 :</h1>
-		<h5 ><b>Rentrer un <i>code promo</i> ou de<i> licence </i>:</b></h5>
+		<h5 class="text-info" ><b>Rentrer un <i>code promo</i> ou de<i> licence </i>:</b></h5>
 
 		<div>
 			<label for="codepromo" class="  form-label">Entre ton code promo pour avoir une réduction :</label>
@@ -87,8 +87,8 @@
 			<label for="nlicence" class=" form-label">Entre ton numéro de licence pour avoir une réduction :</label>
 			<input class="form-control" type="text" name="nlicence">
 		</div>
-		<div style="margin-top : 10pt;" class="text-center">
-			<button type="submit" class="btn btn-primary">Valider</button>
+		<div style="margin-top : 30pt;" class="text-center">
+			<button type="submit" class="btn btn-secondary">Valider</button>
 		</div>
 
 	</div>
