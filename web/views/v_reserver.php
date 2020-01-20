@@ -14,7 +14,7 @@
 	<form action='index.php?page=validation' method='POST' name='reservation_form'>
 <div class="row">
 
-	<div class="col-5">
+	<div class="col-md-5 col-sm-12">
 		<h1>Etape 1 :</h1>
 			<h5 class="text-info" ><b>Selectionner les <i>places </i>:</b></h5>
 	<table class="table table-striped table-bordered ">
@@ -77,7 +77,7 @@
 	</table> 
 	</div>	
 
-	<div class="col-6">
+	<div class="col-md-6 col-sm-12">
 		<h1>Etape 2 :</h1>
 		<h5 class="text-info" ><b>Rentrer un <i>code promo</i> ou de<i> licence </i>:</b></h5>
 

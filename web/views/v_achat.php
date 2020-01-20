@@ -12,15 +12,15 @@
 <?php require_once(PATH_VIEWS.'alert.php');?>
 <div class="container">
 	<div class="row">
-		<div class="col-6">
+		<div class="col-md-6 col-sm-12">
 			<h1 class="col-12">Récapitulatif de la commande :</h1>
-			<p>Nombres de billets moins de 3 ans : <?= $nbmoin3.' Gratuit en catégorie '.$catmoin3 ;?> </p>
-			<p>Nombres de billets moins de 12 ans : <?=$nbmoin12.' à '.$prixmoin12.' $ en catégorie '.$catmoin12 ;?> </p>
-			<p><h7>Sous total : <?= $nbmoin12*$prixmoin12.' $' ;?></h7></p>
-			<p>Nombre de billets plus de 12 ans : <?=$nbplu12.' à '.$prixplus12.' $ en catégorie '.$catplu12 ;?> </p>
-			<p><h7>Sous total : <?= $nbplu12*$prixplus12.' $' ;?></h7></p>
-			<p>Total hors promotions : <?= $nbmoin12*$prixmoin12 + $nbplu12*$prixplus12.' $' ;?></p>
-			<p>Promotion de : <?php if (isset($pro)) {
+			<p><span class="text-success">Nombres de billets moins de 3 ans </span>: <?= $nbmoin3.' Gratuit en catégorie '.$catmoin3 ;?> </p>
+			<p><span class="text-success">Nombres de billets moins de 12 ans</span> : <?=$nbmoin12.' à '.$prixmoin12.' $ en catégorie '.$catmoin12 ;?> </p>
+			<p><h7><span class="text-info">Sous total </span>: <?= $nbmoin12*$prixmoin12.' $' ;?></h7></p>
+			<p><span class="text-success">Nombre de billets plus de 12 ans </span>: <?=$nbplu12.' à '.$prixplus12.' $ en catégorie '.$catplu12 ;?> </p>
+			<p><h7><span class="text-info">Sous total</span> : <?= $nbplu12*$prixplus12.' $' ;?></h7></p>
+			<p><span class="text-warning">Total hors promotions </span>: <?= $nbmoin12*$prixmoin12 + $nbplu12*$prixplus12.' $' ;?></p>
+			<p><span class="text-info">Promotion de</span> : <?php if (isset($pro)) {
 										echo $pro.' %';
 									}
 									else{
@@ -28,7 +28,7 @@
 									} ?>
 				
 			</p>
-			<p>Total : <?php 
+			<p><span class="text-secondary">Total </span>: <?php 
 			if(isset($pro)) {
 				echo ($nbmoin12*$prixmoin12 + $nbplu12*$prixplus12) - (($nbmoin12*$prixmoin12 + $nbplu12*$prixplus12)*($pro/100)).' $';
 			}else{
@@ -38,7 +38,7 @@
 			
 
 		</div>
-		<div class="col-6">
+		<div class="col-md-6 col-sm-12">
 
 			<h1 class="col-12">Moyen de Récupération :</h1>
 			<h3 class="col-12">Le QR code :</h3>
