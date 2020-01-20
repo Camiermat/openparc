@@ -53,7 +53,8 @@
 		<li>
 			<?php
 			if (isset($_SESSION['Identifiant'])) {
-					echo '<a href="index.php?page=deconnexion">'.MENU_DECONNEXION.'</a>';
+					echo '<a style="margin-right:15pt;" href="index.php?page=historique">'.MENU_ACHATS.'</a>
+							<a href="index.php?page=deconnexion">'.MENU_DECONNEXION.'</a>';
 			} else {
 				echo '<a href="index.php?page=connexion" class="menubtnn">'.MENU_CONNEXION.'</a>
 				<a href="index.php?page=inscription" class="menubtnn">'.MENU_INSCRIPTION.'</a>';

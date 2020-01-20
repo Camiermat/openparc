@@ -28,6 +28,7 @@ class UserDAO extends DAO {
 	public function createUser($i,$m,$e){
 		$res = $this->prepareCat('INSERT into User values (?,?,?)');
 		$res -> execute(array($i,$m,$e));
+		$res -> closeCursor();
 		return null;
 	}
 

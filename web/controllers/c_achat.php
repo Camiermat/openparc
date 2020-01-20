@@ -30,6 +30,12 @@ require_once(PATH_MODELS.'UserDAO.php');
 		$res8 -> closeCursor();
 		return $resulta;
 	}
+	function insert($identif,$msg,$id){
+		$res = (new UserDAO)->prepareCat('INSERT into Achats values (?,?,?)');
+		$res -> execute(array($identif,$msg,$id));
+		$res -> closeCursor();
+		return null;
+	}
 
 
 $nbmoin3 = htmlspecialchars($_POST['moinsde3quant']);

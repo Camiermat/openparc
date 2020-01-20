@@ -16,7 +16,7 @@ define('TITRE_PAGE_INSCRIPTION','Inscription utilisateur');
 
 define('TITRE_PAGE_ADMIN','Modifications administrateur');
 
-
+define('MENU_ACHATS','Achats');
 
 define('TEXTE_PAGE_404','Oops, la page demandée n\'existe pas !');
 define('MESSAGE_ERREUR',"Une erreur s'est produite");
