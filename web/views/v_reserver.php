@@ -11,7 +11,7 @@
 <!--  Zone message d'alerte -->
 <?php require_once(PATH_VIEWS.'alert.php');?>
 <div class="container">
-	<from>
+	<from action='index.php?page=validation' method='POST' name='reservation_form'>
 <div class="row">
 
 	<div class="col-5">

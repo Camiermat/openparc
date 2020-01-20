@@ -20,15 +20,18 @@ $skoooilibit = 0;
 				$mo = htmlspecialchars($_POST['montant_promo']);
 				$res -> execute(array($co,$mo));
 				$skilibit = 1;
+				$res -> closeCursor();
 			}
-			if(isset($_POST['plus12']) && isset($_POST['moins12'])){
-				$res2 = (new UserDAO)->prepareCat('UPDATE Prix SET montant=? where nom=?');
-				$res3 = (new UserDAO)->prepareCat('UPDATE Prix SET montant=? where nom=?');
-				$plus = htmlspecialchars($_POST['plus12']);
-				$moins = htmlspecialchars($_POST['moins12']);
-				$res2 -> execute(array($plus, "plus12"));
-				$res3 -> execute(array($moins, "moins12"));
+			if(isset($_POST['jour']) &&  isset($_POST['prixx']) && isset($_POST['cat'])){
+				$res2 = (new UserDAO)->prepareCat('UPDATE Prix SET montant=? where nom=? and cat=?');
+				$c = htmlspecialchars($_POST['cat']);
+				$plus = htmlspecialchars($_POST['jour']);
+				$moins = htmlspecialchars($_POST['prixx']);
+				$res2 -> execute(array($moins, $plus, $c));
+
 				$skoooilibit = 1;
+				$res2 -> closeCursor();
+
 			}
 		}
 	}

@@ -45,13 +45,26 @@
 	<form class="col-md-6 col-sm-12" action='index.php?page=admin' method='POST' name='admin_form_12'>
 		<h2> Modification des prix</h2>
 		<div class="form-group row">
-			<label for="moins12" >Prix <b>moins</b> de 12ans :</label>
-			<input type='number' id="moins12" class="form-control col-2" name='moins12' required></input>
+			<label for="jour" >Selectioner le jour :</label>
+			<select class="form-control col-4" id="jour" name="jour" >
+		        <option>Dimanche</option>
+		        <option>Lundi</option>
+		        <option>Mardi</option>
+		        <option>Mercredi</option>
+		        <option>Jeudi</option>
+		        <option>Vendredi</option>
+		        <option>Samedi</option>
+		      </select>
 		</div>
 		<div class="form-group row">
-			<label class="" for="plus12" >Prix <b>plus</b> de 12ans :</label>
-			<input type='number' id="plus12" class="form-control col-2" name='plus12' required></input>
-			<div class="col-12"><button type="submit" style="margin-top: 10pt;" class="btn btn-info ">Valider</button></div>
+			<label class="" for="prixx" >Nouveau prix :</label>
+			<input type='number' id="prixx" class="form-control col-2" name='prixx' required></input>
+			<label class="" for="cat" >Catégorie :</label>
+			<select class="form-control col-2" id="cat" name="cat" >
+		        <option>1</option>
+		        <option>2</option>
+		      </select>
+			<div class="col-12 text-center"><button type="submit" style="margin-top: 10pt;" class="btn btn-info ">Valider</button></div>
 		</div>
 	</form>
 
