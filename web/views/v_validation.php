@@ -3,7 +3,7 @@
 
 <!--  Zone message d'alerte -->
 <?php require_once(PATH_VIEWS.'alert.php');
-if(((!($nbplu12*$prixplus12!=0) and !($nbmoin3!=0)) or !(isset($_SESSION['Identifiant'])))){
+if(((!($nbmoin12*$prixmoin12 + $nbplu12*$prixplus12!=0) and !($nbmoin3!=0)) or !(isset($_SESSION['Identifiant'])))){
 	echo'
 							<div class="alert alert-danger alert-dismissible fade show" role="alert">
 								<p>Tu n\'es pas connecté ou ta comande est vide</p>
@@ -55,7 +55,7 @@ if(((!($nbplu12*$prixplus12!=0) and !($nbmoin3!=0)) or !(isset($_SESSION['Identi
 				<?='<input type="hidden" name="plusde12quant" value="'.$nbplu12.'">';?>
 				<?='<input type="hidden" name="exampleSelect12" value="'.$catplu12.'">';?>
 				<?php 
-					if((($nbplu12*$prixplus12!=0) and ($nbmoin3!=0)) or (isset($_SESSION['Identifiant']))){
+					if((($nbmoin12*$prixmoin12 + $nbplu12*$prixplus12!=0) or ($nbmoin3!=0)) and (isset($_SESSION['Identifiant']))){
 						echo '<div style="margin-top : 30pt;" class="text-center">
 							<button type="submit" class="btn btn-secondary btn-lg">Valider</button>
 							<h6 class="col-12 text-warning">Vous allez etre redirigé vers votre page de payement</h5>

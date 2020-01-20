@@ -29,7 +29,7 @@
 	</head> 
 	<body>
 		<!-- En-tête -->
-		<header class="header" >
+		<header class="header bg-primary" >
 			<section class="container" >
 				<div class = "row">
 					

@@ -43,8 +43,14 @@
 			<h1 class="col-12">Moyen de Récupération :</h1>
 			<h3 class="col-12">Le QR code :</h3>
 			<div>
-				<!--Qr code -->
-				<a href="#"><button class="btn btn-sm btn-warning">Télécharger le qr code</button></a>
+				<?php
+					$bonsoir= 'Identifiant:'.$_SESSION['Identifiant'].',Nombres de billets moins de 3 ans:'.$nbmoin3.'en catégorie'.$catmoin3.',Nombres de billets moins de 12 ans:'.$nbmoin12.'en catégorie'.$catmoin12.',Nombre de billets plus de 12 ans:'.$nbplu12.'en catégorie'.$catplu12.',id:'.uniqid();
+					
+						echo '<img id="imageQRcode" src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl='.$bonsoir.'" alt="QR Code" name="imageQRcode" />';
+				
+				
+			echo '<a href="http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl='.$bonsoir.'"><button class="btn btn-sm btn-warning">Télécharger le qr code</button></a>';
+				?>
 			</div>
 			<h7 class="col-12 text-info"><b>**</b><i> Un email vous a été envoyé avec le récapitulatif et le qr code</i></h7>
 			
