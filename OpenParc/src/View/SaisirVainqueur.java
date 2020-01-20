@@ -36,30 +36,34 @@ public class SaisirVainqueur extends javax.swing.JFrame {
         DefaultComboBoxModel<String> aModelMatch = new DefaultComboBoxModel();
         ArrayList<Match> listMatch = matchDAO.findTournoiSimple();
         ArrayList<Integer> listJoueur=new ArrayList();
-        ArrayList<Integer> listIndiceMatchEnlever=new ArrayList();
+        ArrayList<Match> listMatchEnlever=new ArrayList();
         if(listMatch.size()>0){
             int i=0;
             for(Match match : listMatch){
                 Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
                 Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
                 if(joueur1.getIdTournoiSimple()!=joueur2.getIdTournoiSimple()){
-                    listIndiceMatchEnlever.add(i);
+                    listMatchEnlever.add(match);
                 }
-                i++;
             }
-            for(Integer ind:listIndiceMatchEnlever){
-                listMatch.remove(listMatch.get(ind));
+            for(Match match:listMatchEnlever){
+                listMatch.remove(match);
             }
-            listJoueur.add(listMatch.get(0).getIdJoueur1());
-            listJoueur.add(listMatch.get(0).getIdJoueur2());
-            for(int idJoueur : listJoueur){
-                Joueur joueur=joueurDAO.find(idJoueur);
-                aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
-            }
-            for(Match match : listMatch){
-                Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
-                Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
-                aModelMatch.addElement(match.getId()+" "+joueur1.getNom()+" - "+joueur2.getNom());
+            if(listMatch.size()>0){
+                listJoueur.add(listMatch.get(0).getIdJoueur1());
+                listJoueur.add(listMatch.get(0).getIdJoueur2());
+                for(int idJoueur : listJoueur){
+                    Joueur joueur=joueurDAO.find(idJoueur);
+                    aModelJoueurEquipe.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+                }
+                for(Match match : listMatch){
+                    Joueur joueur1=joueurDAO.find(match.getIdJoueur1());
+                    Joueur joueur2=joueurDAO.find(match.getIdJoueur2());
+                    aModelMatch.addElement(match.getId()+" "+joueur1.getNom()+" - "+joueur2.getNom());
+                }
+            } else {
+                aModelMatch.addElement("Aucun match disponible");
+                aModelJoueurEquipe.addElement("Aucun joueur ou équipe disponible");
             }
         } else {
             aModelMatch.addElement("Aucun match disponible");

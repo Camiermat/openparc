@@ -29,6 +29,7 @@ public class MatchDAO extends DAO<Match>{
                         result.getInt(12),result.getInt(13),result.getInt(14),result.getInt(15),result.getInt(16),result.getInt(17),
                         result.getInt(18),result.getInt(19),result.getInt(20),result.getInt(21),result.getInt(22));
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,6 +69,7 @@ public class MatchDAO extends DAO<Match>{
                         result.getInt(18),result.getInt(19),result.getInt(20),result.getInt(21),result.getInt(22));
                 listMatch.add(match);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,6 +88,7 @@ public class MatchDAO extends DAO<Match>{
                         result.getInt(18),result.getInt(19),result.getInt(20),result.getInt(21),result.getInt(22));
                 listMatch.add(match);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,6 +107,7 @@ public class MatchDAO extends DAO<Match>{
                         result.getInt(18),result.getInt(19),result.getInt(20),result.getInt(21),result.getInt(22));
                 listMatch.add(match);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,6 +126,7 @@ public class MatchDAO extends DAO<Match>{
                         result.getInt(12),result.getInt(13),result.getInt(14),result.getInt(15),result.getInt(16),result.getInt(17),
                         result.getInt(18),result.getInt(19),result.getInt(20),result.getInt(21),result.getInt(22));
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

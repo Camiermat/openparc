@@ -369,8 +369,15 @@
     <Component class="javax.swing.JComboBox" name="jComboBoxDate">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Date"/>
+          <StringArray count="8">
+            <StringItem index="0" value="16/05/20"/>
+            <StringItem index="1" value="17/05/20"/>
+            <StringItem index="2" value="18/05/20"/>
+            <StringItem index="3" value="19/05/20"/>
+            <StringItem index="4" value="20/05/20"/>
+            <StringItem index="5" value="21/05/20"/>
+            <StringItem index="6" value="22/05/20"/>
+            <StringItem index="7" value="23/05/20"/>
           </StringArray>
         </Property>
       </Properties>

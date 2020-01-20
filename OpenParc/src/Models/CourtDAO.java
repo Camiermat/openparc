@@ -27,6 +27,7 @@ public class CourtDAO extends DAO<Court>{
             while (result.next()){
                 return new Court(result.getString(2), result.getInt(1),result.getString(3));
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,6 +42,7 @@ public class CourtDAO extends DAO<Court>{
             prepare.setInt(2, obj.getNumero());
             prepare.setString(3, obj.getType());
             prepare.executeUpdate();
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,6 +60,7 @@ public class CourtDAO extends DAO<Court>{
             PreparedStatement prepare = this.connect.prepareStatement("DELETE FROM Court WHERE numero=?");
             prepare.setInt(1, obj.getNumero());
             prepare.executeUpdate();
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,6 +76,7 @@ public class CourtDAO extends DAO<Court>{
                 Court c = new Court(result.getString(2), result.getInt(1),result.getString(3));
                 list.add(c);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

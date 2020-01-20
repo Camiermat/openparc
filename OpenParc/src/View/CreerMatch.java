@@ -45,48 +45,33 @@ public class CreerMatch extends javax.swing.JFrame {
     public CreerMatch(Accueil app) {
         initComponents();
         this.app = app;
-        DefaultComboBoxModel<String> aModelJoueur1 = new DefaultComboBoxModel();
-        DefaultComboBoxModel<String> aModelJoueur2 = new DefaultComboBoxModel();
         DefaultComboBoxModel<String> aModelCourt = new DefaultComboBoxModel();
         DefaultComboBoxModel<String> aModelArbitreChaise = new DefaultComboBoxModel();
         DefaultComboBoxModel<String> aModelArbitreLigne = new DefaultComboBoxModel();
         DefaultComboBoxModel<String> aModelEquipeRamasseur = new DefaultComboBoxModel();
-        ArrayList<Joueur> listJoueur = joueurDAO.findAllTournoiSimple(niveau);
         ArrayList<Court> listCourt = courtDAO.findAll();
         ArrayList<ArbitreChaise> listArbitreChaise = arbitreChaiseDAO.findAll();
         ArrayList<ArbitreLigne> listArbitreLigne = arbitreLigneDAO.findAll();
         ArrayList<EquipeRamasseur> listEquipeRamasseur = equipeRamasseurDAO.findAll();
-        for(Joueur j : listJoueur){
-            aModelJoueur1.addElement(j.getNom()+"  "+j.getPrenom());
-            aModelJoueur2.addElement(j.getNom()+"  "+j.getPrenom());
+        ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
+        ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
+        if(listJoueur1.size()>1){
+            afficherJoueurs(listJoueur1,listJoueur2);
+        } else {
+            afficherJoueurs(listJoueur1,listJoueur2);
         }
-        oldJoueur1=aModelJoueur1.getElementAt(1);
-        oldJoueur2=aModelJoueur2.getElementAt(0);
-        aModelJoueur1.removeElementAt(1);
-        aModelJoueur2.removeElementAt(0);
         for(Court c : listCourt){
             aModelCourt.addElement(c.getName());
         }
         for(ArbitreChaise ac : listArbitreChaise){
             aModelArbitreChaise.addElement(ac.getNom()+"  "+ac.getPrenom());
         }
-        for(ArbitreLigne al : listArbitreLigne){
-            aModelArbitreLigne.addElement(al.getNom()+"  "+al.getPrenom());
-        }
+        afficherArbitreLigne(listArbitreLigne);
         for(EquipeRamasseur er : listEquipeRamasseur){
             aModelEquipeRamasseur.addElement(er.getId()+"");
         }
-        jComboBoxJoueur1.setModel(aModelJoueur1);
-        jComboBoxJoueur2.setModel(aModelJoueur2);
         jComboBoxCourt.setModel(aModelCourt);
         jComboBoxArbitreChaise.setModel(aModelArbitreChaise);
-        jComboBoxArbitreLigne1.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne2.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne3.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne4.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne5.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne6.setModel(aModelArbitreLigne);
-        jComboBoxArbitreLigne7.setModel(aModelArbitreLigne);
         jComboBoxEquipeRamasseur1.setModel(aModelEquipeRamasseur);
         jComboBoxEquipeRamasseur2.setModel(aModelEquipeRamasseur);
     }
@@ -240,7 +225,7 @@ public class CreerMatch extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date" }));
+        jComboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "16/05/20", "17/05/20", "18/05/20", "19/05/20", "20/05/20", "21/05/20", "22/05/20", "23/05/20" }));
 
         jComboBoxCréneauHoraire.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Créneau horaire" }));
 
@@ -340,7 +325,6 @@ public class CreerMatch extends javax.swing.JFrame {
 
     private void jComboBoxChoixTournoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxChoixTournoiActionPerformed
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi simple")){
-            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
             DefaultComboBoxModel<String> aModelNiveau = new DefaultComboBoxModel();
             aModelNiveau.addElement("16 ème");
             aModelNiveau.addElement("8 ème");
@@ -349,15 +333,15 @@ public class CreerMatch extends javax.swing.JFrame {
             aModelNiveau.addElement("finale");
             jComboBoxNiveauTournoi.setModel(aModelNiveau);
             niveau=1;
-            ArrayList<Joueur> listJoueur = joueurDAO.findAllTournoiSimple(niveau);
-            for(Joueur j : listJoueur){
-                aModel.addElement(j.getNom()+"  "+j.getPrenom());
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueurs(listJoueur1,listJoueur2);
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
             }
-            jComboBoxJoueur1.setModel(aModel);
-            jComboBoxJoueur2.setModel(aModel);
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi double")){
-            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
             DefaultComboBoxModel<String> aModelNiveau = new DefaultComboBoxModel();
             aModelNiveau.addElement("8 ème");
             aModelNiveau.addElement("1/4 finale");
@@ -365,42 +349,27 @@ public class CreerMatch extends javax.swing.JFrame {
             aModelNiveau.addElement("finale");
             jComboBoxNiveauTournoi.setModel(aModelNiveau);
             niveau=1;
-            ArrayList<EquipeDouble> listEquipe = equipeDoubleDAO.findAll(niveau);
-            ArrayList<Joueur> listJoueur1 = new ArrayList();
-            ArrayList<Joueur> listJoueur2 = new ArrayList();
-            for(EquipeDouble ed : listEquipe){
-                listJoueur1.add(joueurDAO.find(ed.getIdJoueur1()));
-                listJoueur2.add(joueurDAO.find(ed.getIdJoueur2()));
+            ArrayList<EquipeDouble> listEquipe1 = equipeDoubleDAO.findAll(niveau);
+            ArrayList<EquipeDouble> listEquipe2 = equipeDoubleDAO.findAll(niveau);
+            if(listEquipe1.size()>1){
+                afficherEquipes(listEquipe1,listEquipe2,listEquipe1.get(0),listEquipe2.get(1));
+            } else {
+                afficherEquipes(listEquipe1,listEquipe2,null,null);
             }
-            int nb = listEquipe.size();
-            String[] strings = new String[nb];
-            int i = 0;
-            for(Joueur j : listJoueur1){
-                strings[i]=j.getNom()+"  "+j.getPrenom();
-                i++;
-            }
-            i = 0;
-            for(Joueur j : listJoueur2){
-                strings[i]+=" - "+j.getNom()+"  "+j.getPrenom();
-                i++;
-            }
-            for(int k=0;k<strings.length;k++)aModel.addElement(strings[k]);
-            jComboBoxJoueur1.setModel(aModel);
-            jComboBoxJoueur2.setModel(aModel);
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
-            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
             DefaultComboBoxModel<String> aModelNiveau = new DefaultComboBoxModel();
             aModelNiveau.addElement("1er tour");
             aModelNiveau.addElement("2ème tour");
             jComboBoxNiveauTournoi.setModel(aModelNiveau);
             niveau=1;
-            ArrayList<Joueur> listJoueur = joueurDAO.findAllQualification(niveau);
-            for(Joueur j : listJoueur){
-                aModel.addElement(j.getNom()+"  "+j.getPrenom());
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllQualification(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllQualification(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueurs(listJoueur1,listJoueur2);
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
             }
-            jComboBoxJoueur1.setModel(aModel);
-            jComboBoxJoueur2.setModel(aModel);
         }
     }//GEN-LAST:event_jComboBoxChoixTournoiActionPerformed
 
@@ -411,59 +380,63 @@ public class CreerMatch extends javax.swing.JFrame {
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/4 finale"))niveau=3;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/2 finale"))niveau=4;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("finale"))niveau=5;
-            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
-            ArrayList<Joueur> listJoueur = joueurDAO.findAllTournoiSimple(niveau);
-            for(Joueur j : listJoueur){
-                aModel.addElement(j.getNom()+"  "+j.getPrenom());
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueurs(listJoueur1,listJoueur2);
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
             }
-            jComboBoxJoueur1.setModel(aModel);
-            jComboBoxJoueur2.setModel(aModel);
         }
-        if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi Double")){
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi double")){
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("8 ème"))niveau=1;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/4 finale"))niveau=2;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1/2 finale"))niveau=3;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("finale"))niveau=4;
-            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
-            niveau=1;
-            ArrayList<EquipeDouble> listEquipe = equipeDoubleDAO.findAll(niveau);
-            ArrayList<Joueur> listJoueur1 = new ArrayList();
-            ArrayList<Joueur> listJoueur2 = new ArrayList();
-            for(EquipeDouble ed : listEquipe){
-                listJoueur1.add(joueurDAO.find(ed.getIdJoueur1()));
-                listJoueur2.add(joueurDAO.find(ed.getIdJoueur2()));
+            ArrayList<EquipeDouble> listEquipe1 = equipeDoubleDAO.findAll(niveau);
+            ArrayList<EquipeDouble> listEquipe2 = equipeDoubleDAO.findAll(niveau);
+            if(listEquipe1.size()>1){
+                afficherEquipes(listEquipe1,listEquipe2,listEquipe1.get(0),listEquipe2.get(1));
+            } else {
+                afficherEquipes(listEquipe1,listEquipe2,null,null);
             }
-            int nb = listEquipe.size();
-            String[] strings = new String[nb];
-            int i = 0;
-            for(Joueur j : listJoueur1){
-                strings[i]=j.getNom()+"  "+j.getPrenom();
-                i++;
-            }
-            i = 0;
-            for(Joueur j : listJoueur2){
-                strings[i]+=" - "+j.getNom()+"  "+j.getPrenom();
-                i++;
-            }
-            for(int k=0;k<strings.length;k++)aModel.addElement(strings[k]);
-            jComboBoxJoueur1.setModel(aModel);
-            jComboBoxJoueur2.setModel(aModel);
         }
         if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("1er tour"))niveau=1;
             if (jComboBoxNiveauTournoi.getSelectedItem().equals("2ème tour"))niveau=2;
-            DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
-            ArrayList<Joueur> listJoueur = joueurDAO.findAllQualification(niveau);
-            for(Joueur j : listJoueur){
-                aModel.addElement(j.getNom()+"  "+j.getPrenom());
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllQualification(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllQualification(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueurs(listJoueur1,listJoueur2);
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
             }
-            jComboBoxJoueur1.setModel(aModel);
-            jComboBoxJoueur2.setModel(aModel);
         }
     }//GEN-LAST:event_jComboBoxNiveauTournoiActionPerformed
 
     private void jComboBoxJoueur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxJoueur1ActionPerformed
         DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi simple")){
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueur2(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
+            }
+        }
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi double")){
+        }
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllQualification(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllQualification(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueur2(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
+            }
+        }
+        
         int i = jComboBoxJoueur2.getModel().getSize();
         for (int j=0;j<i;j++){
             aModel.addElement(jComboBoxJoueur2.getModel().getElementAt(j));
@@ -471,19 +444,30 @@ public class CreerMatch extends javax.swing.JFrame {
         aModel.addElement(oldJoueur2);
         oldJoueur2=jComboBoxJoueur1.getSelectedItem().toString();
         aModel.removeElement(jComboBoxJoueur1.getSelectedItem());
-        jComboBoxJoueur2.setModel(trierModelJoueur(aModel));
+        //jComboBoxJoueur2.setModel(trierModelJoueur(aModel));
     }//GEN-LAST:event_jComboBoxJoueur1ActionPerformed
 
     private void jComboBoxJoueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxJoueur2ActionPerformed
-        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
-        int i = jComboBoxJoueur1.getModel().getSize();
-        for (int j=0;j<i;j++){
-            aModel.addElement(jComboBoxJoueur1.getModel().getElementAt(j));
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi simple")){
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllTournoiSimple(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllTournoiSimple(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueur1(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
+            }
         }
-        aModel.addElement(oldJoueur1);
-        oldJoueur1=jComboBoxJoueur2.getSelectedItem().toString();
-        aModel.removeElement(jComboBoxJoueur2.getSelectedItem());
-        jComboBoxJoueur1.setModel(trierModelJoueur(aModel));
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Tournoi double")){
+        }
+        if (jComboBoxChoixTournoi.getSelectedItem().equals("Qualification")){
+            ArrayList<Joueur> listJoueur1 = joueurDAO.findAllQualification(niveau);
+            ArrayList<Joueur> listJoueur2 = joueurDAO.findAllQualification(niveau);
+            if(listJoueur1.size()>1){
+                afficherJoueur1(listJoueur1,getJoueur(jComboBoxJoueur1.getSelectedItem().toString().toCharArray()));
+            } else {
+                afficherJoueurs(listJoueur1,listJoueur2);
+            }
+        }
     }//GEN-LAST:event_jComboBoxJoueur2ActionPerformed
 
     private void jComboBoxCourtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCourtActionPerformed
@@ -530,54 +514,6 @@ public class CreerMatch extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jComboBoxArbitreLigne7ActionPerformed
 
-    private DefaultComboBoxModel<String> trierModelJoueur(DefaultComboBoxModel<String> aModel){
-        DefaultComboBoxModel<String> bModel = new DefaultComboBoxModel();
-        for(int i=0;i<aModel.getSize();i++){
-            int min = joueurDAO.findIdNomPrenom(nomprenomToNomPrenom(aModel.getElementAt(i))[0],nomprenomToNomPrenom(aModel.getElementAt(i))[1]);
-            int indice = i;
-            for (int j=0;j<aModel.getSize();j++){
-                int res = joueurDAO.findIdNomPrenom(nomprenomToNomPrenom(aModel.getElementAt(j))[0],nomprenomToNomPrenom(aModel.getElementAt(j))[1]);
-                if (res<=min && !findInModel(aModel,aModel.getElementAt(j))){
-                    min = res;
-                    indice = j;
-                }
-            }
-            bModel.addElement(aModel.getElementAt(indice));
-        }
-        return bModel;
-    }
-    
-    private String[] nomprenomToNomPrenom(String arg){
-        String[] result = new String[2];
-        char[] nomprenom = arg.toCharArray();
-        String nom="";
-        String prenom="";
-        int i = 1;
-        boolean temp=true;
-        while(i<nomprenom.length && temp){
-            if(nomprenom[i-1]==' ' && nomprenom[i]==' '){
-                int j;
-                for(j=0;j<i-1;j++){
-                    nom=nom+nomprenom[j];
-                }
-                for(j=i+1;j<nomprenom.length;j++){
-                    prenom=prenom+nomprenom[j];
-                }
-                temp=false;
-            }
-            i++;
-        }
-        result[0] = nom;
-        result[1] = prenom;
-        return result;
-    }
-    
-    private boolean findInModel(DefaultComboBoxModel<String> aModel, String elt){
-        for(int i=0;i<aModel.getSize();i++){
-            if(aModel.getElementAt(i).equals(elt))return true;
-        }
-        return false;
-    }
     /**
      * @param args the command line arguments
      */
@@ -611,6 +547,117 @@ public class CreerMatch extends javax.swing.JFrame {
                 new CreerMatch(new Accueil()).setVisible(true);
             }
         });
+    }
+    
+    private void afficherJoueurs(ArrayList<Joueur> listJoueur1, ArrayList<Joueur> listJoueur2){
+        DefaultComboBoxModel<String> aModel1 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModel2 = new DefaultComboBoxModel();
+        if(listJoueur1.size()>1){
+            listJoueur1.remove(0);
+            listJoueur2.remove(1);
+            for(Joueur j : listJoueur1){
+                aModel1.addElement(j.getNom()+"  "+j.getPrenom());
+            }
+            for(Joueur j : listJoueur2){
+                aModel2.addElement(j.getNom()+"  "+j.getPrenom());
+            }
+        } else {
+            aModel1.addElement("Pas assez de joueurs");
+            aModel2.addElement("Pas assez de joueurs");
+        }
+        jComboBoxJoueur1.setModel(aModel1);
+        jComboBoxJoueur2.setModel(aModel2);
+    }
+    
+    private void afficherJoueur1(ArrayList<Joueur> listJoueur, Joueur j){
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        listJoueur.remove(j);
+        for(Joueur joueur : listJoueur){
+            aModel.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+        }
+        jComboBoxJoueur1.setModel(aModel);
+    }
+    
+    private void afficherJoueur2(ArrayList<Joueur> listJoueur, Joueur j){
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        listJoueur.remove(j);
+        for(Joueur joueur : listJoueur){
+            aModel.addElement(joueur.getNom()+"  "+joueur.getPrenom());
+        }
+        jComboBoxJoueur2.setModel(aModel);
+    }
+    
+    private void afficherEquipes(ArrayList<EquipeDouble> listEquipe1, ArrayList<EquipeDouble> listEquipe2, EquipeDouble equipe1, EquipeDouble equipe2){
+        DefaultComboBoxModel<String> aModel1 = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModel2 = new DefaultComboBoxModel();
+        if(listEquipe1.size()>1){
+            listEquipe1.remove(equipe1);
+            listEquipe2.remove(equipe2);
+            for(EquipeDouble equipeDouble : listEquipe1){
+                Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
+                Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
+                aModel1.addElement(joueur1.getNom()+"  "+joueur1.getPrenom()+", "+joueur2.getNom()+"  "+joueur2.getPrenom());
+            }
+            for(EquipeDouble equipeDouble : listEquipe2){
+                Joueur joueur1=joueurDAO.find(equipeDouble.getIdJoueur1());
+                Joueur joueur2=joueurDAO.find(equipeDouble.getIdJoueur2());
+                aModel2.addElement(joueur1.getNom()+"  "+joueur1.getPrenom()+", "+joueur2.getNom()+"  "+joueur2.getPrenom());
+            }
+        } else {
+            aModel1.addElement("Pas assez de joueurs");
+            aModel2.addElement("Pas assez de joueurs");
+        }
+        jComboBoxJoueur1.setModel(aModel1);
+        jComboBoxJoueur2.setModel(aModel2);
+    }
+    
+    public int chercherIndiceJoueur(ArrayList<Joueur> listJoueur,Joueur joueur){
+        int indice=0;
+        while(listJoueur.get(indice).getId()!=joueur.getId()){
+            indice++;
+        }
+        return indice--;
+    }
+    
+    private void afficherArbitreLigne(ArrayList<ArbitreLigne> listArbitreLigne){
+        DefaultComboBoxModel<String> aModelArbitreLigne = new DefaultComboBoxModel();
+        for(ArbitreLigne al : listArbitreLigne){
+            aModelArbitreLigne.addElement(al.getNom()+"  "+al.getPrenom());
+        }
+        jComboBoxArbitreLigne1.setModel(aModelArbitreLigne);
+        jComboBoxArbitreLigne2.setModel(aModelArbitreLigne);
+        jComboBoxArbitreLigne3.setModel(aModelArbitreLigne);
+        jComboBoxArbitreLigne4.setModel(aModelArbitreLigne);
+        jComboBoxArbitreLigne5.setModel(aModelArbitreLigne);
+        jComboBoxArbitreLigne6.setModel(aModelArbitreLigne);
+        jComboBoxArbitreLigne7.setModel(aModelArbitreLigne);
+    }
+    
+    private Joueur getJoueur(char[] nomprenom){
+        Boolean temp=true,temp2=true;
+        int i=1;
+        String nom="",prenom="";
+        while(i<nomprenom.length && temp){
+            if(nomprenom[i-1]==' ' && nomprenom[i]==' '){
+                int j;
+                for(j=0;j<i-1;j++){
+                    nom=nom+nomprenom[j];
+                }
+                j=i+1;
+                while(j<nomprenom.length && temp2){
+                    if(nomprenom[j]==Character.MIN_VALUE && nomprenom[j+1]==Character.MIN_VALUE){
+                        temp2=false;
+                    } else {
+                        prenom=prenom+nomprenom[j];
+                    }
+                    j++;
+                }
+                System.out.println(nom+" "+prenom);
+                temp=false;
+            }
+            i++;
+        }
+        return joueurDAO.find(joueurDAO.findIdNomPrenom(nom, prenom));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

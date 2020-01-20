@@ -32,6 +32,7 @@ public class EquipeRamasseurDAO extends DAO<EquipeRamasseur>{
                 EquipeRamasseur c = new EquipeRamasseur(result.getInt(1));
                 list.add(c);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

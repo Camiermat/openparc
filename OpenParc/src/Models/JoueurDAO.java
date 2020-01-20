@@ -27,6 +27,7 @@ public class JoueurDAO extends DAO<Joueur>{
             while (result.next()){
                 return new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,6 +45,7 @@ public class JoueurDAO extends DAO<Joueur>{
             prepare.setString(1, wildCard);
             prepare.setInt(2, id);
             prepare.executeUpdate();
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,6 +67,7 @@ public class JoueurDAO extends DAO<Joueur>{
                 Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
                 list.add(j);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,6 +83,7 @@ public class JoueurDAO extends DAO<Joueur>{
                 Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
                 list.add(j);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -95,6 +99,7 @@ public class JoueurDAO extends DAO<Joueur>{
                 Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
                 list.add(j);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,6 +116,7 @@ public class JoueurDAO extends DAO<Joueur>{
                 Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
                 list.add(j);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,6 +133,7 @@ public class JoueurDAO extends DAO<Joueur>{
                 Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
                 list.add(j);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -142,6 +149,7 @@ public class JoueurDAO extends DAO<Joueur>{
             while (result.next()){
                 return result.getInt(1);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -156,6 +164,7 @@ public class JoueurDAO extends DAO<Joueur>{
             while (result.next()){
                 return result.getInt(1);
             }
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -178,6 +187,7 @@ public class JoueurDAO extends DAO<Joueur>{
             while (result.next()){
                 nbWC[2]=result.getInt(1);
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -195,6 +205,7 @@ public class JoueurDAO extends DAO<Joueur>{
             prepare.setInt(1, idTournoi);
             prepare.setInt(2, id);
             prepare.executeUpdate();
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -207,9 +218,47 @@ public class JoueurDAO extends DAO<Joueur>{
             prepare.setInt(1, idTournoi);
             prepare.setInt(2, id);
             prepare.executeUpdate();
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return;
+    }
+    
+    
+    public ArrayList<Joueur> findAllTournoiSimpleSansJoueur(int niveau,int idJoueur) {
+        ArrayList<Joueur> list = new ArrayList();
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Joueur where idTournoiSimple=? and id!=?");
+            prepare.setInt(1, niveau);
+            prepare.setInt(2, idJoueur);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
+                list.add(j);
+            }
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+      
+    public ArrayList<Joueur> findAllQualificationSansJoueur(int niveau,int idJoueur) {
+        ArrayList<Joueur> list = new ArrayList();
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Joueur where idQualification=? and id!=?");
+            prepare.setInt(1, niveau);
+            prepare.setInt(2, idJoueur);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                Joueur j = new Joueur(result.getInt(1),result.getInt(2),result.getInt(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7),result.getInt(8),result.getString(9),result.getInt(10),result.getInt(11),result.getInt(12));
+                list.add(j);
+            }
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
