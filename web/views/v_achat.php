@@ -46,6 +46,9 @@
 				<?php
 					$u = uniqid();
 					$bonsoir= 'Identifiant:'.$_SESSION['Identifiant'].',pour le '.$_POST["exampleSelect1"].',Nombres de billets moins de 3 ans:'.$nbmoin3.'en catégorie'.$catmoin3.',Nombres de billets moins de 12 ans:'.$nbmoin12.'en catégorie'.$catmoin12.',Nombre de billets plus de 12 ans:'.$nbplu12.'en catégorie'.$catplu12.',id:'.$u;
+					if (isset($_POST['nlicence'])){
+						$bonsoir = $bonsoir.',ET LE NUM LICENCE:'.$_POST['nlicence'];
+					}
 					insert($_SESSION['Identifiant'],$bonsoir,$u);
 						echo '<img style="border-radius:15pt;" id="imageQRcode" src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl='.$bonsoir.'" alt="QR Code" name="imageQRcode" />';
 				

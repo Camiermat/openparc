@@ -167,6 +167,32 @@
 					';
 			}
 		}
+		
+		if (isset($_GET['trpoi'])){
+			if ($_GET['trpoi']==1) {
+				echo'
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							Vous pouvez commander un seul billet plus de 12 ans avec la réduction licencié
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					';
+			}
+		}
+		if (isset($_GET['inutlii'])){
+			if ($_GET['inutlii']==1) {
+				echo'
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							La promotion licencié est inutile puisque vous ne prenez pas de billet plus de 12ans
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					';
+			}
+		}
+
 		?>
 
 		<!-- Menu -->

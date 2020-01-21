@@ -55,6 +55,9 @@ if(((!($nbmoin12*$prixmoin12 + $nbplu12*$prixplus12!=0) and !($nbmoin3!=0)) or !
 				<?='<input type="hidden" name="plusde12quant" value="'.$nbplu12.'">';?>
 				<?='<input type="hidden" name="exampleSelect12" value="'.$catplu12.'">';?>
 				<?php 
+				if (isset($_POST['nlicence'])){
+					echo'<input type="hidden" name="nlicence" value="'.$_POST['nlicence'].'">';
+				}
 					if((($nbmoin12*$prixmoin12 + $nbplu12*$prixplus12!=0) or ($nbmoin3!=0)) and (isset($_SESSION['Identifiant']))){
 						echo '<div style="margin-top : 30pt;" class="text-center">
 							<button type="submit" class="btn btn-secondary btn-lg">Valider</button>

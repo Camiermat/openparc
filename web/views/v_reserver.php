@@ -87,7 +87,7 @@
 			<input class="form-control" type="text" name="codepromo">
 			<label for="nlicence" class=" form-label">Entre ton numéro de licence pour avoir une réduction :</label>
 			<input class="form-control" type="text" name="nlicence">
-			
+			<small class="text-wraning">Attention tu devras presenter ta licence avec le billet</small>
 			
 		</div>
 		<div style="margin-top : 30pt;" class="text-center">
