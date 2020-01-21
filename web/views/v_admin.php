@@ -68,6 +68,59 @@
 		</div>
 	</form>
 
+
+	<table class="text-center table table-striped table-bordered col-md-6 col-sm-12">
+
+  <thead>
+    <tr  class="table-info">
+      <th scope="col">Grand Public</th>
+      <th scope="col">Cat. 1</th>
+      <th scope="col">Cat. 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-active">
+      <th scope="row">Dimanche</th>
+      <td><?= getPrice('Dimanche',1);?></td>
+      <td><?= getPrice('Dimanche',2);?></td>
+    </tr>
+    <tr class="table-active">
+      <th scope="row">Lundi</th>
+      <td><?= getPrice('Lundi',1);?></td>
+      <td><?= getPrice('Lundi',2);?></td>
+    </tr>
+    <tr class="table-active">
+      <th scope="row">Mardi</th>
+      <td><?= getPrice('Mardi',1);?></td>
+      <td><?= getPrice('Mardi',2);?></td>
+    </tr>
+
+    <tr class="table-active">
+      <th scope="row">Mercredi</th>
+      <td><?= getPrice('Mercredi',1);?></td>
+      <td><?= getPrice('Mercredi',2);?></td>
+    </tr>
+
+    <tr class="table-active">
+      <th scope="row">Jeudi</th>
+      <td><?= getPrice('Jeudi',1);?></td>
+      <td><?= getPrice('Jeudi',2);?></td>
+    </tr>
+
+    <tr class="table-active">
+      <th scope="row">Vendredi</th>
+      <td><?= getPrice('Vendredi',1);?></td>
+      <td><?= getPrice('Vendredi',2);?></td>
+    </tr>
+
+    <tr class="table-active">
+      <th scope="row">Samedi</th>
+      <td><?= getPrice('Samedi',1);?></td>
+      <td><?= getPrice('Samedi',2);?></td>
+    </tr>
+  </tbody>
+</table> 
+
 	<form style="margin-top: 30pt;" class="col-md-6 col-sm-12" action='index.php?page=admin' method='POST' name='admin_form_quantité'>
 		<h2> Modification du nombre de places</h2>
 		<div class="form-group row">

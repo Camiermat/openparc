@@ -49,7 +49,7 @@
 			?>
 		</div>
 	</ul>
-	<ul class="nav navbar-nav navbar-right">
+	<ul class="nav navbar-nav text-center navbar-right">
 		<li>
 			<?php
 			if (isset($_SESSION['Identifiant'])) {
