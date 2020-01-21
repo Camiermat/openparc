@@ -824,12 +824,12 @@ public class CreerMatch extends javax.swing.JFrame {
             arbitreLigneBox6=1;
             arbitreLigneBox7=1;
 
-            jComboBoxArbitreLigne1.setSelectedItem(jComboBoxArbitreLigne1);
-            jComboBoxArbitreLigne3.setSelectedItem(jComboBoxArbitreLigne3);
-            jComboBoxArbitreLigne4.setSelectedItem(jComboBoxArbitreLigne4);
-            jComboBoxArbitreLigne5.setSelectedItem(jComboBoxArbitreLigne5);
-            jComboBoxArbitreLigne6.setSelectedItem(jComboBoxArbitreLigne6);
-            jComboBoxArbitreLigne7.setSelectedItem(jComboBoxArbitreLigne7);
+            jComboBoxArbitreLigne1.setSelectedItem(strArbitreLigne1);
+            jComboBoxArbitreLigne3.setSelectedItem(strArbitreLigne3);
+            jComboBoxArbitreLigne4.setSelectedItem(strArbitreLigne4);
+            jComboBoxArbitreLigne5.setSelectedItem(strArbitreLigne5);
+            jComboBoxArbitreLigne6.setSelectedItem(strArbitreLigne6);
+            jComboBoxArbitreLigne7.setSelectedItem(strArbitreLigne7);
         } else {
             arbitreLigneBox2=0;
         }
@@ -890,12 +890,12 @@ public class CreerMatch extends javax.swing.JFrame {
             arbitreLigneBox6=1;
             arbitreLigneBox7=1;
 
-            jComboBoxArbitreLigne1.setSelectedItem(jComboBoxArbitreLigne1);
-            jComboBoxArbitreLigne2.setSelectedItem(jComboBoxArbitreLigne2);
-            jComboBoxArbitreLigne4.setSelectedItem(jComboBoxArbitreLigne4);
-            jComboBoxArbitreLigne5.setSelectedItem(jComboBoxArbitreLigne5);
-            jComboBoxArbitreLigne6.setSelectedItem(jComboBoxArbitreLigne6);
-            jComboBoxArbitreLigne7.setSelectedItem(jComboBoxArbitreLigne7);
+            jComboBoxArbitreLigne1.setSelectedItem(strArbitreLigne1);
+            jComboBoxArbitreLigne2.setSelectedItem(strArbitreLigne2);
+            jComboBoxArbitreLigne4.setSelectedItem(strArbitreLigne4);
+            jComboBoxArbitreLigne5.setSelectedItem(strArbitreLigne5);
+            jComboBoxArbitreLigne6.setSelectedItem(strArbitreLigne6);
+            jComboBoxArbitreLigne7.setSelectedItem(strArbitreLigne7);
         } else {
             arbitreLigneBox3=0;
         }
@@ -955,12 +955,12 @@ public class CreerMatch extends javax.swing.JFrame {
             arbitreLigneBox6=1;
             arbitreLigneBox7=1;
 
-            jComboBoxArbitreLigne1.setSelectedItem(jComboBoxArbitreLigne1);
-            jComboBoxArbitreLigne2.setSelectedItem(jComboBoxArbitreLigne2);
-            jComboBoxArbitreLigne3.setSelectedItem(jComboBoxArbitreLigne3);
-            jComboBoxArbitreLigne5.setSelectedItem(jComboBoxArbitreLigne5);
-            jComboBoxArbitreLigne6.setSelectedItem(jComboBoxArbitreLigne6);
-            jComboBoxArbitreLigne7.setSelectedItem(jComboBoxArbitreLigne7);
+            jComboBoxArbitreLigne1.setSelectedItem(strArbitreLigne1);
+            jComboBoxArbitreLigne2.setSelectedItem(strArbitreLigne2);
+            jComboBoxArbitreLigne3.setSelectedItem(strArbitreLigne3);
+            jComboBoxArbitreLigne5.setSelectedItem(strArbitreLigne5);
+            jComboBoxArbitreLigne6.setSelectedItem(strArbitreLigne6);
+            jComboBoxArbitreLigne7.setSelectedItem(strArbitreLigne7);
         } else {
             arbitreLigneBox4=0;
         }
@@ -1020,12 +1020,12 @@ public class CreerMatch extends javax.swing.JFrame {
             arbitreLigneBox6=1;
             arbitreLigneBox7=1;
             
-            jComboBoxArbitreLigne1.setSelectedItem(jComboBoxArbitreLigne1);
-            jComboBoxArbitreLigne2.setSelectedItem(jComboBoxArbitreLigne2);
-            jComboBoxArbitreLigne3.setSelectedItem(jComboBoxArbitreLigne3);
-            jComboBoxArbitreLigne4.setSelectedItem(jComboBoxArbitreLigne4);
-            jComboBoxArbitreLigne6.setSelectedItem(jComboBoxArbitreLigne6);
-            jComboBoxArbitreLigne7.setSelectedItem(jComboBoxArbitreLigne7);
+            jComboBoxArbitreLigne1.setSelectedItem(strArbitreLigne1);
+            jComboBoxArbitreLigne2.setSelectedItem(strArbitreLigne2);
+            jComboBoxArbitreLigne3.setSelectedItem(strArbitreLigne3);
+            jComboBoxArbitreLigne4.setSelectedItem(strArbitreLigne4);
+            jComboBoxArbitreLigne6.setSelectedItem(strArbitreLigne6);
+            jComboBoxArbitreLigne7.setSelectedItem(strArbitreLigne7);
         } else {
             arbitreLigneBox5=0;
         }
@@ -1086,12 +1086,12 @@ public class CreerMatch extends javax.swing.JFrame {
             arbitreLigneBox5=1;
             arbitreLigneBox7=1;
 
-            jComboBoxArbitreLigne1.setSelectedItem(jComboBoxArbitreLigne1);
-            jComboBoxArbitreLigne2.setSelectedItem(jComboBoxArbitreLigne2);
-            jComboBoxArbitreLigne3.setSelectedItem(jComboBoxArbitreLigne3);
-            jComboBoxArbitreLigne4.setSelectedItem(jComboBoxArbitreLigne4);
-            jComboBoxArbitreLigne5.setSelectedItem(jComboBoxArbitreLigne5);
-            jComboBoxArbitreLigne7.setSelectedItem(jComboBoxArbitreLigne7);
+            jComboBoxArbitreLigne1.setSelectedItem(strArbitreLigne1);
+            jComboBoxArbitreLigne2.setSelectedItem(strArbitreLigne2);
+            jComboBoxArbitreLigne3.setSelectedItem(strArbitreLigne3);
+            jComboBoxArbitreLigne4.setSelectedItem(strArbitreLigne4);
+            jComboBoxArbitreLigne5.setSelectedItem(strArbitreLigne5);
+            jComboBoxArbitreLigne7.setSelectedItem(strArbitreLigne7);
         } else {
             arbitreLigneBox6=0;
         }
@@ -1152,12 +1152,12 @@ public class CreerMatch extends javax.swing.JFrame {
             arbitreLigneBox5=1;
             arbitreLigneBox6=1;
 
-            jComboBoxArbitreLigne1.setSelectedItem(jComboBoxArbitreLigne1);
-            jComboBoxArbitreLigne2.setSelectedItem(jComboBoxArbitreLigne2);
-            jComboBoxArbitreLigne3.setSelectedItem(jComboBoxArbitreLigne3);
-            jComboBoxArbitreLigne4.setSelectedItem(jComboBoxArbitreLigne4);
-            jComboBoxArbitreLigne5.setSelectedItem(jComboBoxArbitreLigne5);
-            jComboBoxArbitreLigne6.setSelectedItem(jComboBoxArbitreLigne6);
+            jComboBoxArbitreLigne1.setSelectedItem(strArbitreLigne1);
+            jComboBoxArbitreLigne2.setSelectedItem(strArbitreLigne2);
+            jComboBoxArbitreLigne3.setSelectedItem(strArbitreLigne3);
+            jComboBoxArbitreLigne4.setSelectedItem(strArbitreLigne4);
+            jComboBoxArbitreLigne5.setSelectedItem(strArbitreLigne5);
+            jComboBoxArbitreLigne6.setSelectedItem(strArbitreLigne6);
         } else {
             arbitreLigneBox7=0;
         }
