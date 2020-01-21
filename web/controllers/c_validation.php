@@ -55,7 +55,7 @@ else{
 	$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-5;
 }
 
-if (isset($_POST['nlicence'])){
+if (!empty($_POST['nlicence'])){
 	if($nbplu12!=1){
 		if($nbplu12>1){
 			header('location:index.php?trpoi=1');
