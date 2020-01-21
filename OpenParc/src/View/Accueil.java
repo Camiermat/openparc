@@ -29,9 +29,8 @@ public class Accueil extends javax.swing.JFrame {
 
         jButtonAccueil = new javax.swing.JButton();
         jButtonCreerMatch = new javax.swing.JButton();
-        jButtonModMatch = new javax.swing.JButton();
+        jButtonCreerEntrainement = new javax.swing.JButton();
         jButtonSaisirVainq = new javax.swing.JButton();
-        jButtonSaisirParamB = new javax.swing.JButton();
         jButtonInvJoueur = new javax.swing.JButton();
         jButtonQuitterApp = new javax.swing.JButton();
         jLabelLogo = new javax.swing.JLabel();
@@ -54,10 +53,10 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jButtonModMatch.setText("Modifier Match");
-        jButtonModMatch.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCreerEntrainement.setText("Créer Entrainement");
+        jButtonCreerEntrainement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonModMatchActionPerformed(evt);
+                jButtonCreerEntrainementActionPerformed(evt);
             }
         });
 
@@ -65,13 +64,6 @@ public class Accueil extends javax.swing.JFrame {
         jButtonSaisirVainq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaisirVainqActionPerformed(evt);
-            }
-        });
-
-        jButtonSaisirParamB.setText("Saisir paramètre billeterie");
-        jButtonSaisirParamB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSaisirParamBActionPerformed(evt);
             }
         });
 
@@ -108,41 +100,42 @@ public class Accueil extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAccueil)
                             .addComponent(jButtonCreerMatch)
-                            .addComponent(jButtonModMatch)
-                            .addComponent(jButtonSaisirVainq))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                            .addComponent(jButtonCreerEntrainement))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                         .addComponent(jLabelLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonInvJoueur)
-                            .addComponent(jButtonSaisirParamB)
                             .addComponent(jButtonQuitterApp))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonSaisirVainq)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAccueil)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonCreerMatch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonModMatch)
-                        .addGap(11, 11, 11)
-                        .addComponent(jButtonSaisirVainq))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCreerEntrainement)
+                        .addGap(11, 11, 11))
                     .addComponent(jLabelLogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonSaisirParamB)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(4, 4, 4)
+                        .addComponent(jButtonSaisirVainq)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonInvJoueur))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(62, 62, 62)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jButtonQuitterApp)
@@ -163,23 +156,17 @@ public class Accueil extends javax.swing.JFrame {
         creerMatch.setVisible(true);
     }//GEN-LAST:event_jButtonCreerMatchActionPerformed
 
-    private void jButtonModMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModMatchActionPerformed
+    private void jButtonCreerEntrainementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreerEntrainementActionPerformed
         this.setVisible(false);
         CreerEntrainement creerEntrainement = new CreerEntrainement(this);
         creerEntrainement.setVisible(true);
-    }//GEN-LAST:event_jButtonModMatchActionPerformed
+    }//GEN-LAST:event_jButtonCreerEntrainementActionPerformed
 
     private void jButtonSaisirVainqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaisirVainqActionPerformed
         this.setVisible(false);
         SaisirVainqueur saisirVainqueur = new SaisirVainqueur(this);
         saisirVainqueur.setVisible(true);
     }//GEN-LAST:event_jButtonSaisirVainqActionPerformed
-
-    private void jButtonSaisirParamBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaisirParamBActionPerformed
-        this.setVisible(false);
-        SaisirParamB saisirParamB = new SaisirParamB(this);
-        saisirParamB.setVisible(true);
-    }//GEN-LAST:event_jButtonSaisirParamBActionPerformed
 
     private void jButtonInvJoueurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInvJoueurActionPerformed
         this.setVisible(false);
@@ -229,11 +216,10 @@ public class Accueil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccueil;
+    private javax.swing.JButton jButtonCreerEntrainement;
     private javax.swing.JButton jButtonCreerMatch;
     private javax.swing.JButton jButtonInvJoueur;
-    private javax.swing.JButton jButtonModMatch;
     private javax.swing.JButton jButtonQuitterApp;
-    private javax.swing.JButton jButtonSaisirParamB;
     private javax.swing.JButton jButtonSaisirVainq;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JTextField jTextField1;
