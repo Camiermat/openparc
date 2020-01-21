@@ -38,7 +38,22 @@ public class MatchDAO extends DAO<Match>{
 
     @Override
     public ArrayList<Match> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Match> listMatch=new ArrayList();
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from Matche Order by jour");
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                Match match= new Match(result.getInt(1),result.getString(2),result.getString(3), result.getInt(4),result.getInt(5),
+                        result.getInt(6),result.getInt(7),result.getInt(8),result.getInt(9),result.getInt(10),result.getInt(11),
+                        result.getInt(12),result.getInt(13),result.getInt(14),result.getInt(15),result.getInt(16),result.getInt(17),
+                        result.getInt(18),result.getInt(19),result.getInt(20),result.getInt(21),result.getInt(22));
+                listMatch.add(match);
+            }
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listMatch;
     }
 
     @Override
@@ -160,6 +175,21 @@ public class MatchDAO extends DAO<Match>{
             prepare.setInt(22, obj.getIdEquipe2());
             int result = prepare.executeUpdate();
             return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public int findMaxId(){
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT MAX(id) from Matche");
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return result.getInt(1);
+            }
+            result.close();
+            prepare.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

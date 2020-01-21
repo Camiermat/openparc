@@ -11,16 +11,19 @@ import Controleur.Court;
 import Controleur.EquipeDouble;
 import Controleur.EquipeRamasseur;
 import Controleur.Joueur;
+import Controleur.Match;
 import Models.ArbitreChaiseDAO;
 import Models.ArbitreLigneDAO;
 import Models.CourtDAO;
 import Models.EquipeDoubleDAO;
 import Models.EquipeRamasseurDAO;
 import Models.JoueurDAO;
+import Models.MatchDAO;
 import Models.RamasseurDAO;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -198,6 +201,7 @@ public class CreerMatch extends javax.swing.JFrame {
         jComboBoxCourt = new javax.swing.JComboBox<>();
         jComboBoxDate = new javax.swing.JComboBox<>();
         jComboBoxCréneauHoraire = new javax.swing.JComboBox<>();
+        jToggleButtonValider = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -334,6 +338,13 @@ public class CreerMatch extends javax.swing.JFrame {
             }
         });
 
+        jToggleButtonValider.setText("Valider");
+        jToggleButtonValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonValiderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -357,22 +368,29 @@ public class CreerMatch extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jComboBoxCréneauHoraire, javax.swing.GroupLayout.Alignment.LEADING, 0, 153, Short.MAX_VALUE)
                                 .addComponent(jComboBoxDate, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxArbitreLigne1, 0, 153, Short.MAX_VALUE)
-                            .addComponent(jComboBoxArbitreLigne2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxArbitreLigne3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxArbitreLigne4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxArbitreLigne5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxArbitreLigne6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxArbitreLigne7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxArbitreLigne1, 0, 153, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxArbitreLigne2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxArbitreLigne3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxArbitreLigne4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxArbitreLigne5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxArbitreLigne6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxArbitreLigne7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jToggleButtonValider)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAccueil)
                         .addGap(28, 28, 28)
                         .addComponent(jComboBoxChoixTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxNiveauTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(jComboBoxNiveauTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(216, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +428,9 @@ public class CreerMatch extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxArbitreLigne7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jButtonQuitterApp)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonQuitterApp)
+                    .addComponent(jToggleButtonValider))
                 .addContainerGap())
         );
 
@@ -1174,6 +1194,234 @@ public class CreerMatch extends javax.swing.JFrame {
         jComboBoxCréneauHoraire.setModel(aModel);
     }//GEN-LAST:event_jComboBoxDateActionPerformed
 
+    private void jToggleButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonValiderActionPerformed
+        ArbitreChaiseDAO arbitreChaiseDAO=new ArbitreChaiseDAO();
+        MatchDAO matchDAO=new MatchDAO();
+        String tournoi=jComboBoxChoixTournoi.getSelectedItem().toString();
+        String créneau=jComboBoxCréneauHoraire.getSelectedItem().toString();
+        String date=jComboBoxDate.getSelectedItem().toString();
+        String courtstr=jComboBoxCourt.getSelectedItem().toString();
+        String niveaustr=jComboBoxNiveauTournoi.getSelectedItem().toString();
+        int court=courtDAO.findAvecNom(courtstr).getNumero();
+        char[] joueurEquipe1Char=jComboBoxJoueur1.getSelectedItem().toString().toCharArray();
+        char[] joueurEquipe2Char=jComboBoxJoueur2.getSelectedItem().toString().toCharArray();
+        char[] arbitreChaiseChar=jComboBoxArbitreChaise.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne1Char=jComboBoxArbitreLigne1.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne2Char=jComboBoxArbitreLigne2.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne3Char=jComboBoxArbitreLigne3.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne4Char=jComboBoxArbitreLigne4.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne5Char=jComboBoxArbitreLigne5.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne6Char=jComboBoxArbitreLigne6.getSelectedItem().toString().toCharArray();
+        char[] arbitreLigne7Char=jComboBoxArbitreLigne7.getSelectedItem().toString().toCharArray();
+        int idEquipeRamasseur1=new Integer(jComboBoxEquipeRamasseur1.getSelectedItem().toString());
+        int idEquipeRamasseur2=new Integer(jComboBoxEquipeRamasseur2.getSelectedItem().toString());ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
+        if(listCréneau.contains(créneau)){
+            if(tournoi.equals("Tournoi simple")){
+                Joueur joueur1=getJoueur(joueurEquipe1Char);
+                Joueur joueur2=getJoueur(joueurEquipe2Char);
+                ArrayList<Joueur> listJoueurEnMatchEntrainement=joueurDAO.findAllJoueurEnMatchEntrainement(date, créneau);
+                boolean temp=true;
+                for(Joueur joueurEnMatchEntrainement:listJoueurEnMatchEntrainement){
+                    if(joueur1.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur1.getNom()+" "+joueur1.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                    if(joueur2.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur2.getNom()+" "+joueur2.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                }
+                int niveau;
+                if(temp){
+                    switch(niveaustr){
+                        case "16 ème":
+                            niveau=1;
+                            break;
+                        case "8 ème":
+                            niveau=2;
+                            break;
+                        case "1/4 finale":
+                            niveau=3;
+                            break;
+                        case "1/2 finale":
+                            niveau=4;
+                            break;
+                        case "finale":
+                            niveau=5;
+                            break;
+                        default:
+                            niveau=-1;
+                            break;
+                    }
+                    ArbitreChaise arbitreChaise=arbitreChaiseDAO.findAvecNomPrenom(getNomEtPrenom(arbitreChaiseChar)[0],getNomEtPrenom(arbitreChaiseChar)[1]);
+                    ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigne1Char);
+                    ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigne2Char);
+                    ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigne3Char);
+                    ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigne4Char);
+                    ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigne5Char);
+                    ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigne6Char);
+                    ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigne7Char);
+                    int idmax=matchDAO.findMaxId();
+                    if(idmax==-1){
+                        JOptionPane.showMessageDialog(null, "Un problème est survenue.");
+                    }else{
+                        Match match=new Match(idmax+1,créneau,date,niveau,court,arbitreChaise.getId(),arbitreLigne1.getId(),arbitreLigne2.getId(),arbitreLigne3.getId(),arbitreLigne4.getId(),arbitreLigne5.getId(),arbitreLigne6.getId(),arbitreLigne7.getId(),idEquipeRamasseur1,idEquipeRamasseur2,1,0,0,joueur1.getId(),joueur2.getId(),0,0); 
+                        matchDAO.createMatch(match);
+                        JOptionPane.showMessageDialog(null, "Le match a été ajouté.");
+                        this.dispose();
+                        app.setVisible(true);
+                    }
+                }
+            }
+            if(tournoi.equals("Qualification")){
+                Joueur joueur1=getJoueur(joueurEquipe1Char);
+                Joueur joueur2=getJoueur(joueurEquipe2Char);
+                ArrayList<Joueur> listJoueurEnMatchEntrainement=joueurDAO.findAllJoueurEnMatchEntrainement(date, créneau);
+                boolean temp=true;
+                for(Joueur joueurEnMatchEntrainement:listJoueurEnMatchEntrainement){
+                    if(joueur1.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur1.getNom()+" "+joueur1.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                    if(joueur2.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur2.getNom()+" "+joueur2.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                }
+                int niveau;
+                if(temp){
+                    switch(niveaustr){
+                        case "1er tour":
+                            niveau=1;
+                            break;
+                        case "2ème tour":
+                            niveau=2;
+                            break;
+                        default:
+                            niveau=-1;
+                            break;
+                    }
+                    ArbitreChaise arbitreChaise=arbitreChaiseDAO.findAvecNomPrenom(getNomEtPrenom(arbitreChaiseChar)[0],getNomEtPrenom(arbitreChaiseChar)[1]);
+                    ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigne1Char);
+                    ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigne2Char);
+                    ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigne3Char);
+                    ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigne4Char);
+                    ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigne5Char);
+                    ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigne6Char);
+                    ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigne7Char);
+                    int idmax=matchDAO.findMaxId();
+                    if(idmax==-1){
+                        JOptionPane.showMessageDialog(null, "Un problème est survenue.");
+                    }else{
+                        Match match=new Match(idmax+1,créneau,date,niveau,court,arbitreChaise.getId(),arbitreLigne1.getId(),arbitreLigne2.getId(),arbitreLigne3.getId(),arbitreLigne4.getId(),arbitreLigne5.getId(),arbitreLigne6.getId(),arbitreLigne7.getId(),idEquipeRamasseur1,idEquipeRamasseur2,0,0,1,joueur1.getId(),joueur2.getId(),0,0); 
+                        matchDAO.createMatch(match);
+                        JOptionPane.showMessageDialog(null, "Le match a été ajouté.");
+                        this.dispose();
+                        app.setVisible(true);
+                    }
+                }
+            }
+            if(tournoi.equals("Tournoi double")){
+                char[] cjoueur1=new char[100];
+                char[] cjoueur2=new char[100];
+                int i=0,j=0,k=0;
+                while(joueurEquipe1Char[i]!=','){
+                    i++;
+                }
+                for(j=0;j<i;j++){
+                    cjoueur1[j]=joueurEquipe1Char[j];
+                }
+                for(j=i+2;j<joueurEquipe1Char.length;j++){
+                    cjoueur2[k]=joueurEquipe1Char[j];
+                    k++;
+                }
+                Joueur joueur1=getJoueur(cjoueur1);
+                Joueur joueur2=getJoueur(cjoueur2);
+                EquipeDouble equipe1=equipeDoubleDAO.findAvecIdJoueurs(joueur1.getId(), joueur2.getId());
+                char[] cjoueur3=new char[100];
+                char[] cjoueur4=new char[100];
+                i=0;
+                j=0;
+                k=0;
+                while(joueurEquipe2Char[i]!=','){
+                    i++;
+                }
+                for(j=0;j<i;j++){
+                    cjoueur3[j]=joueurEquipe2Char[j];
+                }
+                for(j=i+2;j<joueurEquipe2Char.length;j++){
+                    cjoueur4[k]=joueurEquipe2Char[j];
+                    k++;
+                }
+                Joueur joueur3=getJoueur(cjoueur3);
+                Joueur joueur4=getJoueur(cjoueur4);
+                EquipeDouble equipe2=equipeDoubleDAO.findAvecIdJoueurs(joueur3.getId(), joueur4.getId());
+                ArrayList<Joueur> listJoueurEnMatchEntrainement=joueurDAO.findAllJoueurEnMatchEntrainement(date, créneau);
+                boolean temp=true;
+                for(Joueur joueurEnMatchEntrainement:listJoueurEnMatchEntrainement){
+                    if(joueur1.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur1.getNom()+" "+joueur1.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                    if(joueur2.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur2.getNom()+" "+joueur2.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                    if(joueur3.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur3.getNom()+" "+joueur3.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                    if(joueur4.getId()==joueurEnMatchEntrainement.getId()){
+                        JOptionPane.showMessageDialog(null, "Le joueur  "+joueur4.getNom()+" "+joueur4.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                        temp=false;
+                    }
+                }
+                int niveau;
+                if(temp){
+                    switch(niveaustr){
+                        case "8 ème":
+                            niveau=1;
+                            break;
+                        case "1/4 finale":
+                            niveau=2;
+                            break;
+                        case "1/2 finale":
+                            niveau=3;
+                            break;
+                        case "finale":
+                            niveau=4;
+                            break;
+                        default:
+                            niveau=-1;
+                            break;
+                    }
+                    ArbitreChaise arbitreChaise=arbitreChaiseDAO.findAvecNomPrenom(getNomEtPrenom(arbitreChaiseChar)[0],getNomEtPrenom(arbitreChaiseChar)[1]);
+                    ArbitreLigne arbitreLigne1=getArbitreLigne(arbitreLigne1Char);
+                    ArbitreLigne arbitreLigne2=getArbitreLigne(arbitreLigne2Char);
+                    ArbitreLigne arbitreLigne3=getArbitreLigne(arbitreLigne3Char);
+                    ArbitreLigne arbitreLigne4=getArbitreLigne(arbitreLigne4Char);
+                    ArbitreLigne arbitreLigne5=getArbitreLigne(arbitreLigne5Char);
+                    ArbitreLigne arbitreLigne6=getArbitreLigne(arbitreLigne6Char);
+                    ArbitreLigne arbitreLigne7=getArbitreLigne(arbitreLigne7Char);
+                    int idmax=matchDAO.findMaxId();
+                    if(idmax==-1){
+                        JOptionPane.showMessageDialog(null, "Un problème est survenue.");
+                    }else{
+                        Match match=new Match(idmax+1,créneau,date,niveau,court,arbitreChaise.getId(),arbitreLigne1.getId(),arbitreLigne2.getId(),arbitreLigne3.getId(),arbitreLigne4.getId(),arbitreLigne5.getId(),arbitreLigne6.getId(),arbitreLigne7.getId(),idEquipeRamasseur1,idEquipeRamasseur2,0,1,0,0,0,equipe1.getId(),equipe2.getId()); 
+                        matchDAO.createMatch(match);
+                        JOptionPane.showMessageDialog(null, "Le match a été ajouté.");
+                        this.dispose();
+                        app.setVisible(true);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jToggleButtonValiderActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1381,9 +1629,6 @@ public class CreerMatch extends javax.swing.JFrame {
        return listArbitreLigne;
     }
     
-    private void setArbitreLigneComboBoxes(String arbitreLigne1,String arbitreLigne2,String arbitreLigne3,String arbitreLigne4,String arbitreLigne5,String arbitreLigne6,String arbitreLigne7){
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccueil;
@@ -1405,5 +1650,6 @@ public class CreerMatch extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxJoueur1;
     private javax.swing.JComboBox<String> jComboBoxJoueur2;
     private javax.swing.JComboBox<String> jComboBoxNiveauTournoi;
+    private javax.swing.JToggleButton jToggleButtonValider;
     // End of variables declaration//GEN-END:variables
 }

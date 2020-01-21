@@ -6,6 +6,7 @@
 package Models;
 
 import Controleur.ArbitreChaise;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,34 @@ public class ArbitreChaiseDAO extends DAO<ArbitreChaise>{
 
     @Override
     public ArbitreChaise find(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from ArbitreChaise where id=?");
+            prepare.setInt(1, id);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return new ArbitreChaise(result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+            }
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ArbitreChaise findAvecNomPrenom(String nom, String prenom) {
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from ArbitreChaise where nom=? and prenom=?");
+            prepare.setString(1, nom);
+            prepare.setString(2, prenom);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return new ArbitreChaise(result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+            }
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

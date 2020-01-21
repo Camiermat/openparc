@@ -263,14 +263,13 @@ public class JoueurDAO extends DAO<Joueur>{
         return list;
     }
     
-    public ArrayList<Joueur> findAllJoueurEnMatchEntrainement(String date, int court, String créneau) {
+    public ArrayList<Joueur> findAllJoueurEnMatchEntrainement(String date, String créneau) {
         ArrayList<Joueur> listJoueur = new ArrayList();
         EquipeDoubleDAO equipeDoubleDAO=new EquipeDoubleDAO();
         try {
-            PreparedStatement prepare = this.connect.prepareStatement("SELECT idJoueur1,idJoueur2,idEquipe1,idEquipe2 from Matche where numCourt=? and jour=? and créneauHoraire=?");
-            prepare.setInt(1, court);
-            prepare.setString(2, date);
-            prepare.setString(3, créneau);
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT idJoueur1,idJoueur2,idEquipe1,idEquipe2 from Matche where jour=? and créneauHoraire=?");
+            prepare.setString(1, date);
+            prepare.setString(2, créneau);
             ResultSet result = prepare.executeQuery();
             while (result.next()){
                 if(result.getInt(1)==0){
@@ -292,10 +291,9 @@ public class JoueurDAO extends DAO<Joueur>{
                 }
                 
             }
-            prepare = this.connect.prepareStatement("SELECT idJoueur from Entrainement where numCourt=? and jour=? and créneauHoraire=?");
-            prepare.setInt(1, court);
-            prepare.setString(2, date);
-            prepare.setString(3, créneau);
+            prepare = this.connect.prepareStatement("SELECT idJoueur from Entrainement where jour=? and créneauHoraire=?");
+            prepare.setString(1, date);
+            prepare.setString(2, créneau);
             result = prepare.executeQuery();
             while (result.next()){
                 Joueur joueur=this.find(result.getInt(1));
