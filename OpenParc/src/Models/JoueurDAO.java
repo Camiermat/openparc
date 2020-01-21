@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Controleur.EquipeDouble;
 import Controleur.Joueur;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -261,4 +262,51 @@ public class JoueurDAO extends DAO<Joueur>{
         }
         return list;
     }
+    
+    public ArrayList<Joueur> findAllJoueurEnMatchEntrainement(String date, int court, String créneau) {
+        ArrayList<Joueur> listJoueur = new ArrayList();
+        EquipeDoubleDAO equipeDoubleDAO=new EquipeDoubleDAO();
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT idJoueur1,idJoueur2,idEquipe1,idEquipe2 from Matche where numCourt=? and jour=? and créneauHoraire=?");
+            prepare.setInt(1, court);
+            prepare.setString(2, date);
+            prepare.setString(3, créneau);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                if(result.getInt(1)==0){
+                    EquipeDouble equipe1=equipeDoubleDAO.find(result.getInt(3));
+                    EquipeDouble equipe2=equipeDoubleDAO.find(result.getInt(4));
+                    Joueur joueur1=this.find(equipe1.getIdJoueur1());
+                    Joueur joueur2=this.find(equipe1.getIdJoueur2());
+                    Joueur joueur3=this.find(equipe2.getIdJoueur1());
+                    Joueur joueur4=this.find(equipe2.getIdJoueur2());
+                    listJoueur.add(joueur1);
+                    listJoueur.add(joueur2);
+                    listJoueur.add(joueur3);
+                    listJoueur.add(joueur4);
+                }else{
+                    Joueur joueur1=this.find(result.getInt(1));
+                    Joueur joueur2=this.find(result.getInt(2));
+                    listJoueur.add(joueur1);
+                    listJoueur.add(joueur2);
+                }
+                
+            }
+            prepare = this.connect.prepareStatement("SELECT idJoueur from Entrainement where numCourt=? and jour=? and créneauHoraire=?");
+            prepare.setInt(1, court);
+            prepare.setString(2, date);
+            prepare.setString(3, créneau);
+            result = prepare.executeQuery();
+            while (result.next()){
+                Joueur joueur=this.find(result.getInt(1));
+                listJoueur.add(joueur);
+            }
+            result.close();
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listJoueur;
+    }
+    
 }
