@@ -112,6 +112,8 @@
 								</div>
 								';
 						}
+						
+
 					}
 				}
 			}
@@ -129,6 +131,30 @@
 						</button>
 				</div>
 				';
+			}
+		}
+		if (isset($_GET['errorp1'])){
+			if ($_GET['errorp1']==1) {
+				echo'
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<b>PLus</b> assez de <u>places disponibles</u>, Pour la catégorie 1. Veuillez essayer de prendre dans une <b>autre catégorie</b> ou <b>moins de places</b> !
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					';
+			}
+		}
+		if (isset($_GET['errorp2'])){
+			if ($_GET['errorp2']==1) {
+				echo'
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<b>PLus</b> assez de <u>places disponibles</u>, Pour la catégorie 2. Veuillez essayer de prendre dans une <b>autre catégorie</b> ou <b>moins de places</b> !
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					';
 			}
 		}
 		?>

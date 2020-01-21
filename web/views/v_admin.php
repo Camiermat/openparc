@@ -33,7 +33,7 @@
   <tbody>
     <tr class="table-active">
       <th scope="row">Dimanche</th>
-      <td><?= getPrice('Dimanche',1);?></td>
+      <td><?= getPrice('Dimanche',1).'<br><h8>places total:</h8>'.gettot("Dimanche", 1).'<br><h8>places utilisé:</h8>'.getutil("Dimanche", 1)';?></td>
       <td><?= getPrice('Dimanche',2);?></td>
     </tr>
     <tr class="table-active">

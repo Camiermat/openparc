@@ -63,4 +63,38 @@ $skoooiooot =0;
 		return $result.' $';
 	}
 
+
+	function gettot($jour, $c){
+		$res = (new UserDAO)->prepareCat('SELECT nb_place_total FROM NombrePlaces where cat=? and jour=?');
+		$res -> execute(array($c,$jour));
+		if ($res){	
+			foreach ($res as $p){
+					$result = $p['nb_place_total'];
+				}
+		}
+		else {
+			$res -> closeCursor();
+			$result =null;
+		}
+		$res -> closeCursor();
+		return $result;
+	}
+
+
+	function getutil($jour, $c){
+		$res = (new UserDAO)->prepareCat('SELECT utilisé FROM NombrePlaces where cat=? and jour=?');
+		$res -> execute(array($c,$jour));
+		if ($res){	
+			foreach ($res as $p){
+					$result = $p['utilisé'];
+				}
+		}
+		else {
+			$res -> closeCursor();
+			$result =null;
+		}
+		$res -> closeCursor();
+		return $result;
+	}
+
 require_once(PATH_VIEWS.$page.'.php');
