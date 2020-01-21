@@ -13,7 +13,8 @@ if (isset($_POST['Identifiant']) and isset($_POST['Mot_de_passe'])) {
 		$pata = (new UserDAO())-> getUser($id);
 		echo $mdphash;
 		echo '<br>';
-		echo $pata->getPassHash();
+
+
 		if(password_verify($mdp, $pata->getPassHash())){
 			$_SESSION['Identifiant']= $pata->getUserId();
 			header('location: index.php');
