@@ -39,9 +39,14 @@ $skoooiooot =0;
 				$jou = htmlspecialchars($_POST['jour']);
 				$nbp = abs(htmlspecialchars($_POST['nb_place']));
 				$kat = htmlspecialchars($_POST['cat']);
-				$res3 -> execute(array($nbp, $kat, $jou));
-
-				$skoooiooot = 1;
+				
+				if(getutil($jou, $kat)>$nbp){
+					$skoooiooot = 2;
+				}
+				else{
+					$res3 -> execute(array($nbp, $kat, $jou));
+					$skoooiooot = 1;
+				}
 				$res3 -> closeCursor();
 
 			}
