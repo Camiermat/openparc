@@ -47,15 +47,25 @@
                               <Component id="jComboBoxDate" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jComboBoxArbitreLigne1" alignment="0" pref="153" max="32767" attributes="0"/>
-                          <Component id="jComboBoxArbitreLigne2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jComboBoxArbitreLigne3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jComboBoxArbitreLigne4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jComboBoxArbitreLigne5" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jComboBoxArbitreLigne6" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jComboBoxArbitreLigne7" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jComboBoxArbitreLigne1" alignment="0" pref="153" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxArbitreLigne2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxArbitreLigne3" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxArbitreLigne4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxArbitreLigne5" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxArbitreLigne6" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxArbitreLigne7" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jToggleButtonValider" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -64,9 +74,9 @@
                       <Component id="jComboBoxChoixTournoi" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jComboBoxNiveauTournoi" min="-2" pref="106" max="-2" attributes="0"/>
+                      <EmptySpace pref="216" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,7 +122,10 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jComboBoxArbitreLigne7" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="7" max="32767" attributes="0"/>
-              <Component id="jButtonQuitterApp" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonQuitterApp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jToggleButtonValider" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -402,6 +415,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="jToggleButtonValider">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Valider"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonValiderActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

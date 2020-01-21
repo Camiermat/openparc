@@ -6,6 +6,7 @@
 package Models;
 
 import Controleur.EquipeRamasseur;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,18 @@ public class EquipeRamasseurDAO extends DAO<EquipeRamasseur>{
 
     @Override
     public EquipeRamasseur find(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("SELECT * from EquipeRamasseus where id=?");
+            prepare.setInt(1, id);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()){
+                return new EquipeRamasseur(result.getInt(1));
+            }
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
