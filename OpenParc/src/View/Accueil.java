@@ -165,8 +165,8 @@ public class Accueil extends javax.swing.JFrame {
 
     private void jButtonModMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModMatchActionPerformed
         this.setVisible(false);
-        ModifierMatch modifierMatch = new ModifierMatch(this);
-        modifierMatch.setVisible(true);
+        CreerEntrainement creerEntrainement = new CreerEntrainement(this);
+        creerEntrainement.setVisible(true);
     }//GEN-LAST:event_jButtonModMatchActionPerformed
 
     private void jButtonSaisirVainqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaisirVainqActionPerformed

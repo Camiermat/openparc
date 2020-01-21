@@ -9,13 +9,13 @@ package View;
  *
  * @author p1805797
  */
-public class ModifierMatch extends javax.swing.JFrame {
+public class CreerEntrainement extends javax.swing.JFrame {
 
     private Accueil app;
     /**
      * Creates new form ModifierMatch
      */
-    public ModifierMatch(Accueil acc) {
+    public CreerEntrainement(Accueil acc) {
         initComponents();
         app = acc;
     }
@@ -111,20 +111,21 @@ public class ModifierMatch extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifierMatch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifierMatch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifierMatch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifierMatch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+         //</editor-fold>
+       //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifierMatch(new Accueil()).setVisible(true);
+                new CreerEntrainement(new Accueil()).setVisible(true);
             }
         });
     }
