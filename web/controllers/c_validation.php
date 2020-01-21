@@ -42,15 +42,46 @@ $catmoin12= htmlspecialchars($_POST['exampleSelect2']);
 $nbplu12 = abs(htmlspecialchars($_POST['plusde12quant']));
 $catplu12=htmlspecialchars($_POST['exampleSelect12']);
 
-$prixplus12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catplu12);
 
-
-if($_POST['exampleSelect1']=='Samedi' or $_POST['exampleSelect1']=='Vendredi'){
-	$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-10;
+if($catmoin12==2){
+	if($_POST['exampleSelect1']=='Samedi' or $_POST['exampleSelect1']=='Vendredi'){
+		$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-10;
+	}
+	else{
+		$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-5;	
+	}
 }
 else{
-	$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-5;	
+	$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-5;
 }
+
+if (isset($_POST['nlicence'])){
+	if($nbplu12!=1){
+		if($nbplu12>1){
+			header('location:index.php?trpoi=1');
+			exit();
+		}
+		else{
+			header('location:index.php?inutlii=1');
+			exit();
+		}
+
+	}
+	else{
+		if($_POST['exampleSelect1']=='Samedi' or $_POST['exampleSelect1']=='Vendredi'){
+			$prixplus12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catplu12)-10;
+		}
+		else{
+			$prixplus12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catplu12)-5;	
+		}
+	}
+	
+}
+else {
+	$prixplus12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catplu12);
+
+}
+
 
 
 if (isset($_POST['codepromo'])){
