@@ -5,6 +5,13 @@
  */
 package View;
 
+import Controleur.Court;
+import Controleur.Joueur;
+import Models.CourtDAO;
+import Models.JoueurDAO;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author p1805797
@@ -12,12 +19,51 @@ package View;
 public class CreerEntrainement extends javax.swing.JFrame {
 
     private Accueil app;
+    private JoueurDAO joueurDAO = new JoueurDAO();
+    private CourtDAO courtDAO = new CourtDAO();
     /**
      * Creates new form ModifierMatch
      */
     public CreerEntrainement(Accueil acc) {
         initComponents();
         app = acc;
+        DefaultComboBoxModel<String> aModelCourt = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModelCréneau = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> aModelJoueur = new DefaultComboBoxModel();
+        ArrayList<Court> listCourt = courtDAO.findAll();
+        ArrayList<Joueur> listJoueur = joueurDAO.findAll();
+        ArrayList<String> listCréneauIndisponible = courtDAO.findCréneauLibre("16/05/2020",1);
+        ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
+        for(Joueur j : listJoueur){
+            aModelJoueur.addElement(j.getNom()+"  "+j.getPrenom());
+        }
+        for(Court c : listCourt){
+            aModelCourt.addElement(c.getName());
+        }
+        
+        for(String creneauIndispo : listCréneauIndisponible){
+            for(int i=0;i<listCréneau.size();i++){
+                if(listCréneau.get(i).equals(creneauIndispo)){
+                    listCréneau.remove(i);
+                }
+            }
+        }
+        if(listCréneau.size()>0){
+            for(String créneau : listCréneau){
+                aModelCréneau.addElement(créneau);
+            }
+        } else {
+            aModelCréneau.addElement("Aucun créneau disponible");
+        }
+        
+        
+        jComboBoxJoueur.setModel(aModelJoueur);
+        jComboBoxCourt.setModel(aModelCourt);
+        jComboBoxCréneauHoraire.setModel(aModelCréneau);
     }
 
     /**
@@ -31,7 +77,11 @@ public class CreerEntrainement extends javax.swing.JFrame {
 
         jButtonAccueil = new javax.swing.JButton();
         jButtonQuitterApp = new javax.swing.JButton();
-        jLabelLogo = new javax.swing.JLabel();
+        jComboBoxCourt = new javax.swing.JComboBox<>();
+        jComboBoxDate = new javax.swing.JComboBox<>();
+        jComboBoxCréneauHoraire = new javax.swing.JComboBox<>();
+        jComboBoxJoueur = new javax.swing.JComboBox<>();
+        jButtonValider = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,8 +99,30 @@ public class CreerEntrainement extends javax.swing.JFrame {
             }
         });
 
-        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
-        jLabelLogo.setAlignmentY(0.0F);
+        jComboBoxCourt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Court" }));
+        jComboBoxCourt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCourtActionPerformed(evt);
+            }
+        });
+
+        jComboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "16/05/2020", "17/05/2020", "18/05/2020", "19/05/2020", "20/05/2020", "21/05/2020", "22/05/2020", "23/05/2020" }));
+        jComboBoxDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxDateActionPerformed(evt);
+            }
+        });
+
+        jComboBoxCréneauHoraire.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Créneau hoaraire" }));
+
+        jComboBoxJoueur.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joueur" }));
+
+        jButtonValider.setText("Valider");
+        jButtonValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonValiderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,23 +132,38 @@ public class CreerEntrainement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAccueil)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(jLabelLogo))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonQuitterApp)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonValider))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAccueil)
+                            .addComponent(jComboBoxCourt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBoxDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77)
+                                .addComponent(jComboBoxJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxCréneauHoraire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 248, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAccueil)
-                    .addComponent(jLabelLogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addComponent(jButtonQuitterApp)
+                .addComponent(jButtonAccueil)
+                .addGap(78, 78, 78)
+                .addComponent(jComboBoxCourt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxCréneauHoraire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonQuitterApp)
+                    .addComponent(jButtonValider))
                 .addContainerGap())
         );
 
@@ -93,6 +180,66 @@ public class CreerEntrainement extends javax.swing.JFrame {
         this.dispose();
         app.dispose();
     }//GEN-LAST:event_jButtonQuitterAppActionPerformed
+
+    private void jComboBoxCourtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCourtActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        Court court = courtDAO.findAvecNom(jComboBoxCourt.getSelectedItem().toString());
+        ArrayList<String> listCréneauIndisponible = courtDAO.findCréneauLibre("16/05/2020",court.getNumero());
+        ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
+        for(String creneauIndispo : listCréneauIndisponible){
+            for(int i=0;i<listCréneau.size();i++){
+                if(listCréneau.get(i).equals(creneauIndispo)){
+                    listCréneau.remove(i);
+                }
+            }
+        }
+        if(listCréneau.size()>0){
+            for(String créneau : listCréneau){
+                aModel.addElement(créneau);
+            }
+        } else {
+            aModel.addElement("Aucun créneau disponible");
+        }
+        jComboBoxCréneauHoraire.setModel(aModel);
+    }//GEN-LAST:event_jComboBoxCourtActionPerformed
+
+    private void jComboBoxDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDateActionPerformed
+        DefaultComboBoxModel<String> aModel = new DefaultComboBoxModel();
+        Court court = courtDAO.findAvecNom(jComboBoxCourt.getSelectedItem().toString());
+        ArrayList<String> listCréneauIndisponible = courtDAO.findCréneauLibre(jComboBoxDate.getSelectedItem().toString(),court.getNumero());
+        System.out.println(jComboBoxDate.getSelectedItem().toString()+" "+court.getNumero());
+        ArrayList<String> listCréneau = new ArrayList();
+        listCréneau.add("11h");
+        listCréneau.add("13h30");
+        listCréneau.add("16h");
+        listCréneau.add("18h30");
+        for(String creneauIndispo : listCréneauIndisponible){
+            for(int i=0;i<listCréneau.size();i++){
+                if(listCréneau.get(i).equals(creneauIndispo)){
+                    listCréneau.remove(i);
+                }
+            }
+        }
+        if(listCréneau.size()>0){
+            for(String créneau : listCréneau){
+                aModel.addElement(créneau);
+            }
+        } else {
+            aModel.addElement("Aucun créneau disponible");
+        }
+        jComboBoxCréneauHoraire.setModel(aModel);
+    }//GEN-LAST:event_jComboBoxDateActionPerformed
+
+    private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
+        String créneau=jComboBoxCréneauHoraire.getSelectedItem().toString();
+        String date=jComboBoxDate.getSelectedItem().toString();
+        String courtstr=jComboBoxCourt.getSelectedItem().toString();
+        String joueurstr=jComboBoxJoueur.getSelectedItem().toString();
+    }//GEN-LAST:event_jButtonValiderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,13 +258,13 @@ public class CreerEntrainement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerEntrainement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerEntrainement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerEntrainement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SaisirParamB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerEntrainement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
          //</editor-fold>
        //</editor-fold>
@@ -133,6 +280,10 @@ public class CreerEntrainement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccueil;
     private javax.swing.JButton jButtonQuitterApp;
-    private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JButton jButtonValider;
+    private javax.swing.JComboBox<String> jComboBoxCourt;
+    private javax.swing.JComboBox<String> jComboBoxCréneauHoraire;
+    private javax.swing.JComboBox<String> jComboBoxDate;
+    private javax.swing.JComboBox<String> jComboBoxJoueur;
     // End of variables declaration//GEN-END:variables
 }
