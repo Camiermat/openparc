@@ -18,7 +18,7 @@ $skoooiooot =0;
 			if(isset($_POST['code_promo']) && isset($_POST['montant_promo'])){
 				$res = (new UserDAO)->prepareCat('INSERT into CodePromo values (?,?)');
 				$co = htmlspecialchars($_POST['code_promo']);
-				$mo = htmlspecialchars($_POST['montant_promo']);
+				$mo = abs(htmlspecialchars($_POST['montant_promo']));
 				$res -> execute(array($co,$mo));
 				$skilibit = 1;
 				$res -> closeCursor();
@@ -27,7 +27,7 @@ $skoooiooot =0;
 				$res2 = (new UserDAO)->prepareCat('UPDATE Prix SET montant=? where nom=? and cat=?');
 				$c = htmlspecialchars($_POST['cat']);
 				$plus = htmlspecialchars($_POST['jour']);
-				$moins = htmlspecialchars($_POST['prixx']);
+				$moins = abs(htmlspecialchars($_POST['prixx']));
 				$res2 -> execute(array($moins, $plus, $c));
 
 				$skoooilibit = 1;
@@ -37,7 +37,7 @@ $skoooiooot =0;
 			if(isset($_POST['jour']) &&  isset($_POST['nb_place']) && isset($_POST['cat'])){
 				$res3 = (new UserDAO)->prepareCat('UPDATE NombrePlaces SET nb_place_total=? where cat=? and jour=?');
 				$jou = htmlspecialchars($_POST['jour']);
-				$nbp = htmlspecialchars($_POST['nb_place']);
+				$nbp = abs(htmlspecialchars($_POST['nb_place']));
 				$kat = htmlspecialchars($_POST['cat']);
 				$res3 -> execute(array($nbp, $kat, $jou));
 
