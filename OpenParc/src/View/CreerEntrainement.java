@@ -11,6 +11,7 @@ import Models.CourtDAO;
 import Models.JoueurDAO;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -238,7 +239,47 @@ public class CreerEntrainement extends javax.swing.JFrame {
         String créneau=jComboBoxCréneauHoraire.getSelectedItem().toString();
         String date=jComboBoxDate.getSelectedItem().toString();
         String courtstr=jComboBoxCourt.getSelectedItem().toString();
-        String joueurstr=jComboBoxJoueur.getSelectedItem().toString();
+        int court=courtDAO.findAvecNom(courtstr).getNumero();
+        char[] joueurstr=jComboBoxJoueur.getSelectedItem().toString().toCharArray();
+        
+        Boolean temp=true,temp2=true;
+        int i=1;
+        String nom="",prenom="";
+        while(i<joueurstr.length && temp){
+            if(joueurstr[i-1]==' ' && joueurstr[i]==' '){
+                int j;
+                for(j=0;j<i-1;j++){
+                    nom=nom+joueurstr[j];
+                }
+                j=i+1;
+                while(j<joueurstr.length && temp2){
+                    if(joueurstr[j]==Character.MIN_VALUE && joueurstr[j+1]==Character.MIN_VALUE){
+                        temp2=false;
+                    } else {
+                        prenom=prenom+joueurstr[j];
+                    }
+                    j++;
+                }
+                temp=false;
+            }
+            i++;
+        }
+        int idjoueur=joueurDAO.findIdAvecNomPrenom(nom, prenom);
+        Joueur joueur=joueurDAO.find(idjoueur);
+        
+        ArrayList<Joueur> listJoueurEnMatchEntrainement=joueurDAO.findAllJoueurEnMatchEntrainement(date, court, créneau);
+        temp=true;
+        for(Joueur joueurEnMatchEntrainement:listJoueurEnMatchEntrainement){
+            if(joueur.getId()==joueurEnMatchEntrainement.getId()){
+                JOptionPane.showMessageDialog(null, "Le joueur  "+joueur.getNom()+" "+joueur.getPrenom()+" est occupé à "+créneau+" le "+date+".");
+                temp=false;
+            }
+        }
+        if(temp){
+            JOptionPane.showMessageDialog(null, "L'entrainement de joueur  "+joueur.getNom()+" "+joueur.getPrenom()+" est programmé à "+créneau+" le "+date+".");
+            this.dispose();
+            app.setVisible(true);
+        }
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
     /**

@@ -132,4 +132,37 @@ public class MatchDAO extends DAO<Match>{
         }
         return null;
     }
+    
+    public int createMatch(Match obj) {
+        try {
+            PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO Matche values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            prepare.setInt(1, obj.getId());
+            prepare.setString(2, obj.getCréneauHoraire());
+            prepare.setString(3, obj.getJour());
+            prepare.setInt(4, obj.getNiveauTournoi());
+            prepare.setInt(5, obj.getNumCourt());
+            prepare.setInt(6, obj.getIdArbitreChaise());
+            prepare.setInt(7, obj.getIdArbitreLigne1());
+            prepare.setInt(8, obj.getIdArbitreLigne2());
+            prepare.setInt(9, obj.getIdArbitreLigne3());
+            prepare.setInt(10, obj.getIdArbitreLigne4());
+            prepare.setInt(11, obj.getIdArbitreLigne5());
+            prepare.setInt(12, obj.getIdArbitreLigne6());
+            prepare.setInt(13, obj.getIdArbitreLigne7());
+            prepare.setInt(14, obj.getIdEquipeRamasseur1());
+            prepare.setInt(15, obj.getIdEquipeRamasseur2());
+            prepare.setInt(16, obj.getIdTournoiSimple());
+            prepare.setInt(17, obj.getIdTournoiDouble());
+            prepare.setInt(18, obj.getIdQualification());
+            prepare.setInt(19, obj.getIdJoueur1());
+            prepare.setInt(20, obj.getIdJoueur2());
+            prepare.setInt(21, obj.getIdEquipe1());
+            prepare.setInt(22, obj.getIdEquipe2());
+            int result = prepare.executeUpdate();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
