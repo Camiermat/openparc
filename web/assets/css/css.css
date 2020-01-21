@@ -368,9 +368,7 @@ ul#demo-block li a{
 
 width : 25vw;
 border-radius: 20pt;
--webkit-box-shadow: 10px 21px 29px -5px rgba(60,144,100,1);
--moz-box-shadow: 10px 21px 29px -5px rgba(60,144,100,1);
-box-shadow: 10px 21px 29px -5px rgba(60,144,100,1);
+
 }
 .menubtnn{
  margin-left: 10pt;

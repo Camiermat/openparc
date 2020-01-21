@@ -18,8 +18,46 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="Language" content="<?= LANG ?>"/>
 		<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0"/> 
+		<?php
 
-		<link href="<?= PATH_CSS ?>bootstrap.css" rel="stylesheet"> 
+
+		if(isset($_SESSION['mode'])){
+			if(isset($_POST['mode'])){
+				if($_POST['mode']=='light'){
+					$_SESSION['mode']='light';
+					echo '<link href="'.PATH_CSS.'bootstrap.css" rel="stylesheet"> ';
+				}
+				else{
+					$_SESSION['mode']='dark';
+					echo '<link href="'.PATH_CSS.'bootstrap-dark.css" rel="stylesheet"> ';
+				}
+			}
+			else{
+				if($_SESSION['mode']=='light'){
+					echo '<link href="'.PATH_CSS.'bootstrap.css" rel="stylesheet"> ';
+				}
+				else{
+					echo '<link href="'.PATH_CSS.'bootstrap-dark.css" rel="stylesheet"> ';
+				}
+			}
+		}
+		else{
+			if(isset($_POST['mode'])){
+				if($_POST['mode']=='light'){
+					$_SESSION['mode']='light';
+					echo '<link href="'.PATH_CSS.'bootstrap.css" rel="stylesheet"> ';
+				}
+				else{
+					$_SESSION['mode']='dark';
+					echo '<link href="'.PATH_CSS.'bootstrap-dark.css" rel="stylesheet"> ';
+				}
+			}
+			else{
+				echo '<link href="'.PATH_CSS.'bootstrap.css" rel="stylesheet"> ';
+			}
+		}
+
+		?>
 		<link href="<?= PATH_CSS ?>css.css" rel="stylesheet">
 		
 	<!--	<script type="text/javascript" src="<?= PATH_SCRIPTS ?>jquery-3.1.1.js"></script>

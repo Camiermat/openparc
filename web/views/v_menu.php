@@ -59,10 +59,67 @@
 				echo '<a href="index.php?page=connexion" class="menubtnn">'.MENU_CONNEXION.'</a>
 				<a href="index.php?page=inscription" class="menubtnn">'.MENU_INSCRIPTION.'</a>';
 			}
+			if(isset($_SESSION['mode'])){
+				if(!isset($_POST['mode'])){
+					if($_SESSION['mode']=='light'){
+						echo'<form action="index.php" method="POST" name="mode_form">
+						<input type="hidden" name="mode" value="dark">
+						<button type="submit" class="btn btn-sm btn-link text-info">Dark-mode</button>
+						</form>
+						';
+					}
+					else{
+						echo'<form action="index.php" method="POST" name="mode_form">
+						<input type="hidden" name="mode" value="light">
+						<button type="submit" class="btn btn-sm btn-link text-info">Light-mode</button>
+						</form>
+						';
+					}
+				}
+				else{
+					if($_POST['mode']=='light'){
+						echo'<form action="index.php" method="POST" name="mode_form">
+					<input type="hidden" name="mode" value="dark">
+					<button type="submit" class="btn btn-sm btn-link text-info">Dark-mode</button>
+					</form>
+					';
+					}
+					else{
+						echo'<form action="index.php" method="POST" name="mode_form">
+					<input type="hidden" name="mode" value="light">
+					<button type="submit" class="btn btn-sm btn-link text-info">Light-mode</button>
+					</form>
+					';
+					}
+				}
+			}
+			else{
+				if(!isset($_POST['mode'])){
+					echo'<form action="index.php" method="POST" name="mode_form">
+					<input type="hidden" name="mode" value="dark">
+					<button type="submit" class="btn btn-sm btn-link text-info">Dark-mode</button>
+					</form>
+					';
+				}
+				else{
+					if($_POST['mode']=='light'){
+						echo'<form action="index.php" method="POST" name="mode_form">
+					<input type="hidden" name="mode" value="dark">
+					<button type="submit" class="btn btn-sm btn-link text-info">Dark-mode</button>
+					</form>
+					';
+					}
+					else{
+						echo'<form action="index.php" method="POST" name="mode_form">
+					<input type="hidden" name="mode" value="light">
+					<button type="submit" class="btn btn-sm btn-link text-info">Light-mode</button>
+					</form>
+					';
+					}
+				}
+			}
 			?>
 		</li>
     </ul>
   </div>
 </nav>
-
-
