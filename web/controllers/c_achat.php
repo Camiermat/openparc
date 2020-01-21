@@ -39,6 +39,7 @@ require_once(PATH_MODELS.'UserDAO.php');
 
 	function actunbtot($jour,$nb,$c){
 		$res = (new UserDAO)->prepareCat('UPDATE NombrePlaces SET utilisé=? where cat=? and jour=?');
+		$nb += getutil($jour, $c);
 		$res -> execute(array($nb,$c,$jour));
 		$res -> closeCursor();
 		return null;
