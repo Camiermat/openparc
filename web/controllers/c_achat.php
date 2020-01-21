@@ -84,10 +84,18 @@ $catmoin3=htmlspecialchars($_POST['exampleSelect']);
 
 $nbmoin12 = htmlspecialchars($_POST['moinsde12quant']);
 $catmoin12= htmlspecialchars($_POST['exampleSelect2']);
-$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12);
 
 $nbplu12 = htmlspecialchars($_POST['plusde12quant']);
 $catplu12=htmlspecialchars($_POST['exampleSelect12']);
+
+
+if($_POST['exampleSelect1']=='Samedi'){
+	$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-10;
+}
+else{
+	$prixmoin12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catmoin12)-5;	
+}
+
 $prixplus12 = getPrice(htmlspecialchars($_POST['exampleSelect1']),$catplu12);
 
 
